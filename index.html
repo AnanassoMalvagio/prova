@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestione Posti in Classe - Enhanced</title>
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/AnanassoMalvagio/gestioneclasse/main/logo.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f7fa;
+            color: #2c3e50;
+            overflow-x: hidden;
+        }
+
+        .app-container {
+            display: flex;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 300px;
+            background: white;
+            border-right: 1px solid #e1e8ed;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            background: #3498db;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sidebar-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .sidebar-header h2 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .student-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .student-card {
+            background: #f8f9fa;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
+            cursor: move;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .student-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-color: #3498db;
+        }
+
+        .student-card:hover .student-actions {
+            opacity: 1;
+        }
+
+        /* Enhanced Student Card with Photo */
+        .student-card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .student-photo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #e1e8ed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #7f8c8d;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .student-photo img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .student-info {
+            flex: 1;
+        }
+
+        .student-actions {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            display: flex;
+            gap: 5px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .student-action-btn {
+            width: 28px;
+            height: 28px;
+            border: none;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .student-action-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .student-action-btn.edit {
+            color: #3498db;
+        }
+
+        .student-action-btn.edit:hover {
+            background: #3498db;
+            color: white;
+        }
+
+        .student-action-btn.delete {
+            color: #e74c3c;
+        }
+
+        .student-action-btn.delete:hover {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .student-card.dragging {
+            opacity: 0.5;
+            transform: scale(0.95);
+        }
+
+        .student-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #2c3e50;
+        }
+
+        /* Performance and Relations Indicators */
+        .student-indicators {
+            display: flex;
+            gap: 8px;
+            margin: 6px 0;
+            font-size: 12px;
+        }
+
+        .indicator {
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .indicator.performance-alto {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .indicator.performance-medio {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .indicator.performance-basso {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .indicator.has-relations {
+            background: #e7f3ff;
+            color: #004085;
+        }
+
+        .student-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-top: 6px;
+        }
+
+        .tag {
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 12px;
+            background: #e3f2fd;
+            color: #1976d2;
+            white-space: nowrap;
+        }
+
+        .tag.personalita { background: #fff3e0; color: #e65100; }
+        .tag.apprendimento { background: #f3e5f5; color: #7b1fa2; }
+        .tag.sociale { background: #e8f5e9; color: #388e3c; }
+        .tag.comportamento { background: #fce4ec; color: #c2185b; }
+
+        /* Relations Display */
+        .student-relations {
+            margin-top: 6px;
+            font-size: 11px;
+            color: #7f8c8d;
+        }
+
+        .relation-chip {
+            display: inline-block;
+            padding: 2px 6px;
+            margin: 2px;
+            border-radius: 10px;
+            background: #ecf0f1;
+            font-size: 10px;
+        }
+
+        .relation-chip.positive {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .relation-chip.negative {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .relation-chip.neutral {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #f5f7fa;
+        }
+
+        .toolbar {
+            background: white;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e1e8ed;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .toolbar-left {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn-secondary {
+            background: #ecf0f1;
+            color: #2c3e50;
+        }
+
+        .btn-secondary:hover {
+            background: #bdc3c7;
+        }
+
+        .btn-success {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #229954;
+        }
+
+        /* Classroom Grid */
+        .classroom-container {
+            flex: 1;
+            padding: 30px;
+            overflow: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .classroom-wrapper {
+            position: relative;
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .classroom-grid {
+            display: grid;
+            gap: 15px;
+            position: relative;
+        }
+
+        .desk {
+            width: 80px;
+            height: 60px;
+            background: #f8f9fa;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            font-size: 12px;
+            font-weight: 500;
+            text-align: center;
+            padding: 4px;
+        }
+
+        .desk:hover {
+            border-color: #3498db;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
+        }
+
+        .desk.occupied {
+            background: #e3f2fd;
+            border-color: #2196f3;
+            cursor: move;
+        }
+        
+        .desk.occupied:hover {
+            background: #bbdefb;
+        }
+
+        /* Enhanced desk with photo */
+        .desk-student-label {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: move;
+            user-select: none;
+            gap: 2px;
+        }
+
+        .desk-student-photo {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #e1e8ed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #7f8c8d;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        .desk-student-photo img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .desk-student-name {
+            font-size: 10px;
+            line-height: 1.2;
+        }
+        
+        .desk-student-label:hover {
+            font-weight: bold;
+        }
+
+        .desk.drag-over {
+            background: #c8e6c9;
+            border-color: #4caf50;
+            transform: scale(1.1);
+        }
+
+        .desk-properties {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 2px;
+        }
+
+        .desk-prop {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #ffc107;
+        }
+
+        .desk-prop.window { background: #03a9f4; }
+        .desk-prop.door { background: #f44336; }
+        .desk-prop.board { background: #4caf50; }
+
+        /* Classroom Features */
+        .classroom-feature {
+            position: absolute;
+            background: #34495e;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .lavagna {
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            text-align: center;
+            background: #2c3e50;
+        }
+
+        .porta {
+            left: -50px;
+            top: 50%;
+            transform: translateY(-50%) rotate(-90deg);
+            background: #e74c3c;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            font-size: 20px;
+            color: #2c3e50;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #7f8c8d;
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover {
+            color: #2c3e50;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #34495e;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e1e8ed;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        /* Photo Upload */
+        .photo-upload {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .photo-preview {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #bdc3c7;
+            overflow: hidden;
+            border: 2px solid #e1e8ed;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .photo-preview:hover {
+            border-color: #3498db;
+            transform: scale(1.05);
+        }
+
+        .photo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-upload-btn {
+            padding: 8px 16px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .photo-upload-btn:hover {
+            background: #2980b9;
+        }
+
+        .photo-upload input[type="file"] {
+            display: none;
+        }
+
+        /* Relations Management */
+        .relations-container {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .relation-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #e1e8ed;
+        }
+
+        .relation-student-select {
+            flex: 1;
+        }
+
+        .relation-type-select {
+            width: 150px;
+        }
+
+        .relation-remove-btn {
+            padding: 6px 10px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .relation-remove-btn:hover {
+            background: #c0392b;
+        }
+
+        .add-relation-btn {
+            padding: 8px 12px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .add-relation-btn:hover {
+            background: #229954;
+        }
+
+        .tag-input {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 8px;
+            border: 1px solid #e1e8ed;
+            border-radius: 6px;
+            min-height: 40px;
+            cursor: text;
+        }
+
+        .tag-input-field {
+            border: none;
+            outline: none;
+            flex: 1;
+            min-width: 100px;
+            padding: 2px;
+        }
+
+        .rules-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .rule-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #e1e8ed;
+        }
+
+        .rule-type {
+            font-weight: 600;
+            color: #3498db;
+            min-width: 100px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Stats Panel */
+        .stats-panel {
+            padding: 15px;
+            background: #f8f9fa;
+            border-top: 1px solid #e1e8ed;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .app-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 1000;
+                height: 100vh;
+                width: 85%;
+                max-width: 320px;
+                transform: translateX(-100%);
+                box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                width: 100%;
+                padding-top: 60px;
+            }
+
+            .mobile-header {
+                display: block;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 60px;
+                background: #3498db;
+                color: white;
+                padding: 0 15px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                z-index: 999;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+
+            .mobile-menu-btn {
+                display: inline-flex !important;
+                background: transparent;
+                color: white;
+                border: 1px solid rgba(255,255,255,0.3);
+                padding: 8px 12px;
+            }
+
+            .mobile-title {
+                font-size: 18px;
+                font-weight: 600;
+                flex: 1;
+                text-align: center;
+                margin: 0 10px;
+            }
+
+            .toolbar {
+                padding: 10px;
+                flex-direction: column;
+                gap: 10px;
+                position: sticky;
+                top: 60px;
+                z-index: 100;
+            }
+
+            .classroom-container {
+                padding: 15px 10px;
+                overflow-x: auto;
+                overflow-y: visible;
+            }
+
+            .classroom-wrapper {
+                padding: 20px 15px;
+                min-width: 320px;
+                margin: 0 auto;
+            }
+
+            .classroom-grid {
+                gap: 8px !important;
+                transform: scale(0.85);
+                transform-origin: top center;
+            }
+
+            .desk {
+                width: 50px;
+                height: 40px;
+                font-size: 10px;
+                padding: 2px;
+            }
+
+            .desk-student-photo {
+                width: 16px;
+                height: 16px;
+                font-size: 8px;
+            }
+
+            .modal-content {
+                width: 95%;
+                max-width: none;
+                margin: 10px;
+                padding: 20px 15px;
+                max-height: 90vh;
+            }
+
+            .student-actions {
+                opacity: 1 !important;
+            }
+
+            .sidebar-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.5);
+                z-index: 999;
+            }
+
+            .sidebar-overlay.open {
+                display: block;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-header,
+            .sidebar-overlay {
+                display: none !important;
+            }
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #2c3e50;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: none;
+            animation: slideUp 0.3s ease;
+        }
+
+        .toast.success { background: #27ae60; }
+        .toast.error { background: #e74c3c; }
+        .toast.show { display: block; }
+
+        .history-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border: 1px solid #e1e8ed;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .history-item:hover {
+            background: #e3f2fd;
+            border-color: #3498db;
+            transform: translateX(5px);
+        }
+
+        .history-item.active {
+            background: #d1ecf1;
+            border-color: #0c5460;
+            border-width: 2px;
+        }
+
+        .history-date {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .history-info {
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+
+        .history-actions {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <button class="btn mobile-menu-btn" onclick="toggleSidebar()">
+            ☰
+        </button>
+        <h1 class="mobile-title" id="mobileClassName">Classe 3B</h1>
+        <div style="width: 40px;"></div>
+    </div>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div style="text-align: center; margin-bottom: 15px;">
+                    <img src="https://raw.githubusercontent.com/AnanassoMalvagio/gestioneclasse/main/logo.png" 
+                         alt="MALEmatica Logo" 
+                         style="width: 80px; height: 80px; border-radius: 50%; background: #2c3e50; padding: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);"
+                         title="MALEmatica">
+                    <div style="color: #ff4444; font-weight: bold; margin-top: 5px; font-size: 14px; text-shadow: 0 0 10px rgba(255,68,68,0.5);">MALEmaticApp</div>
+                </div>
+                <h2 id="className">Studenti Classe 3B</h2>
+                <button class="btn btn-secondary" onclick="editClassName()" style="margin-top: 10px; width: 100%; background: rgba(255,255,255,0.2); color: white; font-size: 12px;">
+                    ✏️ Modifica Nome Classe
+                </button>
+            </div>
+            <div class="student-list" id="studentList">
+                <!-- Student cards will be inserted here -->
+            </div>
+            <div class="stats-panel">
+                <div class="stat-item">
+                    <span class="stat-label">Totale studenti:</span>
+                    <span class="stat-value" id="totalStudents">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Posti assegnati:</span>
+                    <span class="stat-value" id="assignedSeats">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Posti liberi:</span>
+                    <span class="stat-value" id="freeSeats">30</span>
+                </div>
+            </div>
+            <div style="padding: 15px; text-align: center; border-top: 1px solid #e1e8ed; background: #f8f9fa;">
+                <small style="color: #7f8c8d; font-size: 11px;">
+                    Progettato (MALE) da<br>
+                    <strong style="color: #34495e;">Antonio Moliterni</strong><br>
+                    <span style="font-size: 10px;">con l'aiuto di Claude AI 🤖</span>
+                </small>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="toolbar">
+                <div class="toolbar-left">
+                    <button class="btn btn-primary" onclick="showStudentModal()">
+                        + Studente
+                    </button>
+                    <button class="btn btn-primary" onclick="showRulesModal()">
+                        ⚙️ Regole
+                    </button>
+                    <button class="btn btn-primary" onclick="showClassroomModal()">
+                        📐 Aula
+                    </button>
+                    <button class="btn btn-success" onclick="generateSeating()">
+                        🎲 Genera
+                    </button>
+                    <button class="btn btn-secondary" onclick="showHistoryModal()">
+                        📅 Storico
+                    </button>
+                </div>
+                <div>
+                    <button class="btn btn-secondary" onclick="printSeating()">
+                        🖨️
