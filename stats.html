@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistiche Avanzate - Gestione Classe</title>
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/AnanassoMalvagio/gestioneclasse/main/logo.png">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f7fa;
+            color: #2c3e50;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        h1, h2 {
+            color: #3498db;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: #f8f9fa;
+            border: 1px solid #e1e8ed;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .stat-card h3 {
+            margin-top: 0;
+            color: #34495e;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        select, button {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #e1e8ed;
+            font-size: 14px;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            cursor: pointer;
+            border-color: #3498db;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        #results, #tag-results {
+            margin-top: 15px;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #27ae60;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: #3498db;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="index.html" class="back-link">← Torna all'app principale</a>
+        <h1>📊 Statistiche Avanzate e Analisi</h1>
+
+        <div id="loading-message">
+            <p>Caricamento dati in corso...</p>
+        </div>
+
+        <div id="main-content" style="display: none;">
+            <div class="stat-card">
+                <h3>Analisi Prossimità tra Studenti</h3>
+                <p>Seleziona due studenti per vedere quante volte sono stati seduti vicini.</p>
+                <div class="form-group">
+                    <select id="student1"></select>
+                    <span>e</span>
+                    <select id="student2"></select>
+                    <button id="analyze-proximity-btn">Analizza</button>
+                </div>
+                <div id="results"></div>
+            </div>
+
+            <div class="stat-card">
+                <h3>Analisi Prossimità per Tag</h3>
+                <p>Seleziona un tag per calcolare la percentuale di vicinanza tra studenti con quella caratteristica.</p>
+                 <div class="form-group">
+                    <select id="tag-select"></select>
+                    <button id="analyze-tag-btn">Analizza</button>
+                </div>
+                <div id="tag-results"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const loadingMessage = document.getElementById('loading-message');
+        const mainContent = document.getElementById('main-content');
+        
+        // --- 1. CARICAMENTO E VALIDAZIONE DEI DATI ---
+        const savedDataJSON = localStorage.getItem('classroomSeatingApp');
+        if (!savedDataJSON) {
+            loadingMessage.innerHTML = `<h2>Nessun dato trovato!</h2><p>Usa prima l'app principale per aggiungere studenti e generare disposizioni. I dati verranno letti automaticamente qui.</p>`;
+            return;
+        }
+
+        const appData = JSON.parse(savedDataJSON);
+        const { students, seatingHistory } = appData;
+
+        if (!students || students.length === 0 || !seatingHistory || seatingHistory.length === 0) {
+            loadingMessage.innerHTML = `<h2>Dati insufficienti!</h2><p>Assicurati di avere almeno degli studenti e uno storico di disposizioni salvato nell'app principale.</p>`;
+            return;
+        }
+        
+        loadingMessage.style.display = 'none';
+        mainContent.style.display = 'block';
+
+        // --- 2. FUNZIONI DI SUPPORTO E DI CALCOLO ---
+
+        /**
+         * Verifica se due banchi sono adiacenti (non in diagonale)
+         * @returns {boolean}
+         */
+        function areDesksAdjacent(desk1, desk2) {
+            if (!desk1 || !desk2) return false;
+            const rowDiff = Math.abs(desk1.row - desk2.row);
+            const colDiff = Math.abs(desk1.col - desk2.col);
+            return (rowDiff === 1 && colDiff === 0) || (rowDiff === 0 && colDiff === 1);
+        }
+
+        /**
+         * Calcola la prossimità tra due studenti specifici.
+         */
+        function calculatePairProximity(studentId1, studentId2) {
+            let proximityCount = 0;
+            let sharedDispositions = 0;
+
+            seatingHistory.forEach(historyEntry => {
+                const seating = historyEntry.seating;
+                const desk1 = seating.find(d => d.studentId === studentId1);
+                const desk2 = seating.find(d => d.studentId === studentId2);
+
+                if (desk1 && desk2) {
+                    sharedDispositions++;
+                    if (areDesksAdjacent(desk1, desk2)) {
+                        proximityCount++;
+                    }
+                }
+            });
+            return { proximityCount, sharedDispositions };
+        }
+
+        /**
+         * Calcola la coesione di un gruppo di studenti con un certo tag.
+         */
+        function calculateTagProximity(tag) {
+            const taggedStudentIds = students
+                .filter(s => s.tags.comportamento.includes(tag) || s.tags.personalità.includes(tag))
+                .map(s => s.id);
+            
+            if (taggedStudentIds.length < 2) {
+                return { averagePercentage: 0, message: "Non ci sono abbastanza studenti con questo tag per un'analisi." };
+            }
+
+            let totalProximityPercentage = 0;
+            let relevantDispositions = 0;
+
+            seatingHistory.forEach(entry => {
+                const seating = entry.seating;
+                const presentTaggedStudents = seating.filter(d => taggedStudentIds.includes(d.studentId));
+                
+                if (presentTaggedStudents.length < 2) return;
+
+                relevantDispositions++;
+                let adjacentPairs = 0;
+
+                // Evita di contare due volte le coppie (A-B e B-A)
+                for (let i = 0; i < presentTaggedStudents.length; i++) {
+                    for (let j = i + 1; j < presentTaggedStudents.length; j++) {
+                        if (areDesksAdjacent(presentTaggedStudents[i], presentTaggedStudents[j])) {
+                            adjacentPairs++;
+                        }
+                    }
+                }
+                
+                // Calcola il massimo numero possibile di coppie
+                const maxPairs = (presentTaggedStudents.length * (presentTaggedStudents.length - 1)) / 2;
+                const percentage = maxPairs > 0 ? (adjacentPairs / maxPairs) * 100 : 0;
+                totalProximityPercentage += percentage;
+            });
+
+            if (relevantDispositions === 0) {
+                 return { averagePercentage: 0, message: "Nessuna disposizione trovata con almeno due studenti con questo tag." };
+            }
+            
+            return { averagePercentage: totalProximityPercentage / relevantDispositions };
+        }
+
+        // --- 3. POPOLAMENTO E GESTIONE DELL'INTERFACCIA ---
+
+        // Popola i menu a tendina per la selezione degli studenti
+        const student1Select = document.getElementById('student1');
+        const student2Select = document.getElementById('student2');
+        students.forEach(student => {
+            student1Select.innerHTML += `<option value="${student.id}">${student.name}</option>`;
+            student2Select.innerHTML += `<option value="${student.id}">${student.name}</option>`;
+        });
+        if(students.length > 1) student2Select.selectedIndex = 1;
+
+        // Gestisce il click del pulsante di analisi per coppia
+        document.getElementById('analyze-proximity-btn').addEventListener('click', () => {
+            const id1 = student1Select.value;
+            const id2 = student2Select.value;
+            const resultsDiv = document.getElementById('results');
+
+            if (id1 === id2) {
+                resultsDiv.style.color = '#e74c3c';
+                resultsDiv.textContent = 'Per favore, seleziona due studenti diversi.';
+                return;
+            }
+
+            const { proximityCount, sharedDispositions } = calculatePairProximity(id1, id2);
+            resultsDiv.style.color = '#27ae60';
+            resultsDiv.textContent = `Risultato: Sono stati vicini ${proximityCount} volte su ${sharedDispositions} disposizioni in cui erano entrambi presenti.`;
+        });
+
+        // Popola il menu a tendina per la selezione dei tag
+        const tagSelect = document.getElementById('tag-select');
+        const allTags = new Set();
+        students.forEach(s => {
+            s.tags.personalità.forEach(t => allTags.add(t));
+            s.tags.comportamento.forEach(t => allTags.add(t));
+        });
+        allTags.forEach(tag => {
+            tagSelect.innerHTML += `<option value="${tag}">${tag}</option>`;
+        });
+
+        // Gestisce il click del pulsante di analisi per tag
+        document.getElementById('analyze-tag-btn').addEventListener('click', () => {
+            const selectedTag = tagSelect.value;
+            const tagResultsDiv = document.getElementById('tag-results');
+
+            const { averagePercentage, message } = calculateTagProximity(selectedTag);
+            
+            if (message) {
+                 tagResultsDiv.style.color = '#f39c12';
+                 tagResultsDiv.textContent = message;
+                 return;
+            }
+            
+            tagResultsDiv.style.color = '#27ae60';
+            tagResultsDiv.textContent = `In media, la percentuale di vicinanza tra studenti con il tag "${selectedTag}" è stata del ${averagePercentage.toFixed(2)}%.`;
+        });
+    });
+    </script>
+</body>
+</html>
