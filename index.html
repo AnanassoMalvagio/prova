@@ -1368,6 +1368,7 @@
                     <button class="btn btn-secondary" onclick="resetSeating()">
                         🔄
                     </button>
+                    <a href="stats.html" target="_blank" class="btn btn-secondary" style="text-decoration: none;">📊 Statistiche</a>
                 </div>
             </div>
 
@@ -2276,9 +2277,8 @@
             });
         }
         </script>
-        <!-- PARTE 3: GENERAZIONE POSTI E DRAG & DROP -->
-<script>
 // Funzione per generare la disposizione dei posti
+<script>
 function generateSeating() {
     const students = getStudents();
     const rules = getRules();
