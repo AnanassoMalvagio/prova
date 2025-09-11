@@ -91,6 +91,7 @@
             opacity: 1;
         }
 
+        /* Enhanced Student Card with Photo */
         .student-card-header {
             display: flex;
             align-items: center;
@@ -182,6 +183,7 @@
             color: #2c3e50;
         }
 
+        /* Performance and Relations Indicators */
         .student-indicators {
             display: flex;
             gap: 8px;
@@ -236,6 +238,7 @@
         .tag.sociale { background: #e8f5e9; color: #388e3c; }
         .tag.comportamento { background: #fce4ec; color: #c2185b; }
 
+        /* Relations Display */
         .student-relations {
             margin-top: 6px;
             font-size: 11px;
@@ -391,6 +394,7 @@
             background: #bbdefb;
         }
 
+        /* Enhanced desk with photo */
         .desk-student-label {
             width: 100%;
             height: 100%;
@@ -460,6 +464,7 @@
         .desk-prop.door { background: #f44336; }
         .desk-prop.board { background: #4caf50; }
 
+        /* Classroom Features */
         .classroom-feature {
             position: absolute;
             background: #34495e;
@@ -484,6 +489,264 @@
             top: 50%;
             transform: translateY(-50%) rotate(-90deg);
             background: #e74c3c;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            font-size: 20px;
+            color: #2c3e50;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #7f8c8d;
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover {
+            color: #2c3e50;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #34495e;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e1e8ed;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        /* Photo Upload */
+        .photo-upload {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .photo-preview {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #bdc3c7;
+            overflow: hidden;
+            border: 2px solid #e1e8ed;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .photo-preview:hover {
+            border-color: #3498db;
+            transform: scale(1.05);
+        }
+
+        .photo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-upload-btn {
+            padding: 8px 16px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .photo-upload-btn:hover {
+            background: #2980b9;
+        }
+
+        .photo-upload input[type="file"] {
+            display: none;
+        }
+
+        /* Relations Management */
+        .relations-container {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .relation-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #e1e8ed;
+        }
+
+        .relation-student-select {
+            flex: 1;
+        }
+
+        .relation-type-select {
+            width: 150px;
+        }
+
+        .relation-remove-btn {
+            padding: 6px 10px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .relation-remove-btn:hover {
+            background: #c0392b;
+        }
+
+        .add-relation-btn {
+            padding: 8px 12px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .add-relation-btn:hover {
+            background: #229954;
+        }
+
+        .tag-input {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 8px;
+            border: 1px solid #e1e8ed;
+            border-radius: 6px;
+            min-height: 40px;
+            cursor: text;
+        }
+
+        .tag-input-field {
+            border: none;
+            outline: none;
+            flex: 1;
+            min-width: 100px;
+            padding: 2px;
+        }
+
+        .rules-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .rule-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #e1e8ed;
+        }
+
+        .rule-type {
+            font-weight: 600;
+            color: #3498db;
+            min-width: 100px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         /* Search and Filter Styles */
@@ -681,6 +944,7 @@
             margin: 0 10px 10px 10px;
         }
 
+        /* Highlight for search results */
         .student-card.hidden {
             display: none;
         }
@@ -691,6 +955,7 @@
             border-radius: 3px;
         }
 
+        /* Tag filter style */
         .tag-filter {
             display: inline-flex;
             align-items: center;
@@ -714,6 +979,7 @@
         .tag-filter.apprendimento { background: #f3e5f5; }
         .tag-filter.comportamento { background: #fce4ec; }
 
+        /* Stats Panel */
         .stats-panel {
             padding: 15px;
             background: #f8f9fa;
@@ -736,29 +1002,7 @@
             color: #2c3e50;
         }
 
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #2c3e50;
-            color: white;
-            padding: 15px 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            display: none;
-            animation: slideUp 0.3s ease;
-        }
-
-        .toast.success { background: #27ae60; }
-        .toast.error { background: #e74c3c; }
-        .toast.show { display: block; }
-
-        @keyframes slideUp {
-            from { transform: translateY(100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        /* Mobile Responsive */
+        /* Mobile Responsive Styles */
         @media (max-width: 768px) {
             .app-container {
                 flex-direction: column;
@@ -786,7 +1030,7 @@
             }
 
             .mobile-header {
-                display: flex;
+                display: block;
                 position: fixed;
                 top: 0;
                 left: 0;
@@ -795,6 +1039,7 @@
                 background: #3498db;
                 color: white;
                 padding: 0 15px;
+                display: flex;
                 align-items: center;
                 justify-content: space-between;
                 z-index: 999;
@@ -802,6 +1047,7 @@
             }
 
             .mobile-menu-btn {
+                display: inline-flex !important;
                 background: transparent;
                 color: white;
                 border: 1px solid rgba(255,255,255,0.3);
@@ -814,6 +1060,58 @@
                 flex: 1;
                 text-align: center;
                 margin: 0 10px;
+            }
+
+            .toolbar {
+                padding: 10px;
+                flex-direction: column;
+                gap: 10px;
+                position: sticky;
+                top: 60px;
+                z-index: 100;
+            }
+
+            .classroom-container {
+                padding: 15px 10px;
+                overflow-x: auto;
+                overflow-y: visible;
+            }
+
+            .classroom-wrapper {
+                padding: 20px 15px;
+                min-width: 320px;
+                margin: 0 auto;
+            }
+
+            .classroom-grid {
+                gap: 8px !important;
+                transform: scale(0.85);
+                transform-origin: top center;
+            }
+
+            .desk {
+                width: 50px;
+                height: 40px;
+                font-size: 10px;
+                padding: 2px;
+            }
+
+            .desk-student-photo {
+                width: 16px;
+                height: 16px;
+                font-size: 8px;
+            }
+
+            .modal-content {
+                width: 95%;
+                max-width: none;
+                margin: 10px;
+                padding: 20px 15px;
+                max-height: 90vh;
+            }
+
+            .student-actions {
+                opacity: 1 !important;
             }
 
             .sidebar-overlay {
@@ -838,12 +1136,87 @@
                 display: none !important;
             }
         }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right
+
+            : 20px;
+            background: #2c3e50;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: none;
+            animation: slideUp 0.3s ease;
+        }
+
+        .toast.success { background: #27ae60; }
+        .toast.error { background: #e74c3c; }
+        .toast.show { display: block; }
+
+        .history-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border: 1px solid #e1e8ed;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .history-item:hover {
+            background: #e3f2fd;
+            border-color: #3498db;
+            transform: translateX(5px);
+        }
+
+        .history-item.active {
+            background: #d1ecf1;
+            border-color: #0c5460;
+            border-width: 2px;
+        }
+
+        .history-date {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .history-info {
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+
+        .history-actions {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
     </style>
 </head>
 <body>
     <!-- Mobile Header -->
     <div class="mobile-header">
-        <button class="btn mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+        <button class="btn mobile-menu-btn" onclick="toggleSidebar()">
+            ☰
+        </button>
         <h1 class="mobile-title" id="mobileClassName">Classe 3B</h1>
         <div style="width: 40px;"></div>
     </div>
@@ -864,10 +1237,9 @@
                 </div>
                 <h2 id="className">Studenti Classe 3B</h2>
                 <button class="btn btn-secondary" onclick="editClassName()" style="margin-top: 10px; width: 100%; background: rgba(255,255,255,0.2); color: white; font-size: 12px;">
-                    ✏️ Modifica Nome Classe 
+                    ✏️ Modifica Nome Classe
                 </button>
             </div>
-            
             <!-- Search and Filter Section -->
             <div class="search-filter-section">
                 <div class="search-container">
@@ -879,7 +1251,9 @@
                     <button class="clear-search-btn" 
                             id="clearSearchBtn" 
                             onclick="clearSearch()" 
-                            style="display: none;">✕</button>
+                            style="display: none;">
+                        ✕
+                    </button>
                 </div>
                 <div class="filter-container">
                     <button class="filter-toggle-btn" onclick="toggleFilters()">
@@ -923,8 +1297,6 @@
                             </div>
                         </div>
                         <div class="filter-actions">
-                            
-                    <div class="filter-actions">
                             <button class="btn btn-secondary" onclick="clearAllFilters()">
                                 Rimuovi Filtri
                             </button>
@@ -932,25 +1304,12 @@
                     </div>
                 </div>
             </div>
-
-    <!-- Toast Notification -->
-    <div class="filter-actions">
-                            <button class="btn btn-secondary" onclick="clearAllFilters()">
-                                Rimuovi Filtri
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
             <div class="filtered-info" id="filteredInfo" style="display: none;">
                 Mostrando <span id="filteredCount">0</span> di <span id="totalCount">0</span> studenti
             </div>
-            
             <div class="student-list" id="studentList">
                 <!-- Student cards will be inserted here -->
             </div>
-            
             <div class="stats-panel">
                 <div class="stat-item">
                     <span class="stat-label">Totale studenti:</span>
@@ -965,7 +1324,6 @@
                     <span class="stat-value" id="freeSeats">30</span>
                 </div>
             </div>
-            
             <div style="padding: 15px; text-align: center; border-top: 1px solid #e1e8ed; background: #f8f9fa;">
                 <small style="color: #7f8c8d; font-size: 11px;">
                     Progettato (MALE) da<br>
@@ -979,19 +1337,39 @@
         <main class="main-content">
             <div class="toolbar">
                 <div class="toolbar-left">
-                    <button class="btn btn-primary" onclick="showStudentModal()">+ Studente</button>
-                    <button class="btn btn-primary" onclick="showRulesModal()">⚙️ Regole</button>
-                    <button class="btn btn-primary" onclick="showClassroomModal()">📐 Aula</button>
-                    <button class="btn btn-success" onclick="generateSeating()">🎲 Genera</button>
-                    <button class="btn btn-secondary" onclick="showHistoryModal()">📅 Storico</button>
+                    <button class="btn btn-primary" onclick="showStudentModal()">
+                        + Studente
+                    </button>
+                    <button class="btn btn-primary" onclick="showRulesModal()">
+                        ⚙️ Regole
+                    </button>
+                    <button class="btn btn-primary" onclick="showClassroomModal()">
+                        📐 Aula
+                    </button>
+                    <button class="btn btn-success" onclick="generateSeating()">
+                        🎲 Genera
+                    </button>
+                    <button class="btn btn-secondary" onclick="showHistoryModal()">
+                        📅 Storico
+                    </button>
+                    <a href="stats.html" target="_blank" class="btn btn-secondary" style="text-decoration: none;">📊 Statistiche</a>
                 </div>
                 <div>
-                    <button class="btn btn-secondary" onclick="printSeating()">🖨️</button>
-                    <button class="btn btn-secondary" onclick="exportToExcel()">📊</button>
-                    <button class="btn btn-secondary" onclick="saveConfiguration()">💾</button>
-                    <button class="btn btn-secondary" onclick="loadConfiguration()">📁</button>
-                    <button class="btn btn-secondary" onclick="resetSeating()">🔄</button>
-                    <a href="stats.html" target="_blank" class="btn btn-secondary" style="text-decoration: none;">📊 Statistiche</a>
+                    <button class="btn btn-secondary" onclick="printSeating()">
+                        🖨️
+                    </button>
+                    <button class="btn btn-secondary" onclick="exportToExcel()">
+                        📊
+                    </button>
+                    <button class="btn btn-secondary" onclick="saveConfiguration()">
+                        💾
+                    </button>
+                    <button class="btn btn-secondary" onclick="loadConfiguration()">
+                        📁
+                    </button>
+                    <button class="btn btn-secondary" onclick="resetSeating()">
+                        🔄
+                    </button>
                 </div>
             </div>
 
@@ -1007,1486 +1385,1113 @@
         </main>
     </div>
 
-    <!-- Toast Notification -->
-    <div class="toast" id="toast"></div>
-                    <!-- PARTE 2: MODAL E INTERFACCIA - Da aggiungere dopo il toast -->
+    <!-- Student Modal -->
+    <div class="modal" id="studentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="studentModalTitle">Aggiungi Nuovo Studente</h3>
+                <button class="close-btn" onclick="closeModal('studentModal')">×</button>
+            </div>
+            <form onsubmit="saveStudent(event)">
+                <input type="hidden" id="studentId" value="">
+                
+                <!-- Photo Upload Section -->
+                <div class="form-group">
+                    <label>Foto Studente</label>
+                    <div class="photo-upload">
+                        <div class="photo-preview" id="photoPreview" onclick="document.getElementById('photoInput').click()">
+                            <span id="photoPlaceholder">📷</span>
+                            <img id="photoImg" style="display: none;">
+                        </div>
+                        <div>
+                            <input type="file" id="photoInput" accept="image/*" onchange="handlePhotoUpload(event)">
+                            <button type="button" class="photo-upload-btn" onclick="document.getElementById('photoInput').click()">
+                                Carica Foto
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="removePhoto()" style="margin-left: 5px; padding: 8px 16px;">
+                                Rimuovi
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-<!-- Student Modal -->
-<div class="modal" id="studentModal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3 id="studentModalTitle">Aggiungi Nuovo Studente</h3>
-            <button class="close-btn" onclick="closeModal('studentModal')">×</button>
+                <div class="form-group">
+                    <label>Nome e Cognome</label>
+                    <input type="text" id="studentName" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Rendimento Scolastico</label>
+                    <select id="studentPerformance">
+                        <option value="">Seleziona...</option>
+                        <option value="alto">Alto</option>
+                        <option value="medio">Medio</option>
+                        <option value="basso">Basso</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Tags Personalità</label>
+                    <div class="tag-input" onclick="focusTagInput('personalita')">
+                        <input type="text" class="tag-input-field" id="tagPersonalita" 
+                               placeholder="es. timido, estroverso, leader_positivo">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Tags Apprendimento</label>
+                    <div class="tag-input" onclick="focusTagInput('apprendimento')">
+                        <input type="text" class="tag-input-field" id="tagApprendimento" 
+                               placeholder="es. DSA, BES, plusdotato">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Tags Comportamento</label>
+                    <div class="tag-input" onclick="focusTagInput('comportamento')">
+                        <input type="text" class="tag-input-field" id="tagComportamento" 
+                               placeholder="es. chiacchierone, distratto">
+                    </div>
+                </div>
+
+                <!-- Relations Section -->
+                <div class="form-group">
+                    <label>Relazioni con Altri Studenti</label>
+                    <div class="relations-container">
+                        <div id="relationsList">
+                            <!-- Relations will be added here -->
+                        </div>
+                        <button type="button" class="add-relation-btn" onclick="addRelation()">
+                            + Aggiungi Relazione
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <span id="studentModalSubmitText">Aggiungi Studente</span>
+                </button>
+            </form>
         </div>
-        <form onsubmit="saveStudent(event)">
-            <input type="hidden" id="studentId" value="">
+    </div>
+
+    <!-- Rules Modal -->
+    <div class="modal" id="rulesModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Configura Regole Disposizione</h3>
+                <button class="close-btn" onclick="closeModal('rulesModal')">×</button>
+            </div>
+            <div class="rules-section">
+                <h4 style="margin-bottom: 15px;">Regole Attive</h4>
+                <div id="rulesList">
+                    <!-- Rules will be dynamically generated here -->
+                </div>
+                <button class="btn btn-primary" onclick="addNewRule()" style="margin-top: 15px;">
+                    + Aggiungi Nuova Regola
+                </button>
+            </div>
             
-            <!-- Photo Upload Section -->
-            <div class="form-group">
-                <label>Foto Studente</label>
-                <div class="photo-upload">
-                    <div class="photo-preview" id="photoPreview" onclick="document.getElementById('photoInput').click()">
-                        <span id="photoPlaceholder">📷</span>
-                        <img id="photoImg" style="display: none;">
-                    </div>
-                    <div>
-                        <input type="file" id="photoInput" accept="image/*" onchange="handlePhotoUpload(event)">
-                        <button type="button" class="photo-upload-btn" onclick="document.getElementById('photoInput').click()">
-                            Carica Foto
-                        </button>
-                        <button type="button" class="btn btn-secondary" onclick="removePhoto()" style="margin-left: 5px; padding: 8px 16px;">
-                            Rimuovi
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Nome e Cognome</label>
-                <input type="text" id="studentName" required>
-            </div>
-
-            <div class="form-group">
-                <label>Rendimento Scolastico</label>
-                <select id="studentPerformance">
-                    <option value="">Seleziona...</option>
-                    <option value="alto">Alto</option>
-                    <option value="medio">Medio</option>
-                    <option value="basso">Basso</option>
+            <div class="form-group" id="newRuleForm" style="display: none; margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 8px;">
+                <h5 style="margin-bottom: 10px;">Nuova Regola</h5>
+                <select id="ruleType" onchange="updateRuleForm()" style="width: 100%; margin-bottom: 10px;">
+                    <option value="">Seleziona tipo di regola...</option>
+                    <option value="AVVICINA">AVVICINA - Metti vicini studenti con certi tag</option>
+                    <option value="SEPARA">SEPARA - Tieni lontani studenti con certi tag</option>
+                    <option value="POSIZIONA">POSIZIONA - Metti studenti in zone specifiche</option>
+                    <option value="DISTRIBUISCI">DISTRIBUISCI - Spargi uniformemente</option>
+                    <option value="RELAZIONI">RELAZIONI - Rispetta relazioni tra studenti</option>
+                    <option value="RENDIMENTO">RENDIMENTO - Distribuisci per rendimento</option>
                 </select>
-            </div>
-
-            <div class="form-group">
-                <label>Tags Personalità</label>
-                <div class="tag-input" onclick="focusTagInput('personalita')">
-                    <input type="text" class="tag-input-field" id="tagPersonalita" 
-                           placeholder="es. timido, estroverso, leader_positivo">
+                <div id="ruleDetails" style="margin-top: 10px;"></div>
+                <div style="margin-top: 10px; display: flex; gap: 10px;">
+                    <button class="btn btn-success" onclick="saveNewRule()">Salva Regola</button>
+                    <button class="btn btn-secondary" onclick="cancelNewRule()">Annulla</button>
                 </div>
             </div>
-            <div class="form-group">
-                <label>Tags Apprendimento</label>
-                <div class="tag-input" onclick="focusTagInput('apprendimento')">
-                    <input type="text" class="tag-input-field" id="tagApprendimento" 
-                           placeholder="es. DSA, BES, plusdotato">
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Tags Comportamento</label>
-                <div class="tag-input" onclick="focusTagInput('comportamento')">
-                    <input type="text" class="tag-input-field" id="tagComportamento" 
-                           placeholder="es. chiacchierone, distratto">
-                </div>
-            </div>
-
-            <!-- Relations Section -->
-            <div class="form-group">
-                <label>Relazioni con Altri Studenti</label>
-                <div class="relations-container">
-                    <div id="relationsList">
-                        <!-- Relations will be added here -->
-                    </div>
-                    <button type="button" class="add-relation-btn" onclick="addRelation()">
-                        + Aggiungi Relazione
-                    </button>
-                </div>
-            </div>
-
-            <button type="submit" class="btn btn-primary" style="width: 100%;">
-                <span id="studentModalSubmitText">Aggiungi Studente</span>
-            </button>
-        </form>
-    </div>
-</div>
-
-<!-- Rules Modal -->
-<div class="modal" id="rulesModal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3>Configura Regole Disposizione</h3>
-            <button class="close-btn" onclick="closeModal('rulesModal')">×</button>
-        </div>
-        <div class="rules-section">
-            <h4 style="margin-bottom: 15px;">Regole Attive</h4>
-            <div id="rulesList">
-                <!-- Rules will be dynamically generated here -->
-            </div>
-            <button class="btn btn-primary" onclick="addNewRule()" style="margin-top: 15px;">
-                + Aggiungi Nuova Regola
+            
+            <button class="btn btn-primary" onclick="saveRulesConfiguration()" style="width: 100%; margin-top: 20px;">
+                💾 Salva Configurazione Regole
             </button>
         </div>
-        
-        <div class="form-group" id="newRuleForm" style="display: none; margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 8px;">
-            <h5 style="margin-bottom: 10px;">Nuova Regola</h5>
-            <select id="ruleType" onchange="updateRuleForm()" style="width: 100%; margin-bottom: 10px;">
-                <option value="">Seleziona tipo di regola...</option>
-                <option value="AVVICINA">AVVICINA - Metti vicini studenti con certi tag</option>
-                <option value="SEPARA">SEPARA - Tieni lontani studenti con certi tag</option>
-                <option value="POSIZIONA">POSIZIONA - Metti studenti in zone specifiche</option>
-                <option value="DISTRIBUISCI">DISTRIBUISCI - Spargi uniformemente</option>
-                <option value="RELAZIONI">RELAZIONI - Rispetta relazioni tra studenti</option>
-                <option value="RENDIMENTO">RENDIMENTO - Distribuisci per rendimento</option>
-            </select>
-            <div id="ruleDetails" style="margin-top: 10px;"></div>
-            <div style="margin-top: 10px; display: flex; gap: 10px;">
-                <button class="btn btn-success" onclick="saveNewRule()">Salva Regola</button>
-                <button class="btn btn-secondary" onclick="cancelNewRule()">Annulla</button>
-            </div>
-        </div>
-        
-        <button class="btn btn-primary" onclick="saveRulesConfiguration()" style="width: 100%; margin-top: 20px;">
-            💾 Salva Configurazione Regole
-        </button>
     </div>
-</div>
 
-<!-- Classroom Configuration Modal -->
-<div class="modal" id="classroomModal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3>Configura Dimensioni Aula</h3>
-            <button class="close-btn" onclick="closeModal('classroomModal')">×</button>
+    <!-- Classroom Configuration Modal -->
+    <div class="modal" id="classroomModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Configura Dimensioni Aula</h3>
+                <button class="close-btn" onclick="closeModal('classroomModal')">×</button>
+            </div>
+            <form onsubmit="updateClassroomSize(event)">
+                <div class="form-group">
+                    <label>Numero di File (righe)</label>
+                    <input type="number" id="classRows" min="3" max="10" value="5" required>
+                    <small style="color: #7f8c8d; display: block; margin-top: 4px;">
+                        Consigliato: 5-6 file per una buona visibilità
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label>Numero di Colonne</label>
+                    <input type="number" id="classCols" min="3" max="10" value="6" required>
+                    <small style="color: #7f8c8d; display: block; margin-top: 4px;">
+                        Consigliato: 5-6 colonne per facilitare il movimento
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label>Disposizione Banchi</label>
+                    <select id="deskArrangement" onchange="updateArrangementPreview()" style="width: 100%;">
+                        <option value="grid">Griglia Tradizionale</option>
+                        <option value="horseshoe">Ferro di Cavallo</option>
+                        <option value="groups">Isole di Lavoro (4 studenti)</option>
+                    </select>
+                    <div id="arrangementPreview" style="margin-top: 10px; padding: 10px; background: #f8f9fa; border-radius: 6px; text-align: center; font-size: 12px; color: #7f8c8d;">
+                        Disposizione classica in file e colonne
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Nome della Classe</label>
+                    <input type="text" id="classNameInput" placeholder="es. 1A, 2B, 3C..." value="">
+                    <small style="color: #7f8c8d; display: block; margin-top: 4px;">
+                        Personalizza il nome della tua classe
+                    </small>
+                </div>
+                <div style="padding: 15px; background: #e3f2fd; border-radius: 6px; margin: 15px 0;">
+                    <p style="margin: 0; color: #1976d2;">
+                        <strong>Posti totali:</strong> <span id="totalSeatsPreview">30</span><br>
+                        <small>Modifica per adattare alle dimensioni della tua classe</small>
+                    </p>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    Applica Modifiche
+                </button>
+            </form>
         </div>
-        <form onsubmit="updateClassroomSize(event)">
-            <div class="form-group">
-                <label>Numero di File (righe)</label>
-                <input type="number" id="classRows" min="3" max="10" value="5" required>
-                <small style="color: #7f8c8d; display: block; margin-top: 4px;">
-                    Consigliato: 5-6 file per una buona visibilità
-                </small>
+    </div>
+
+    <!-- History Modal -->
+    <div class="modal" id="historyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Storico Disposizioni</h3>
+                <button class="close-btn" onclick="closeModal('historyModal')">×</button>
             </div>
-            <div class="form-group">
-                <label>Numero di Colonne</label>
-                <input type="number" id="classCols" min="3" max="10" value="6" required>
-                <small style="color: #7f8c8d; display: block; margin-top: 4px;">
-                    Consigliato: 5-6 colonne per facilitare il movimento
-                </small>
-            </div>
-            <div class="form-group">
-                <label>Disposizione Banchi</label>
-                <select id="deskArrangement" onchange="updateArrangementPreview()" style="width: 100%;">
-                    <option value="grid">Griglia Tradizionale</option>
-                    <option value="horseshoe">Ferro di Cavallo</option>
-                    <option value="groups">Isole di Lavoro (4 studenti)</option>
-                </select>
-                <div id="arrangementPreview" style="margin-top: 10px; padding: 10px; background: #f8f9fa; border-radius: 6px; text-align: center; font-size: 12px; color: #7f8c8d;">
-                    Disposizione classica in file e colonne
+            <div class="history-section" style="max-height: 400px; overflow-y: auto;">
+                <div id="historyList">
+                    <!-- History items will be displayed here -->
                 </div>
             </div>
-            <div class="form-group">
-                <label>Nome della Classe</label>
-                <input type="text" id="classNameInput" placeholder="es. 1A, 2B, 3C..." value="">
-                <small style="color: #7f8c8d; display: block; margin-top: 4px;">
-                    Personalizza il nome della tua classe
-                </small>
-            </div>
-            <div style="padding: 15px; background: #e3f2fd; border-radius: 6px; margin: 15px 0;">
-                <p style="margin: 0; color: #1976d2;">
-                    <strong>Posti totali:</strong> <span id="totalSeatsPreview">30</span><br>
-                    <small>Modifica per adattare alle dimensioni della tua classe</small>
+            <div style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 8px;">
+                <p style="margin: 0; color: #1976d2; font-size: 14px;">
+                    💡 <strong>Suggerimento:</strong> L'app salva automaticamente ogni disposizione generata. 
+                    Puoi caricare una disposizione precedente o salvarla su file per conservarla permanentemente.
                 </p>
             </div>
-            <button type="submit" class="btn btn-primary" style="width: 100%;">
-                Applica Modifiche
-            </button>
-        </form>
-    </div>
-</div>
-
-<!-- History Modal -->
-<div class="modal" id="historyModal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3>Storico Disposizioni</h3>
-            <button class="close-btn" onclick="closeModal('historyModal')">×</button>
-        </div>
-        <div class="history-section" style="max-height: 400px; overflow-y: auto;">
-            <div id="historyList">
-                <!-- History items will be displayed here -->
-            </div>
-        </div>
-        <div style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 8px;">
-            <p style="margin: 0; color: #1976d2; font-size: 14px;">
-                💡 <strong>Suggerimento:</strong> L'app salva automaticamente ogni disposizione generata. 
-                Puoi caricare una disposizione precedente o salvarla su file per conservarla permanentemente.
-            </p>
         </div>
     </div>
-</div>
 
-<style>
-/* Modal Styles */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.5);
-    z-index: 1000;
-    animation: fadeIn 0.3s ease;
-}
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
 
-.modal.active {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+    <script>
+        // State Management
+        let students = [];
+        let currentClassName = 'Classe 3B';
+        let classroom = {
+            rows: 5,
+            cols: 6,
+            desks: [],
+            arrangement: 'grid'
+        };
+        let seatingHistory = [];
+        let currentSeatingIndex = -1;
+        let rules = {
+            mandatory: [],
+            preferential: [
+                {
+                    id: 'rule1',
+                    type: 'AVVICINA', 
+                    tag1: 'leader_positivo', 
+                    tag2: 'timido', 
+                    weight: 0.8,
+                    description: 'Studenti leader_positivo vicino a studenti timidi'
+                },
+                {
+                    id: 'rule2',
+                    type: 'SEPARA', 
+                    tag: 'chiacchierone', 
+                    minDistance: 2, 
+                    weight: 0.9,
+                    description: 'Studenti chiacchieroni distanti tra loro'
+                },
+                {
+                    id: 'rule3',
+                    type: 'POSIZIONA', 
+                    tags: ['DSA', 'BES'], 
+                    zone: 'prima_fila', 
+                    weight: 1.0,
+                    description: 'Studenti con DSA/BES nelle prime file'
+                },
+                {
+                    id: 'rule4',
+                    type: 'DISTRIBUISCI', 
+                    attribute: 'genere', 
+                    weight: 0.6,
+                    description: 'Alternanza maschi/femmine quando possibile'
+                },
+                {
+                    id: 'rule5',
+                    type: 'RELAZIONI',
+                    weight: 1.0,
+                    description: 'Rispetta le relazioni definite tra studenti'
+                }
+            ]
+        };
 
-.modal-content {
-    background: white;
-    border-radius: 12px;
-    padding: 30px;
-    max-width: 600px;
-    width: 90%;
-    max-height: 80vh;
-    overflow-y: auto;
-    animation: slideIn 0.3s ease;
-}
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.modal-header h3 {
-    font-size: 20px;
-    color: #2c3e50;
-}
-
-.close-btn {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #7f8c8d;
-    transition: color 0.2s;
-}
-
-.close-btn:hover {
-    color: #2c3e50;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: #34495e;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #e1e8ed;
-    border-radius: 6px;
-    font-size: 14px;
-    transition: border-color 0.2s;
-}
-
-.form-group textarea {
-    resize: vertical;
-    min-height: 60px;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: #3498db;
-}
-
-/* Photo Upload */
-.photo-upload {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.photo-preview {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: #f8f9fa;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 32px;
-    color: #bdc3c7;
-    overflow: hidden;
-    border: 2px solid #e1e8ed;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.photo-preview:hover {
-    border-color: #3498db;
-    transform: scale(1.05);
-}
-
-.photo-preview img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.photo-upload-btn {
-    padding: 8px 16px;
-    background: #3498db;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: all 0.2s ease;
-}
-
-.photo-upload-btn:hover {
-    background: #2980b9;
-}
-
-.photo-upload input[type="file"] {
-    display: none;
-}
-
-/* Relations Management */
-.relations-container {
-    background: #f8f9fa;
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 10px;
-}
-
-.relation-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-    padding: 10px;
-    background: white;
-    border-radius: 6px;
-    border: 1px solid #e1e8ed;
-}
-
-.relation-student-select {
-    flex: 1;
-}
-
-.relation-type-select {
-    width: 150px;
-}
-
-.relation-remove-btn {
-    padding: 6px 10px;
-    background: #e74c3c;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
-}
-
-.relation-remove-btn:hover {
-    background: #c0392b;
-}
-
-.add-relation-btn {
-    padding: 8px 12px;
-    background: #27ae60;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    margin-top: 10px;
-}
-
-.add-relation-btn:hover {
-    background: #229954;
-}
-
-.tag-input {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    padding: 8px;
-    border: 1px solid #e1e8ed;
-    border-radius: 6px;
-    min-height: 40px;
-    cursor: text;
-}
-
-.tag-input-field {
-    border: none;
-    outline: none;
-    flex: 1;
-    min-width: 100px;
-    padding: 2px;
-}
-
-.rules-section {
-    margin-top: 20px;
-    padding: 20px;
-    background: #f8f9fa;
-    border-radius: 8px;
-}
-
-.rule-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-    padding: 10px;
-    background: white;
-    border-radius: 6px;
-    border: 1px solid #e1e8ed;
-}
-
-.rule-type {
-    font-weight: 600;
-    color: #3498db;
-    min-width: 100px;
-}
-
-.history-item {
-    padding: 15px;
-    margin-bottom: 10px;
-    background: #f8f9fa;
-    border: 1px solid #e1e8ed;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.history-item:hover {
-    background: #e3f2fd;
-    border-color: #3498db;
-    transform: translateX(5px);
-}
-
-.history-item.active {
-    background: #d1ecf1;
-    border-color: #0c5460;
-    border-width: 2px;
-}
-
-.history-date {
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 5px;
-}
-
-.history-info {
-    font-size: 14px;
-    color: #7f8c8d;
-}
-
-.history-actions {
-    margin-top: 10px;
-    display: flex;
-    gap: 10px;
-}
-
-/* Animations */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes slideIn {
-    from {
-        transform: translateY(-20px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-@media (max-width: 768px) {
-    .modal-content {
-        width: 95%;
-        max-width: none;
-        margin: 10px;
-        padding: 20px 15px;
-        max-height: 90vh;
-    }
-}
-</style>
-<script>
-// PARTE 3: JavaScript - State Management e Funzioni Base
-// Da inserire in un tag <script> dopo tutti i modal
-
-// State Management
-let students = [];
-let currentClassName = 'Classe 3B';
-let classroom = {
-    rows: 5,
-    cols: 6,
-    desks: [],
-    arrangement: 'grid'
-};
-let seatingHistory = [];
-let currentSeatingIndex = -1;
-let rules = {
-    mandatory: [],
-    preferential: [
-        {
-            id: 'rule1',
-            type: 'AVVICINA', 
-            tag1: 'leader_positivo', 
-            tag2: 'timido', 
-            weight: 0.8,
-            description: 'Studenti leader_positivo vicino a studenti timidi'
-        },
-        {
-            id: 'rule2',
-            type: 'SEPARA', 
-            tag: 'chiacchierone', 
-            minDistance: 2, 
-            weight: 0.9,
-            description: 'Studenti chiacchieroni distanti tra loro'
-        },
-        {
-            id: 'rule3',
-            type: 'POSIZIONA', 
-            tags: ['DSA', 'BES'], 
-            zone: 'prima_fila', 
-            weight: 1.0,
-            description: 'Studenti con DSA/BES nelle prime file'
-        },
-        {
-            id: 'rule4',
-            type: 'DISTRIBUISCI', 
-            attribute: 'genere', 
-            weight: 0.6,
-            description: 'Alternanza maschi/femmine quando possibile'
-        },
-        {
-            id: 'rule5',
-            type: 'RELAZIONI',
-            weight: 1.0,
-            description: 'Rispetta le relazioni definite tra studenti'
-        }
-    ]
-};
-
-let studentRelations = [];
-let activeFilters = {
-    search: '',
-    performance: [],
-    tags: [],
-    status: []
-};
-
-// Filter Functions
-function filterStudents() {
-    const searchTerm = document.getElementById('studentSearchInput').value.toLowerCase();
-    const performanceFilters = Array.from(document.querySelectorAll('.filter-options input[type="checkbox"][value="alto"], .filter-options input[type="checkbox"][value="medio"], .filter-options input[type="checkbox"][value="basso"]'))
-        .filter(cb => cb.checked)
-        .map(cb => cb.value);
-    const statusFilters = Array.from(document.querySelectorAll('.filter-options input[type="checkbox"][value="assigned"], .filter-options input[type="checkbox"][value="unassigned"]'))
-        .filter(cb => cb.checked)
-        .map(cb => cb.value);
-    const tagFilters = Array.from(document.querySelectorAll('.tag-filter input[type="checkbox"]:checked'))
-        .map(cb => cb.value);
-
-    activeFilters = {
-        search: searchTerm,
-        performance: performanceFilters,
-        tags: tagFilters,
-        status: statusFilters
-    };
-
-    document.getElementById('clearSearchBtn').style.display = searchTerm ? 'flex' : 'none';
-
-    const studentCards = document.querySelectorAll('.student-card');
-    let visibleCount = 0;
-
-    studentCards.forEach(card => {
-        const studentId = card.dataset.studentId;
-        const student = students.find(s => s.id === studentId);
+        // Student relations (to track relations between students)
+        let studentRelations = [];
         
-        if (!student) return;
+        // Filter state
+        let activeFilters = {
+            search: '',
+            performance: [],
+            tags: [],
+            status: []
+        };
 
-        let shouldShow = true;
+        // Search and Filter Functions
+        function filterStudents() {
+            const searchTerm = document.getElementById('studentSearchInput').value.toLowerCase();
+            const performanceFilters = Array.from(document.querySelectorAll('.filter-options input[type="checkbox"][value="alto"], .filter-options input[type="checkbox"][value="medio"], .filter-options input[type="checkbox"][value="basso"]'))
+                .filter(cb => cb.checked)
+                .map(cb => cb.value);
+            const statusFilters = Array.from(document.querySelectorAll('.filter-options input[type="checkbox"][value="assigned"], .filter-options input[type="checkbox"][value="unassigned"]'))
+                .filter(cb => cb.checked)
+                .map(cb => cb.value);
+            const tagFilters = Array.from(document.querySelectorAll('.tag-filter input[type="checkbox"]:checked'))
+                .map(cb => cb.value);
 
-        if (searchTerm && !student.name.toLowerCase().includes(searchTerm)) {
-            shouldShow = false;
+            // Update active filters
+            activeFilters = {
+                search: searchTerm,
+                performance: performanceFilters,
+                tags: tagFilters,
+                status: statusFilters
+            };
+
+            // Show/hide clear button
+            document.getElementById('clearSearchBtn').style.display = searchTerm ? 'flex' : 'none';
+
+            // Filter student cards
+            const studentCards = document.querySelectorAll('.student-card');
+            let visibleCount = 0;
+
+            studentCards.forEach(card => {
+                const studentId = card.dataset.studentId;
+                const student = students.find(s => s.id === studentId);
+                
+                if (!student) return;
+
+                let shouldShow = true;
+
+                // Search filter
+                if (searchTerm && !student.name.toLowerCase().includes(searchTerm)) {
+                    shouldShow = false;
+                }
+
+                // Performance filter
+                if (performanceFilters.length > 0 && !performanceFilters.includes(student.performance)) {
+                    shouldShow = false;
+                }
+
+                // Tag filter
+                if (tagFilters.length > 0) {
+                    const studentTags = [
+                        ...student.tags.personalità,
+                        ...student.tags.apprendimento,
+                        ...student.tags.comportamento
+                    ];
+                    const hasMatchingTag = tagFilters.some(tag => studentTags.includes(tag));
+                    if (!hasMatchingTag) {
+                        shouldShow = false;
+                    }
+                }
+
+                // Status filter
+                if (statusFilters.length > 0) {
+                    const isAssigned = classroom.desks.some(d => d.student === student.id);
+                    if (statusFilters.includes('assigned') && !isAssigned) {
+                        shouldShow = false;
+                    }
+                    if (statusFilters.includes('unassigned') && isAssigned) {
+                        shouldShow = false;
+                    }
+                }
+
+                // Apply visibility
+                if (shouldShow) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                    
+                    // Highlight search term
+                    if (searchTerm) {
+                        card.classList.add('highlight');
+                    } else {
+                        card.classList.remove('highlight');
+                    }
+                } else {
+                    card.classList.add('hidden');
+                    card.classList.remove('highlight');
+                }
+            });
+
+            // Update filtered info
+            updateFilteredInfo(visibleCount, students.length);
+            updateActiveFiltersCount();
         }
 
-        if (performanceFilters.length > 0 && !performanceFilters.includes(student.performance)) {
-            shouldShow = false;
+        function clearSearch() {
+            document.getElementById('studentSearchInput').value = '';
+            filterStudents();
         }
 
-        if (tagFilters.length > 0) {
-            const studentTags = [
-                ...student.tags.personalità,
-                ...student.tags.apprendimento,
-                ...student.tags.comportamento
-            ];
-            const hasMatchingTag = tagFilters.some(tag => studentTags.includes(tag));
-            if (!hasMatchingTag) {
-                shouldShow = false;
-            }
-        }
-
-        if (statusFilters.length > 0) {
-            const isAssigned = classroom.desks.some(d => d.student === student.id);
-            if (statusFilters.includes('assigned') && !isAssigned) {
-                shouldShow = false;
-            }
-            if (statusFilters.includes('unassigned') && isAssigned) {
-                shouldShow = false;
-            }
-        }
-
-        if (shouldShow) {
-            card.classList.remove('hidden');
-            visibleCount++;
+        function toggleFilters() {
+            const filtersPanel = document.getElementById('filtersPanel');
+            const filterIcon = document.getElementById('filterIcon');
+            const filterToggleBtn = document.querySelector('.filter-toggle-btn');
             
-            if (searchTerm) {
-                card.classList.add('highlight');
+            if (filtersPanel.style.display === 'none') {
+                filtersPanel.style.display = 'block';
+                filterIcon.classList.add('rotated');
+                filterToggleBtn.classList.add('active');
+                updateTagFilters();
             } else {
-                card.classList.remove('highlight');
+                filtersPanel.style.display = 'none';
+                filterIcon.classList.remove('rotated');
+                filterToggleBtn.classList.remove('active');
             }
-        } else {
-            card.classList.add('hidden');
-            card.classList.remove('highlight');
         }
-    });
 
-    updateFilteredInfo(visibleCount, students.length);
-    updateActiveFiltersCount();
-}
+        function updateTagFilters() {
+            const tagFiltersContainer = document.getElementById('tagFilters');
+            tagFiltersContainer.innerHTML = '';
 
-function clearSearch() {
-    document.getElementById('studentSearchInput').value = '';
-    filterStudents();
-}
+            // Collect all unique tags
+            const allTags = new Map();
+            
+            students.forEach(student => {
+                student.tags.personalità.forEach(tag => {
+                    if (!allTags.has(tag)) allTags.set(tag, 'personalita');
+                });
+                student.tags.apprendimento.forEach(tag => {
+                    if (!allTags.has(tag)) allTags.set(tag, 'apprendimento');
+                });
+                student.tags.comportamento.forEach(tag => {
+                    if (!allTags.has(tag)) allTags.set(tag, 'comportamento');
+                });
+            });
 
-function toggleFilters() {
-    const filtersPanel = document.getElementById('filtersPanel');
-    const filterIcon = document.getElementById('filterIcon');
-    const filterToggleBtn = document.querySelector('.filter-toggle-btn');
-    
-    if (filtersPanel.style.display === 'none') {
-        filtersPanel.style.display = 'block';
-        filterIcon.classList.add('rotated');
-        filterToggleBtn.classList.add('active');
-        updateTagFilters();
-    } else {
-        filtersPanel.style.display = 'none';
-        filterIcon.classList.remove('rotated');
-        filterToggleBtn.classList.remove('active');
-    }
-}
+            // Create tag filters
+            allTags.forEach((type, tag) => {
+                const tagFilter = document.createElement('label');
+                tagFilter.className = `tag-filter ${type}`;
+                tagFilter.innerHTML = `
+                    <input type="checkbox" value="${tag}" onchange="filterStudents()">
+                    ${tag}
+                `;
+                tagFiltersContainer.appendChild(tagFilter);
+            });
+        }
 
-function updateTagFilters() {
-    const tagFiltersContainer = document.getElementById('tagFilters');
-    tagFiltersContainer.innerHTML = '';
+        function clearAllFilters() {
+            // Clear all checkboxes
+            document.querySelectorAll('.filters-panel input[type="checkbox"]').forEach(cb => {
+                cb.checked = false;
+            });
+            
+            // Clear search
+            document.getElementById('studentSearchInput').value = '';
+            
+            // Apply filters
+            filterStudents();
+            
+            // Hide filters panel
+            toggleFilters();
+        }
 
-    const allTags = new Map();
-    
-    students.forEach(student => {
-        student.tags.personalità.forEach(tag => {
-            if (!allTags.has(tag)) allTags.set(tag, 'personalita');
-        });
-        student.tags.apprendimento.forEach(tag => {
-            if (!allTags.has(tag)) allTags.set(tag, 'apprendimento');
-        });
-        student.tags.comportamento.forEach(tag => {
-            if (!allTags.has(tag)) allTags.set(tag, 'comportamento');
-        });
-    });
+        function updateFilteredInfo(visible, total) {
+            const filteredInfo = document.getElementById('filteredInfo');
+            const filteredCount = document.getElementById('filteredCount');
+            const totalCount = document.getElementById('totalCount');
+            
+            if (visible < total) {
+                filteredInfo.style.display = 'block';
+                filteredCount.textContent = visible;
+                totalCount.textContent = total;
+            } else {
+                filteredInfo.style.display = 'none';
+            }
+        }
 
-    allTags.forEach((type, tag) => {
-        const tagFilter = document.createElement('label');
-        tagFilter.className = `tag-filter ${type}`;
-        tagFilter.innerHTML = `
-            <input type="checkbox" value="${tag}" onchange="filterStudents()">
-            ${tag}
-        `;
-        tagFiltersContainer.appendChild(tagFilter);
-    });
-}
+        function updateActiveFiltersCount() {
+            const activeFiltersCount = document.getElementById('activeFiltersCount');
+            let count = 0;
+            
+            if (activeFilters.search) count++;
+            count += activeFilters.performance.length;
+            count += activeFilters.tags.length;
+            count += activeFilters.status.length;
+            
+            if (count > 0) {
+                activeFiltersCount.textContent = count;
+                activeFiltersCount.classList.add('show');
+            } else {
+                activeFiltersCount.classList.remove('show');
+            }
+        }
 
-function clearAllFilters() {
-    document.querySelectorAll('.filters-panel input[type="checkbox"]').forEach(cb => {
-        cb.checked = false;
-    });
-    
-    document.getElementById('studentSearchInput').value = '';
-    
-    filterStudents();
-    
-    toggleFilters();
-}
+        // Photo handling
+        function handlePhotoUpload(event) {
+            const file = event.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const photoPreview = document.getElementById('photoPreview');
+                    const photoImg = document.getElementById('photoImg');
+                    const placeholder = document.getElementById('photoPlaceholder');
+                    
+                    photoImg.src = e.target.result;
+                    photoImg.style.display = 'block';
+                    placeholder.style.display = 'none';
+                    
+                    // Store the base64 image
+                    photoPreview.dataset.photoData = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
 
-function updateFilteredInfo(visible, total) {
-    const filteredInfo = document.getElementById('filteredInfo');
-    const filteredCount = document.getElementById('filteredCount');
-    const totalCount = document.getElementById('totalCount');
-    
-    if (visible < total) {
-        filteredInfo.style.display = 'block';
-        filteredCount.textContent = visible;
-        totalCount.textContent = total;
-    } else {
-        filteredInfo.style.display = 'none';
-    }
-}
-
-function updateActiveFiltersCount() {
-    const activeFiltersCount = document.getElementById('activeFiltersCount');
-    let count = 0;
-    
-    if (activeFilters.search) count++;
-    count += activeFilters.performance.length;
-    count += activeFilters.tags.length;
-    count += activeFilters.status.length;
-    
-    if (count > 0) {
-        activeFiltersCount.textContent = count;
-        activeFiltersCount.classList.add('show');
-    } else {
-        activeFiltersCount.classList.remove('show');
-    }
-}
-
-// Photo handling
-function handlePhotoUpload(event) {
-    const file = event.target.files[0];
-    if (file && file.type.startsWith('image/')) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
+        function removePhoto() {
             const photoPreview = document.getElementById('photoPreview');
             const photoImg = document.getElementById('photoImg');
             const placeholder = document.getElementById('photoPlaceholder');
             
-            photoImg.src = e.target.result;
-            photoImg.style.display = 'block';
-            placeholder.style.display = 'none';
-            
-            photoPreview.dataset.photoData = e.target.result;
-        };
-        reader.readAsDataURL(file);
-    }
-}
+            photoImg.src = '';
+            photoImg.style.display = 'none';
+            placeholder.style.display = 'block';
+            photoPreview.dataset.photoData = '';
+            document.getElementById('photoInput').value = '';
+        }
 
-function removePhoto() {
-    const photoPreview = document.getElementById('photoPreview');
-    const photoImg = document.getElementById('photoImg');
-    const placeholder = document.getElementById('photoPlaceholder');
-    
-    photoImg.src = '';
-    photoImg.style.display = 'none';
-    placeholder.style.display = 'block';
-    photoPreview.dataset.photoData = '';
-    document.getElementById('photoInput').value = '';
-}
+        // Get initials from name
+        function getInitials(name) {
+            return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+        }
 
-function getInitials(name) {
-    return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
-}
-
-// Relations Management
-function addRelation() {
-    const relationsList = document.getElementById('relationsList');
-    const relationId = 'rel' + Date.now();
-    
-    const relationItem = document.createElement('div');
-    relationItem.className = 'relation-item';
-    relationItem.id = relationId;
-    relationItem.innerHTML = `
-        <select class="relation-student-select" data-relation-id="${relationId}">
-            <option value="">Seleziona studente...</option>
-            ${students.map(s => `<option value="${s.id}">${s.name}</option>`).join('')}
-        </select>
-        <select class="relation-type-select" data-relation-id="${relationId}">
-            <option value="positive">Lavorano bene insieme</option>
-            <option value="negative">Da evitare insieme</option>
-            <option value="siblings">Sono fratelli</option>
-            <option value="support">Necessita supporto da</option>
-        </select>
-        <button class="relation-remove-btn" onclick="removeRelation('${relationId}')">
-            Rimuovi
-        </button>
-    `;
-    
-    relationsList.appendChild(relationItem);
-}
-
-function removeRelation(relationId) {
-    const relationItem = document.getElementById(relationId);
-    if (relationItem) {
-        relationItem.remove();
-    }
-}
-
-// Modal Functions
-function closeModal(modalId) {
-    document.getElementById(modalId).classList.remove('active');
-}
-
-function showStudentModal(studentId = null) {
-    const modal = document.getElementById('studentModal');
-    const title = document.getElementById('studentModalTitle');
-    const submitText = document.getElementById('studentModalSubmitText');
-    
-    if (studentId) {
-        const student = students.find(s => s.id === studentId);
-        if (student) {
-            title.textContent = 'Modifica Studente';
-            submitText.textContent = 'Salva Modifiche';
-            
-            document.getElementById('studentId').value = student.id;
-            document.getElementById('studentName').value = student.name;
-            document.getElementById('studentPerformance').value = student.performance || '';
-            document.getElementById('tagPersonalita').value = student.tags.personalità.join(', ');
-            document.getElementById('tagApprendimento').value = student.tags.apprendimento.join(', ');
-            document.getElementById('tagComportamento').value = student.tags.comportamento.join(', ');
-            
-            if (student.photo) {
-                const photoImg = document.getElementById('photoImg');
-                const placeholder = document.getElementById('photoPlaceholder');
-                photoImg.src = student.photo;
-                photoImg.style.display = 'block';
-                placeholder.style.display = 'none';
-                document.getElementById('photoPreview').dataset.photoData = student.photo;
-            }
-            
-            // Load relations
+        // Add relation
+        function addRelation() {
             const relationsList = document.getElementById('relationsList');
-            relationsList.innerHTML = '';
-            if (student.relations) {
-                student.relations.forEach(relation => {
-                    addRelation();
-                    const lastRelation = relationsList.lastElementChild;
-                    lastRelation.querySelector('.relation-student-select').value = relation.studentId;
-                    lastRelation.querySelector('.relation-type-select').value = relation.type;
-                });
+            const relationId = 'rel' + Date.now();
+            
+            const relationItem = document.createElement('div');
+            relationItem.className = 'relation-item';
+            relationItem.id = relationId;
+            relationItem.innerHTML = `
+                <select class="relation-student-select" data-relation-id="${relationId}">
+                    <option value="">Seleziona studente...</option>
+                    ${students.map(s => `<option value="${s.id}">${s.name}</option>`).join('')}
+                </select>
+                <select class="relation-type-select" data-relation-id="${relationId}">
+                    <option value="positive">Lavorano bene insieme</option>
+                    <option value="negative">Da evitare insieme</option>
+                    <option value="siblings">Sono fratelli</option>
+                    <option value="support">Necessita supporto da</option>
+                </select>
+                <button class="relation-remove-btn" onclick="removeRelation('${relationId}')">
+                    Rimuovi
+                </button>
+            `;
+            
+            relationsList.appendChild(relationItem);
+        }
+
+        function removeRelation(relationId) {
+            const relationItem = document.getElementById(relationId);
+            if (relationItem) {
+                relationItem.remove();
             }
         }
-    } else {
-        title.textContent = 'Aggiungi Nuovo Studente';
-        submitText.textContent = 'Aggiungi Studente';
-        
-        document.getElementById('studentId').value = '';
-        document.getElementById('studentName').value = '';
-        document.getElementById('studentPerformance').value = '';
-        document.getElementById('tagPersonalita').value = '';
-        document.getElementById('tagApprendimento').value = '';
-        document.getElementById('tagComportamento').value = '';
-        document.getElementById('relationsList').innerHTML = '';
-        removePhoto();
-    }
-    
-    modal.classList.add('active');
-}
 
-function saveStudent(event) {
-    event.preventDefault();
-    
-    const studentId = document.getElementById('studentId').value;
-    const name = document.getElementById('studentName').value.trim();
-    const performance = document.getElementById('studentPerformance').value;
-    const photoData = document.getElementById('photoPreview').dataset.photoData || '';
-    
-    if (!name) {
-        showToast('Inserisci il nome dello studente', 'error');
-        return;
-    }
-    
-    const student = {
-        id: studentId || 'student_' + Date.now(),
-        name: name,
-        performance: performance,
-        photo: photoData,
-        tags: {
-            personalità: document.getElementById('tagPersonalita').value.split(',').map(t => t.trim()).filter(t => t),
-            apprendimento: document.getElementById('tagApprendimento').value.split(',').map(t => t.trim()).filter(t => t),
-            comportamento: document.getElementById('tagComportamento').value.split(',').map(t => t.trim()).filter(t => t)
-        },
-        relations: []
-    };
-    
-    // Collect relations
-    const relationItems = document.querySelectorAll('.relation-item');
-    relationItems.forEach(item => {
-        const studentSelect = item.querySelector('.relation-student-select');
-        const typeSelect = item.querySelector('.relation-type-select');
-        
-        if (studentSelect.value && typeSelect.value) {
-            const otherStudent = students.find(s => s.id === studentSelect.value);
-            if (otherStudent) {
-                student.relations.push({
-                    studentId: studentSelect.value,
-                    type: typeSelect.value,
-                    description: typeSelect.options[typeSelect.selectedIndex].text
-                });
-            }
+        // Rules Management Functions
+        function showRulesModal() {
+            document.getElementById('rulesModal').classList.add('active');
+            renderRulesList();
         }
-    });
-    
-    if (studentId) {
-        const index = students.findIndex(s => s.id === studentId);
-        if (index !== -1) {
-            students[index] = student;
-            showToast('Studente modificato con successo!', 'success');
-        }
-    } else {
-        students.push(student);
-        showToast('Studente aggiunto con successo!', 'success');
-    }
-    
-    renderStudentList();
-    updateStats();
-    saveToLocalStorage();
-    closeModal('studentModal');
-}
 
-function editStudent(studentId) {
-    showStudentModal(studentId);
-}
-
-function deleteStudent(studentId) {
-    if (confirm('Sei sicuro di voler eliminare questo studente?')) {
-        // Remove from desks first
-        classroom.desks.forEach(desk => {
-            if (desk.student === studentId) {
-                desk.student = null;
-                const deskElement = document.getElementById(`desk-${desk.row}-${desk.col}`);
-                if (deskElement) {
-                    deskElement.classList.remove('occupied');
-                    const label = deskElement.querySelector('.desk-student-label');
-                    if (label) label.remove();
-                }
-            }
-        });
-        
-        // Remove from students array
-        students = students.filter(s => s.id !== studentId);
-        
-        renderStudentList();
-        updateStats();
-        saveToLocalStorage();
-        showToast('Studente eliminato', 'success');
-    }
-}
-
-// Classroom Functions
-function createClassroomGrid() {
-    const grid = document.getElementById('classroomGrid');
-    grid.innerHTML = '';
-    
-    grid.style.gridTemplateColumns = `repeat(${classroom.cols}, 1fr)`;
-    grid.style.gridTemplateRows = `repeat(${classroom.rows}, 1fr)`;
-    
-    classroom.desks = [];
-    
-    for (let row = 0; row < classroom.rows; row++) {
-        for (let col = 0; col < classroom.cols; col++) {
-            const desk = document.createElement('div');
-            desk.className = 'desk';
-            desk.id = `desk-${row}-${col}`;
-            desk.dataset.row = row;
-            desk.dataset.col = col;
-            desk.onclick = () => showDeskInfo(row, col);
+        function renderRulesList() {
+            const rulesList = document.getElementById('rulesList');
+            rulesList.innerHTML = '';
             
-            desk.addEventListener('dragover', handleDragOver);
-            desk.addEventListener('dragenter', handleDragEnter);
-            desk.addEventListener('dragleave', handleDragLeave);
-            desk.addEventListener('drop', handleDrop);
-            
-            grid.appendChild(desk);
-            
-            classroom.desks.push({
-                row: row,
-                col: col,
-                student: null
+            rules.preferential.forEach(rule => {
+                const ruleItem = document.createElement('div');
+                ruleItem.className = 'rule-item';
+                ruleItem.innerHTML = `
+                    <span class="rule-type">${rule.type}</span>
+                    <span style="flex: 1;">${rule.description}</span>
+                    <button class="btn btn-secondary" onclick="editRule('${rule.id}')" style="padding: 4px 8px; font-size: 12px;">
+                        ✏️
+                    </button>
+                    <button class="btn btn-secondary" onclick="deleteRule('${rule.id}')" style="padding: 4px 8px; font-size: 12px; background: #e74c3c;">
+                        🗑️
+                    </button>
+                `;
+                rulesList.appendChild(ruleItem);
             });
         }
-    }
-}
 
-function showDeskInfo(row, col) {
-    const desk = classroom.desks.find(d => d.row === row && d.col === col);
-    if (desk.student) {
-        const student = students.find(s => s.id === desk.student);
-        if (student) {
-            let info = `${student.name} (Fila ${row + 1}, Colonna ${col + 1})`;
-            if (student.performance) {
-                info += ` - Rendimento: ${student.performance}`;
-            }
-            if (student.relations && student.relations.length > 0) {
-                info += ` - ${student.relations.length} relazioni`;
-            }
-            showToast(info, 'success');
+        function addNewRule() {
+            document.getElementById('newRuleForm').style.display = 'block';
+            document.getElementById('ruleType').value = '';
+            document.getElementById('ruleDetails').innerHTML = '';
         }
-    } else {
-        showToast(`Posto libero (Fila ${row + 1}, Colonna ${col + 1})`, 'success');
-    }
-}
 
-// Storage Functions
-function saveToLocalStorage() {
-    const appData = {
-        className: currentClassName,
-        students: students,
-        classroom: classroom,
-        rules: rules,
-        seatingHistory: seatingHistory,
-        currentSeatingIndex: currentSeatingIndex,
-        studentRelations: studentRelations,
-        lastUpdated: new Date().toISOString()
-    };
-    
-    localStorage.setItem('classroomSeatingApp', JSON.stringify(appData));
-}
-
-function loadFromLocalStorage() {
-    const savedData = localStorage.getItem('classroomSeatingApp');
-    if (savedData) {
-        try {
-            const appData = JSON.parse(savedData);
-            
-            currentClassName = appData.className || 'Classe 3B';
-            students = appData.students || [];
-            classroom = appData.classroom || {rows: 5, cols: 6, desks: []};
-            rules = appData.rules || rules;
-            seatingHistory = appData.seatingHistory || [];
-            currentSeatingIndex = appData.currentSeatingIndex || -1;
-            studentRelations = appData.studentRelations || [];
-            
-            document.getElementById('className').textContent = `Studenti ${currentClassName}`;
-            
-            showToast('Dati caricati dall\'ultima sessione', 'success');
-        } catch (error) {
-            console.error('Error loading saved data:', error);
+        function cancelNewRule() {
+            document.getElementById('newRuleForm').style.display = 'none';
         }
-    }
-}
 
-// Utility Functions
-function showToast(message, type = 'success') {
-    const toast = document.getElementById('toast');
-    toast.textContent = message;
-    toast.className = `toast ${type} show`;
-    
-    setTimeout(() => {
-        toast.classList.remove('show');
-    }, 3000);
-}
+        function updateRuleForm() {
+            const ruleType = document.getElementById('ruleType').value;
+            const detailsDiv = document.getElementById('ruleDetails');
+            
+            switch(ruleType) {
+                case 'AVVICINA':
+                    detailsDiv.innerHTML = `
+                        <label>Tag studenti da avvicinare a:</label>
+                        <input type="text" id="tag1" placeholder="es. leader_positivo" style="width: 100%; margin-bottom: 10px;">
+                        <label>Tag studenti da supportare:</label>
+                        <input type="text" id="tag2" placeholder="es. timido" style="width: 100%;">
+                    `;
+                    break;
+                case 'SEPARA':
+                    detailsDiv.innerHTML = `
+                        <label>Tag studenti da tenere separati:</label>
+                        <input type="text" id="tagSepara" placeholder="es. chiacchierone" style="width: 100%; margin-bottom: 10px;">
+                        <label>Distanza minima (banchi):</label>
+                        <input type="number" id="minDistance" value="2" min="1" max="5" style="width: 100%;">
+                    `;
+                    break;
+                case 'POSIZIONA':
+                    detailsDiv.innerHTML = `
+                        <label>Tag studenti (separati da virgola):</label>
+                        <input type="text" id="tagsPosiziona" placeholder="es. DSA, BES" style="width: 100%; margin-bottom: 10px;">
+                        <label>Zona preferenziale:</label>
+                        <select id="zone" style="width: 100%;">
+                            <option value="prima_fila">Prima fila</option>
+                            <option value="ultima_fila">Ultima fila</option>
+                            <option value="centro">Centro aula</option>
+                            <option value="vicino_porta">Vicino alla porta</option>
+                            <option value="vicino_finestra">Vicino alla finestra</option>
+                        </select>
+                    `;
+                    break;
+                case 'DISTRIBUISCI':
+                    detailsDiv.innerHTML = `
+                        <label>Distribuisci in base a:</label>
+                        <select id="attribute" style="width: 100%;">
+                            <option value="tag">Tag specifico</option>
+                            <option value="genere">Genere (M/F)</option>
+                            <option value="random">Casuale</option>
+                        </select>
+                        <input type="text" id="tagDistribuisci" placeholder="Tag da distribuire (se selezionato)" style="width: 100%; margin-top: 10px; display: none;">
+                    `;
+                    setTimeout(() => {
+                        document.getElementById('attribute').addEventListener('change', (e) => {
+                            const tagInput = document.getElementById('tagDistribuisci');
+                            tagInput.style.display = e.target.value === 'tag' ? 'block' : 'none';
+                        });
+                    }, 100);
+                    break;
+                case 'RELAZIONI':
+                    detailsDiv.innerHTML = `
+                        <p style="color: #7f8c8d; font-style: italic;">
+                            Questa regola applicherà automaticamente tutte le relazioni definite tra studenti.
+                        </p>
+                    `;
+                    break;
+                case 'RENDIMENTO':
+                    detailsDiv.innerHTML = `
+                        <label>Metodo di distribuzione:</label>
+                        <select id="rendimentoMethod" style="width: 100%;">
+                            <option value="mixed">Mescola rendimenti diversi</option>
+                            <option value="front_high">Alto rendimento davanti</option>
+                            <option value="front_low">Basso rendimento davanti</option>
+                        </select>
+                    `;
+                    break;
+            }
+        }
 
-function focusTagInput(type) {
-    document.getElementById(`tag${type.charAt(0).toUpperCase() + type.slice(1)}`).focus();
-}
+        function saveNewRule() {
+            const ruleType = document.getElementById('ruleType').value;
+            if (!ruleType) {
+                showToast('Seleziona un tipo di regola', 'error');
+                return;
+            }
+            
+            let newRule = {
+                id: 'rule' + Date.now(),
+                type: ruleType,
+                weight: 0.8
+            };
+            
+            switch(ruleType) {
+                case 'AVVICINA':
+                    const tag1 = document.getElementById('tag1').value.trim();
+                    const tag2 = document.getElementById('tag2').value.trim();
+                    if (!tag1 || !tag2) {
+                        showToast('Inserisci entrambi i tag', 'error');
+                        return;
+                    }
+                    newRule.tag1 = tag1;
+                    newRule.tag2 = tag2;
+                    newRule.description = `Studenti ${tag1} vicino a studenti ${tag2}`;
+                    break;
+                    
+                case 'SEPARA':
+                    const tagSepara = document.getElementById('tagSepara').value.trim();
+                    const minDistance = parseInt(document.getElementById('minDistance').value);
+                    if (!tagSepara) {
+                        showToast('Inserisci il tag', 'error');
+                        return;
+                    }
+                    newRule.tag = tagSepara;
+                    newRule.minDistance = minDistance;
+                    newRule.description = `Studenti ${tagSepara} distanti tra loro (min ${minDistance} banchi)`;
+                    break;
+                    
+                case 'POSIZIONA':
+                    const tagsPosiziona = document.getElementById('tagsPosiziona').value.split(',').map(t => t.trim()).filter(t => t);
+                    const zone = document.getElementById('zone').value;
+                    if (tagsPosiziona.length === 0) {
+                        showToast('Inserisci almeno un tag', 'error');
+                        return;
+                    }
+                    newRule.tags = tagsPosiziona;
+                    newRule.zone = zone;
+                    newRule.description = `Studenti con ${tagsPosiziona.join(', ')} in ${zone.replace('_', ' ')}`;
+                    break;
+                    
+                case 'DISTRIBUISCI':
+                    const attribute = document.getElementById('attribute').value;
+                    newRule.attribute = attribute;
+                    if (attribute === 'tag') {
+                        const tagDist = document.getElementById('tagDistribuisci').value.trim();
+                        if (!tagDist) {
+                            showToast('Inserisci il tag da distribuire', 'error');
+                            return;
+                        }
+                        newRule.tag = tagDist;
+                        newRule.description = `Distribuisci uniformemente studenti con tag ${tagDist}`;
+                    } else {
+                        newRule.description = `Distribuisci per ${attribute}`;
+                    }
+                    break;
+                    
+                case 'RELAZIONI':
+                    newRule.description = 'Rispetta le relazioni definite tra studenti';
+                    newRule.weight = 1.0;
+                    break;
+                    
+                case 'RENDIMENTO':
+                    const method = document.getElementById('rendimentoMethod').value;
+                    newRule.method = method;
+                    newRule.description = `Distribuzione per rendimento: ${method === 'mixed' ? 'mescolato' : method === 'front_high' ? 'alto davanti' : 'basso davanti'}`;
+                    newRule.weight = 0.7;
+                    break;
+            }
+            
+            rules.preferential.push(newRule);
+            renderRulesList();
+            cancelNewRule();
+            showToast('Regola aggiunta con successo!', 'success');
+        }
 
-function updateStats() {
-    document.getElementById('totalStudents').textContent = students.length;
-    const assigned = classroom.desks.filter(d => d.student).length;
-    document.getElementById('assignedSeats').textContent = assigned;
-    document.getElementById('freeSeats').textContent = classroom.desks.length - assigned;
-}
+        function deleteRule(ruleId) {
+            if (confirm('Sei sicuro di voler eliminare questa regola?')) {
+                rules.preferential = rules.preferential.filter(r => r.id !== ruleId);
+                renderRulesList();
+                showToast('Regola eliminata', 'success');
+            }
+        }
 
-// Mobile Functions
-function toggleSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('sidebarOverlay');
-    sidebar.classList.toggle('open');
-    overlay.classList.toggle('open');
-}
+        function editRule(ruleId) {
+            showToast('Usa Elimina e ricrea la regola per modificarla', 'info');
+        }
 
-function closeSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('sidebarOverlay');
-    sidebar.classList.remove('open');
-    overlay.classList.remove('open');
-}
+        function saveRulesConfiguration() {
+            closeModal('rulesModal');
+            showToast('Configurazione regole salvata!', 'success');
+            saveToLocalStorage();
+        }
 
-function updateMobileTitle() {
-    const mobileTitle = document.getElementById('mobileClassName');
-    if (mobileTitle) {
-        mobileTitle.textContent = currentClassName.replace('Studenti ', '');
-    }
-}
+        // Initialize App with saved data
+        function initApp() {
+            loadFromLocalStorage();
+            createClassroomGrid();
+            
+            if (students.length === 0) {
+                loadSampleStudents();
+            } else {
+                renderStudentList();
+                if (seatingHistory.length > 0 && currentSeatingIndex >= 0) {
+                    restoreSeating(seatingHistory[currentSeatingIndex]);
+                }
+            }
+            
+            updateStats();
+            updateMobileTitle();
+            addTouchSupport();
+        }
 
-function editClassName() {
-    const currentName = currentClassName.replace('Studenti ', '');
-    const newName = prompt('Inserisci il nome della classe:', currentName);
-    
-    if (newName && newName.trim()) {
-        currentClassName = newName.trim();
-        document.getElementById('className').textContent = `Studenti ${currentClassName}`;
-        updateMobileTitle();
-        showToast(`Nome classe aggiornato: ${currentClassName}`, 'success');
-        saveToLocalStorage();
-    }
-}
-// PARTE 4: Generazione Disposizione e Drag & Drop
-// Da aggiungere dopo la Parte 3
+        // Add touch support for drag and drop on mobile
+        function addTouchSupport() {
+            if ('ontouchstart' in window) {
+                document.addEventListener('touchmove', (e) => {
+                    if (e.target.classList.contains('student-card')) {
+                        e.preventDefault();
+                    }
+                }, { passive: false });
+            }
+        }
 
-// FUNZIONE CORRETTA PER GENERARE LA DISPOSIZIONE SENZA DUPLICATI
+        // Save to localStorage
+        function saveToLocalStorage() {
+            const appData = {
+                className: currentClassName,
+                students: students,
+                classroom: classroom,
+                rules: rules,
+                seatingHistory: seatingHistory,
+                currentSeatingIndex: currentSeatingIndex,
+                studentRelations: studentRelations,
+                lastUpdated: new Date().toISOString()
+            };
+            
+            localStorage.setItem('classroomSeatingApp', JSON.stringify(appData));
+        }
+
+        // Load from localStorage
+        function loadFromLocalStorage() {
+            const savedData = localStorage.getItem('classroomSeatingApp');
+            if (savedData) {
+                try {
+                    const appData = JSON.parse(savedData);
+                    
+                    currentClassName = appData.className || 'Classe 3B';
+                    students = appData.students || [];
+                    classroom = appData.classroom || {rows: 5, cols: 6, desks: []};
+                    rules = appData.rules || rules;
+                    seatingHistory = appData.seatingHistory || [];
+                    currentSeatingIndex = appData.currentSeatingIndex || -1;
+                    studentRelations = appData.studentRelations || [];
+                    
+                    document.getElementById('className').textContent = `Studenti ${currentClassName}`;
+                    
+                    showToast('Dati caricati dall\'ultima sessione', 'success');
+                } catch (error) {
+                    console.error('Error loading saved data:', error);
+                }
+            }
+        }
+
+        // Save current seating to history
+        function saveSeatingToHistory() {
+            const currentSeating = {
+                id: Date.now(),
+                date: new Date().toISOString(),
+                seating: classroom.desks.map(d => ({
+                    row: d.row,
+                    col: d.col,
+                    studentId: d.student
+                })),
+                studentCount: students.filter(s => 
+                    classroom.desks.some(d => d.student === s.id)
+                ).length
+            };
+            
+            seatingHistory.push(currentSeating);
+            currentSeatingIndex = seatingHistory.length - 1;
+            
+            if (seatingHistory.length > 10) {
+                seatingHistory = seatingHistory.slice(-10);
+                currentSeatingIndex = seatingHistory.length - 1;
+            }
+            
+            saveToLocalStorage();
+        }
+
+        // Show history modal
+        function showHistoryModal() {
+            document.getElementById('historyModal').classList.add('active');
+            renderHistoryList();
+        }
+
+        // Render history list
+        function renderHistoryList() {
+            const historyList = document.getElementById('historyList');
+            
+            if (seatingHistory.length === 0) {
+                historyList.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #7f8c8d;">
+                        <p>Nessuna disposizione salvata</p>
+                        <p style="font-size: 14px;">Genera una disposizione per iniziare lo storico</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            historyList.innerHTML = '';
+            
+            seatingHistory.slice().reverse().forEach((item, reverseIndex) => {
+                const index = seatingHistory.length - 1 - reverseIndex;
+                const date = new Date(item.date);
+                const isActive = index === currentSeatingIndex;
+                
+                const historyItem = document.createElement('div');
+                historyItem.className = `history-item ${isActive ? 'active' : ''}`;
+                historyItem.innerHTML = `
+                    <div class="history-date">
+                        ${date.toLocaleDateString('it-IT')} - ${date.toLocaleTimeString('it-IT', {hour: '2-digit', minute: '2-digit'})}
+                        ${isActive ? '<span style="float: right; color: #27ae60;">✓ Attiva</span>' : ''}
+                    </div>
+                    <div class="history-info">
+                        ${item.studentCount} studenti posizionati
+                    </div>
+                    <div class="history-actions">
+                        <button class="btn btn-primary" onclick="loadSeatingFromHistory(${index})" style="padding: 6px 12px; font-size: 12px;">
+                            📥 Carica
+                        </button>
+                        <button class="btn btn-secondary" onclick="deleteFromHistory(${index})" style="padding: 6px 12px; font-size: 12px;">
+                            🗑️ Elimina
+                        </button>
+                    </div>
+                `;
+                
+                historyList.appendChild(historyItem);
+            });
+        }
+        // Load seating from history
+        <script>
+// Funzione per generare la disposizione dei posti
 function generateSeating() {
-    showToast('Generazione disposizione intelligente...', 'success');
+    const students = getStudents();
+    const rules = getRules();
+    const config = getClassroomConfig();
     
     if (students.length === 0) {
-        showToast('Aggiungi prima degli studenti!', 'error');
+        alert('Aggiungi prima degli studenti!');
         return;
     }
     
-    // Check if there are already students positioned
-    const occupiedDesks = classroom.desks.filter(d => d.student);
+    // Controlla se ci sono già studenti posizionati
+    const occupiedDesks = document.querySelectorAll('.desk.occupied');
     if (occupiedDesks.length > 0) {
         if (!confirm('Vuoi rigenerare una NUOVA disposizione? Quella attuale verrà persa.')) {
             return;
         }
     }
     
-    resetSeating(false);
-
+    // IMPORTANTE: Pulisce COMPLETAMENTE la griglia per permettere una nuova generazione
+    const allDesks = document.querySelectorAll('.desk');
+    allDesks.forEach(desk => {
+        desk.classList.remove('occupied');
+        desk.removeAttribute('data-student-id');
+        const studentInfo = desk.querySelector('.student-info');
+        if (studentInfo) {
+            studentInfo.remove();
+        }
+    });
+    
+    // Crea una copia degli studenti e la randomizza per ottenere disposizioni diverse
     let availableStudents = [...students];
-    let placedStudents = new Set(); // Track placed students to avoid duplicates
     
-    // Apply POSIZIONA rules first (DSA/BES in front)
-    const specialNeedsStudents = availableStudents.filter(s => 
-        s.tags.apprendimento.includes('DSA') || s.tags.apprendimento.includes('BES')
+    // Separa gli studenti con priorità (DSA/BES) dal resto
+    const priorityStudents = availableStudents.filter(s => 
+        s.tags.apprendimento.includes('DSA') || 
+        s.tags.apprendimento.includes('BES')
     );
-
-    specialNeedsStudents.forEach(student => {
-        if (placedStudents.has(student.id)) return;
-        
-        for (let row = 0; row < Math.min(2, classroom.rows); row++) {
-            for (let col = 0; col < classroom.cols; col++) {
-                const desk = classroom.desks.find(d => d.row === row && d.col === col && !d.student);
-                if (desk) {
-                    assignStudentToDesk(student, desk);
-                    placedStudents.add(student.id);
-                    break;
-                }
-            }
-            if (placedStudents.has(student.id)) break;
-        }
-    });
+    const regularStudents = availableStudents.filter(s => 
+        !s.tags.apprendimento.includes('DSA') && 
+        !s.tags.apprendimento.includes('BES')
+    );
     
-    // Remove placed students from available list
-    availableStudents = availableStudents.filter(s => !placedStudents.has(s.id));
-
-    // Apply RELAZIONI rules
-    const hasRelationsRule = rules.preferential.find(r => r.type === 'RELAZIONI');
-    if (hasRelationsRule) {
-        applyRelationRules(availableStudents, placedStudents);
+    // Randomizza entrambi i gruppi separatamente
+    shuffleArray(priorityStudents);
+    shuffleArray(regularStudents);
+    
+    // Ricombina mantenendo la priorità
+    availableStudents = [...priorityStudents, ...regularStudents];
+    
+    const desks = Array.from(document.querySelectorAll('.desk')).map(desk => ({
+        element: desk,
+        row: parseInt(desk.dataset.row),
+        col: parseInt(desk.dataset.col),
+        occupied: false,
+        studentId: null
+    }));
+    
+    // Funzione helper per randomizzare un array (Fisher-Yates shuffle)
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
     }
     
-    // Update available students after relations
-    availableStudents = availableStudents.filter(s => !placedStudents.has(s.id));
-
-    // Apply RENDIMENTO rules
-    const performanceRule = rules.preferential.find(r => r.type === 'RENDIMENTO');
-    if (performanceRule) {
-        applyPerformanceRules(availableStudents, performanceRule, placedStudents);
-    }
-    
-    // Update available students after performance rules
-    availableStudents = availableStudents.filter(s => !placedStudents.has(s.id));
-
-    // Handle remaining placement rules
-    const chatterboxes = availableStudents.filter(s => s.tags.comportamento.includes('chiacchierone'));
-    
-    chatterboxes.forEach(student => {
-        if (placedStudents.has(student.id)) return;
-        
-        const desk = findBestDeskForChatterbox(student);
-        if (desk) {
-            assignStudentToDesk(student, desk);
-            placedStudents.add(student.id);
-        }
-    });
-    
-    // Update available students
-    availableStudents = availableStudents.filter(s => !placedStudents.has(s.id));
-
-    // Place remaining students
-    const leadersAndTimid = separateByTags(availableStudents);
-    
-    leadersAndTimid.leaders.forEach(leader => {
-        if (placedStudents.has(leader.id)) return;
-        
-        const desk = findAvailableDesk();
-        if (desk) {
-            assignStudentToDesk(leader, desk);
-            placedStudents.add(leader.id);
-            
-            const timidStudent = leadersAndTimid.timid.find(s => 
-                !placedStudents.has(s.id) && availableStudents.includes(s)
-            );
-            if (timidStudent) {
-                const nearbyDesk = findNearbyDesk(desk);
-                if (nearbyDesk) {
-                    assignStudentToDesk(timidStudent, nearbyDesk);
-                    placedStudents.add(timidStudent.id);
-                }
-            }
-        }
-    });
-    
-    // Update available students one more time
-    availableStudents = availableStudents.filter(s => !placedStudents.has(s.id));
-
-    // Place any remaining students
-    availableStudents.forEach(student => {
-        if (placedStudents.has(student.id)) return;
-        
-        const desk = findAvailableDesk();
-        if (desk) {
-            assignStudentToDesk(student, desk);
-            placedStudents.add(student.id);
-        }
-    });
-
-    saveSeatingToHistory();
-    
-    const placedCount = placedStudents.size;
-    const totalCount = students.length;
-    showToast(`Disposizione generata: ${placedCount}/${totalCount} studenti posizionati!`, 'success');
-    updateStats();
-}
-
-// Apply relation-based rules
-function applyRelationRules(availableStudents, placedStudents) {
-    students.forEach(student => {
-        if (!student.relations || student.relations.length === 0) return;
-        if (placedStudents.has(student.id)) return;
-        
-        student.relations.forEach(relation => {
-            const otherStudent = students.find(s => s.id === relation.studentId);
-            if (!otherStudent || placedStudents.has(otherStudent.id)) return;
-            
-            const studentPlaced = classroom.desks.some(d => d.student === student.id);
-            const otherPlaced = classroom.desks.some(d => d.student === otherStudent.id);
-            
-            if (relation.type === 'positive' || relation.type === 'support') {
-                if (studentPlaced && !otherPlaced && availableStudents.includes(otherStudent)) {
-                    const studentDesk = classroom.desks.find(d => d.student === student.id);
-                    const nearbyDesk = findNearbyDesk(studentDesk);
-                    if (nearbyDesk) {
-                        assignStudentToDesk(otherStudent, nearbyDesk);
-                        placedStudents.add(otherStudent.id);
-                    }
-                }
-            } else if (relation.type === 'negative') {
-                if (studentPlaced && !otherPlaced && availableStudents.includes(otherStudent)) {
-                    const studentDesk = classroom.desks.find(d => d.student === student.id);
-                    const farDesk = findFarDesk(studentDesk);
-                    if (farDesk) {
-                        assignStudentToDesk(otherStudent, farDesk);
-                        placedStudents.add(otherStudent.id);
-                    }
-                }
-            }
-        });
-    });
-}
-
-// Apply performance-based rules
-function applyPerformanceRules(availableStudents, rule, placedStudents) {
-    const method = rule.method || 'mixed';
-    
-    const highPerformers = availableStudents.filter(s => s.performance === 'alto' && !placedStudents.has(s.id));
-    const mediumPerformers = availableStudents.filter(s => s.performance === 'medio' && !placedStudents.has(s.id));
-    const lowPerformers = availableStudents.filter(s => s.performance === 'basso' && !placedStudents.has(s.id));
-    
-    if (method === 'front_high') {
-        placeStudentsInZone(highPerformers, 'front', availableStudents, placedStudents);
-    } else if (method === 'front_low') {
-        placeStudentsInZone(lowPerformers, 'front', availableStudents, placedStudents);
-    } else if (method === 'mixed') {
-        const allByPerformance = [...highPerformers, ...mediumPerformers, ...lowPerformers];
-        let index = 0;
-        
-        classroom.desks.forEach(desk => {
-            if (!desk.student && index < allByPerformance.length) {
-                const student = allByPerformance[index];
-                if (student && !placedStudents.has(student.id)) {
-                    assignStudentToDesk(student, desk);
-                    placedStudents.add(student.id);
-                    index++;
-                }
-            }
-        });
-    }
-}
-
-// Place students in specific zone
-function placeStudentsInZone(studentList, zone, availableStudents, placedStudents) {
-    studentList.forEach(student => {
-        if (!availableStudents.includes(student) || placedStudents.has(student.id)) return;
-        
-        let desk = null;
-        if (zone === 'front') {
-            for (let row = 0; row < Math.min(2, classroom.rows); row++) {
-                for (let col = 0; col < classroom.cols; col++) {
-                    desk = classroom.desks.find(d => d.row === row && d.col === col && !d.student);
-                    if (desk) break;
-                }
-                if (desk) break;
-            }
-        }
-        
-        if (desk) {
-            assignStudentToDesk(student, desk);
-            placedStudents.add(student.id);
-        }
-    });
-}
-
-// Find a desk far from another desk
-function findFarDesk(targetDesk) {
-    const availableDesks = classroom.desks.filter(d => !d.student);
-    
-    return availableDesks.reduce((farthest, desk) => {
-        const distance = Math.abs(desk.row - targetDesk.row) + Math.abs(desk.col - targetDesk.col);
-        const farthestDistance = farthest ? 
-            Math.abs(farthest.row - targetDesk.row) + Math.abs(farthest.col - targetDesk.col) : 0;
-        
-        return distance > farthestDistance ? desk : farthest;
-    }, null);
-}
-
-function separateByTags(studentList) {
-    return {
-        leaders: studentList.filter(s => s.tags.personalità.includes('leader_positivo')),
-        timid: studentList.filter(s => s.tags.personalità.includes('timido'))
-    };
-}
-
-function findBestDeskForChatterbox(student) {
-    const availableDesks = classroom.desks.filter(d => !d.student);
-    
-    for (const desk of availableDesks) {
-        let hasNearbyChatterbox = false;
-        
-        for (let dr = -1; dr <= 1; dr++) {
-            for (let dc = -1; dc <= 1; dc++) {
-                if (dr === 0 && dc === 0) continue;
+    // Funzione per verificare se due studenti devono essere separati
+    function shouldSeparate(student1, student2) {
+        // Controlla regole personalizzate
+        for (const rule of rules) {
+            if (rule.type === 'SEPARA') {
+                const students1 = rule.condition.students || [];
+                const tag1 = rule.condition.tag;
                 
-                const nearbyDesk = classroom.desks.find(d => 
-                    d.row === desk.row + dr && d.col === desk.col + dc
-                );
+                const student1Matches = students1.includes(student1.id) || 
+                    (tag1 && Object.values(student1.tags).flat().includes(tag1));
+                const student2Matches = students1.includes(student2.id) || 
+                    (tag1 && Object.values(student2.tags).flat().includes(tag1));
                 
-                if (nearbyDesk && nearbyDesk.student) {
-                    const nearbyStudent = students.find(s => s.id === nearbyDesk.student);
-                    if (nearbyStudent && nearbyStudent.tags.comportamento.includes('chiacchierone')) {
-                        hasNearbyChatterbox = true;
-                        break;
+                if (student1Matches && student2Matches) {
+                    return true;
+                }
+            }
+        }
+        
+        // Regola di default: separa i chiacchieroni
+        const bothTalkative = 
+            student1.tags.comportamento.includes('Chiacchierone') && 
+            student2.tags.comportamento.includes('Chiacchierone');
+        
+        return bothTalkative;
+    }
+    
+    // Funzione per verificare se due studenti devono essere avvicinati
+    function shouldGroupTogether(student1, student2) {
+        for (const rule of rules) {
+            if (rule.type === 'AVVICINA') {
+                const students1 = rule.condition.students || [];
+                const tag1 = rule.condition.tag;
+                
+                const student1Matches = students1.includes(student1.id) || 
+                    (tag1 && Object.values(student1.tags).flat().includes(tag1));
+                const student2Matches = students1.includes(student2.id) || 
+                    (tag1 && Object.values(student2.tags).flat().includes(tag1));
+                
+                if (student1Matches && student2Matches) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    // Funzione per ottenere i vicini di un banco
+    function getNeighbors(desk, allDesks) {
+        const neighbors = [];
+        const positions = [
+            { row: desk.row - 1, col: desk.col }, // sopra
+            { row: desk.row + 1, col: desk.col }, // sotto
+            { row: desk.row, col: desk.col - 1 }, // sinistra
+            { row: desk.row, col: desk.col + 1 }  // destra
+        ];
+        
+        for (const pos of positions) {
+            const neighbor = allDesks.find(d => d.row === pos.row && d.col === pos.col);
+            if (neighbor) {
+                neighbors.push(neighbor);
+            }
+        }
+        
+        return neighbors;
+    }
+    
+    // Funzione per calcolare un punteggio per ogni banco per uno studente
+    function calculateDeskScore(student, desk, allDesks, placedStudents) {
+        let score = Math.random() * 10; // Aggiunge casualità di base
+        
+        // Bonus per studenti DSA/BES nelle prime file
+        if (student.tags.apprendimento.includes('DSA') || 
+            student.tags.apprendimento.includes('BES')) {
+            score += (config.rows - desk.row) * 50; // Più alto il bonus, più vicino alla lavagna
+        }
+        
+        // Calcola punteggio basato sui vicini
+        const neighbors = getNeighbors(desk, allDesks);
+        
+        for (const neighbor of neighbors) {
+            if (neighbor.occupied) {
+                const neighborStudent = students.find(s => s.id === neighbor.studentId);
+                if (neighborStudent) {
+                    if (shouldSeparate(student, neighborStudent)) {
+                        score -= 100; // Penalità forte per separazione
+                    }
+                    if (shouldGroupTogether(student, neighborStudent)) {
+                        score += 50; // Bonus per raggruppamento
                     }
                 }
             }
-            if (hasNearbyChatterbox) break;
         }
         
-        if (!hasNearbyChatterbox) {
-            return desk;
-        }
+        // Aggiungi un po' più di casualità per variare le disposizioni
+        score += Math.random() * 20;
+        
+        return score;
     }
     
-    return availableDesks[0];
-}
-
-function findAvailableDesk() {
-    return classroom.desks.find(d => !d.student);
-}
-
-function findNearbyDesk(targetDesk) {
-    const nearbyPositions = [
-        {dr: 0, dc: 1}, {dr: 0, dc: -1},
-        {dr: 1, dc: 0}, {dr: -1, dc: 0}
-    ];
-    
-    for (const pos of nearbyPositions) {
-        const desk = classroom.desks.find(d => 
-            d.row === targetDesk.row + pos.dr && 
-            d.col === targetDesk.col + pos.dc && 
-            !d.student
-        );
-        if (desk) return desk;
+    // Posiziona gli studenti
+    for (const student of availableStudents) {
+        const availableDesks = desks.filter(d => !d.occupied);
+        
+        if (availableDesks.length === 0) break;
+        
+        // Calcola il punteggio per ogni banco disponibile
+        const scoredDesks = availableDesks.map(desk => ({
+            desk,
+            score: calculateDeskScore(student, desk, desks, students)
+        }));
+        
+        // Ordina per punteggio e prendi il migliore
+        // Aggiungi un elemento di casualità nella selezione tra i migliori
+        scoredDesks.sort((a, b) => b.score - a.score);
+        
+        // Invece di prendere sempre il primo, prendi uno tra i top 3 (se disponibili)
+        const topDesks = scoredDesks.slice(0, Math.min(3, scoredDesks.length));
+        const selectedDesk = topDesks[Math.floor(Math.random() * topDesks.length)].desk;
+        
+        // Assegna lo studente al banco
+        selectedDesk.occupied = true;
+        selectedDesk.studentId = student.id;
+        
+        const studentEl = createStudentElement(student);
+        selectedDesk.element.appendChild(studentEl);
+        selectedDesk.element.classList.add('occupied');
+        selectedDesk.element.dataset.studentId = student.id;
     }
     
-    return null;
+    // Salva automaticamente dopo la generazione
+    saveToHistory();
+    showNotification('Disposizione generata con successo! 🎉');
 }
 
-function assignStudentToDesk(student, desk) {
-    desk.student = student.id;
-    const deskElement = document.getElementById(`desk-${desk.row}-${desk.col}`);
-    if (!deskElement) return;
-    
-    deskElement.classList.add('occupied');
-    
-    const studentLabel = document.createElement('div');
-    studentLabel.className = 'desk-student-label';
-    studentLabel.draggable = true;
-    studentLabel.dataset.studentId = student.id;
-    
-    // Add photo or initials
-    const photoDiv = document.createElement('div');
-    photoDiv.className = 'desk-student-photo';
-    
-    if (student.photo) {
-        const img = document.createElement('img');
-        img.src = student.photo;
-        img.alt = student.name;
-        photoDiv.appendChild(img);
-    } else {
-        photoDiv.textContent = getInitials(student.name);
-    }
-    
-    const nameDiv = document.createElement('div');
-    nameDiv.className = 'desk-student-name';
-    nameDiv.textContent = student.name.split(' ')[0];
-    
-    studentLabel.appendChild(photoDiv);
-    studentLabel.appendChild(nameDiv);
-    
-    studentLabel.addEventListener('dragstart', handleDeskDragStart);
-    studentLabel.addEventListener('dragend', handleDeskDragEnd);
-    
-    deskElement.innerHTML = '';
-    deskElement.appendChild(studentLabel);
-}
+// Event listener per il pulsante Genera
+document.getElementById('generate-btn').addEventListener('click', generateSeating);
 
-function resetSeating(showToastMessage = true) {
-    classroom.desks.forEach(desk => {
-        desk.student = null;
-        const deskElement = document.getElementById(`desk-${desk.row}-${desk.col}`);
-        if (deskElement) {
-            deskElement.classList.remove('occupied');
-            const label = deskElement.querySelector('.desk-student-label');
-            if (label) label.remove();
-        }
-    });
-    updateStats();
-    if (showToastMessage) {
-        showToast('Disposizione resettata', 'success');
-    }
-}
-
-// Drag and Drop Functions
+// Funzioni per il drag and drop
 let draggedStudent = null;
 let draggedFromDesk = null;
 let draggedFromList = false;
 
 function handleDragStart(e) {
     draggedStudent = this;
-    draggedFromList = this.classList.contains('student-card');
+    draggedFromList = this.classList.contains('student-item');
     if (!draggedFromList) {
         draggedFromDesk = this.closest('.desk');
     }
@@ -2496,27 +2501,6 @@ function handleDragStart(e) {
 }
 
 function handleDragEnd(e) {
-    this.style.opacity = '';
-    
-    document.querySelectorAll('.desk').forEach(desk => {
-        desk.classList.remove('drag-over');
-    });
-    
-    draggedStudent = null;
-    draggedFromDesk = null;
-    draggedFromList = false;
-}
-
-function handleDeskDragStart(e) {
-    draggedStudent = this;
-    draggedFromList = false;
-    draggedFromDesk = this.closest('.desk');
-    this.style.opacity = '0.5';
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/html', this.innerHTML);
-}
-
-function handleDeskDragEnd(e) {
     this.style.opacity = '';
     
     document.querySelectorAll('.desk').forEach(desk => {
@@ -2553,1117 +2537,800 @@ function handleDrop(e) {
     targetDesk.classList.remove('drag-over');
     
     if (draggedStudent && targetDesk.classList.contains('desk')) {
-        const targetRow = parseInt(targetDesk.dataset.row);
-        const targetCol = parseInt(targetDesk.dataset.col);
-        const targetDeskData = classroom.desks.find(d => d.row === targetRow && d.col === targetCol);
+        const targetStudent = targetDesk.querySelector('.student-info');
         
         if (draggedFromList) {
-            // Dragging from student list
+            // Trascinamento dalla lista degli studenti
             const studentId = draggedStudent.dataset.studentId;
-            const student = students.find(s => s.id === studentId);
+            const student = getStudents().find(s => s.id === studentId);
             
-            if (targetDeskData.student) {
-                // Swap with existing student
-                const currentStudent = students.find(s => s.id === targetDeskData.student);
-                targetDeskData.student = null;
-                const currentLabel = targetDesk.querySelector('.desk-student-label');
-                if (currentLabel) currentLabel.remove();
+            if (targetStudent) {
+                // Scambio con studente esistente
+                const targetStudentId = targetDesk.dataset.studentId;
+                const targetStudentData = getStudents().find(s => s.id === targetStudentId);
+                
+                // Rimuovi studente target dal banco
+                targetStudent.remove();
                 targetDesk.classList.remove('occupied');
-            }
-            
-            // Place new student
-            assignStudentToDesk(student, targetDeskData);
-            
-        } else if (draggedFromDesk) {
-            // Dragging from desk to desk
-            const sourceRow = parseInt(draggedFromDesk.dataset.row);
-            const sourceCol = parseInt(draggedFromDesk.dataset.col);
-            const sourceDeskData = classroom.desks.find(d => d.row === sourceRow && d.col === sourceCol);
-            
-            const draggedStudentId = sourceDeskData.student;
-            const draggedStudentData = students.find(s => s.id === draggedStudentId);
-            
-            if (targetDeskData.student) {
-                // Swap students
-                const targetStudentId = targetDeskData.student;
-                const targetStudentData = students.find(s => s.id === targetStudentId);
+                delete targetDesk.dataset.studentId;
                 
-                // Clear both desks
-                sourceDeskData.student = null;
-                targetDeskData.student = null;
-                
-                const sourceLabel = draggedFromDesk.querySelector('.desk-student-label');
-                const targetLabel = targetDesk.querySelector('.desk-student-label');
-                
-                if (sourceLabel) sourceLabel.remove();
-                if (targetLabel) targetLabel.remove();
-                
-                draggedFromDesk.classList.remove('occupied');
-                targetDesk.classList.remove('occupied');
-                
-                // Assign students to new positions
-                assignStudentToDesk(draggedStudentData, targetDeskData);
-                assignStudentToDesk(targetStudentData, sourceDeskData);
+                // Aggiungi nuovo studente al banco
+                const newStudentEl = createStudentElement(student);
+                targetDesk.appendChild(newStudentEl);
+                targetDesk.classList.add('occupied');
+                targetDesk.dataset.studentId = studentId;
             } else {
-                // Move to empty desk
-                sourceDeskData.student = null;
-                const sourceLabel = draggedFromDesk.querySelector('.desk-student-label');
-                if (sourceLabel) sourceLabel.remove();
-                draggedFromDesk.classList.remove('occupied');
+                // Banco vuoto
+                const newStudentEl = createStudentElement(student);
+                targetDesk.appendChild(newStudentEl);
+                targetDesk.classList.add('occupied');
+                targetDesk.dataset.studentId = studentId;
+            }
+        } else if (draggedFromDesk) {
+            // Trascinamento da banco a banco
+            const draggedStudentInfo = draggedFromDesk.querySelector('.student-info');
+            const draggedStudentId = draggedFromDesk.dataset.studentId;
+            
+            if (targetStudent) {
+                // Scambio tra due banchi
+                const targetStudentId = targetDesk.dataset.studentId;
                 
-                assignStudentToDesk(draggedStudentData, targetDeskData);
+                // Scambia gli studenti
+                draggedFromDesk.dataset.studentId = targetStudentId;
+                targetDesk.dataset.studentId = draggedStudentId;
+                
+                // Scambia gli elementi DOM
+                draggedFromDesk.appendChild(targetStudent);
+                targetDesk.appendChild(draggedStudentInfo);
+            } else {
+                // Sposta in banco vuoto
+                targetDesk.appendChild(draggedStudentInfo);
+                targetDesk.classList.add('occupied');
+                targetDesk.dataset.studentId = draggedStudentId;
+                
+                draggedFromDesk.classList.remove('occupied');
+                delete draggedFromDesk.dataset.studentId;
             }
         }
         
-        updateStats();
-        saveToLocalStorage();
+        // Salva automaticamente dopo ogni modifica
+        saveToHistory();
     }
     
     return false;
 }
 
-// Student List Rendering
-function renderStudentList() {
-    const studentList = document.getElementById('studentList');
-    studentList.innerHTML = '';
-    
-    students.forEach(student => {
-        const studentCard = document.createElement('div');
-        studentCard.className = 'student-card';
-        studentCard.dataset.studentId = student.id;
-        studentCard.draggable = true;
-        
-        studentCard.addEventListener('dragstart', handleDragStart);
-        studentCard.addEventListener('dragend', handleDragEnd);
-        
-        // Check if student is assigned to a desk
-        const isAssigned = classroom.desks.some(d => d.student === student.id);
-        
-        studentCard.innerHTML = `
-            <div class="student-actions">
-                <button class="student-action-btn edit" onclick="editStudent('${student.id}')" title="Modifica">
-                    ✏️
-                </button>
-                <button class="student-action-btn delete" onclick="deleteStudent('${student.id}')" title="Elimina">
-                    🗑️
-                </button>
-            </div>
-            <div class="student-card-header">
-                <div class="student-photo">
-                    ${student.photo ? 
-                        `<img src="${student.photo}" alt="${student.name}">` : 
-                        getInitials(student.name)
-                    }
-                </div>
-                <div class="student-info">
-                    <div class="student-name">${student.name}</div>
-                    <div class="student-indicators">
-                        ${student.performance ? 
-                            `<span class="indicator performance-${student.performance}">
-                                ${student.performance === 'alto' ? '⭐' : student.performance === 'medio' ? '➖' : '⚠️'} 
-                                ${student.performance.charAt(0).toUpperCase() + student.performance.slice(1)}
-                            </span>` : ''
-                        }
-                        ${student.relations && student.relations.length > 0 ? 
-                            `<span class="indicator has-relations">👥 ${student.relations.length}</span>` : ''
-                        }
-                        ${isAssigned ? 
-                            '<span class="indicator" style="background: #d4edda; color: #155724;">✓ Assegnato</span>' : 
-                            '<span class="indicator" style="background: #f8d7da; color: #721c24;">✗ Libero</span>'
-                        }
-                    </div>
-                </div>
-            </div>
-            <div class="student-tags">
-                ${student.tags.personalità.map(tag => `<span class="tag personalita">${tag}</span>`).join('')}
-                ${student.tags.apprendimento.map(tag => `<span class="tag apprendimento">${tag}</span>`).join('')}
-                ${student.tags.comportamento.map(tag => `<span class="tag comportamento">${tag}</span>`).join('')}
-            </div>
-            ${student.relations && student.relations.length > 0 ? `
-                <div class="student-relations">
-                    Relazioni: ${student.relations.map(r => {
-                        const otherStudent = students.find(s => s.id === r.studentId);
-                        const relationClass = r.type === 'positive' ? 'positive' : r.type === 'negative' ? 'negative' : 'neutral';
-                        return `<span class="relation-chip ${relationClass}">${otherStudent ? otherStudent.name : 'Sconosciuto'}</span>`;
-                    }).join('')}
-                </div>
-            ` : ''}
-        `;
-        
-        studentList.appendChild(studentCard);
+// Aggiungi event listeners per il drag and drop ai banchi
+function initializeDeskDragAndDrop() {
+    document.querySelectorAll('.desk').forEach(desk => {
+        desk.addEventListener('dragover', handleDragOver);
+        desk.addEventListener('dragenter', handleDragEnter);
+        desk.addEventListener('dragleave', handleDragLeave);
+        desk.addEventListener('drop', handleDrop);
     });
 }
 
-// History Functions
-function saveSeatingToHistory() {
-    const currentSeating = {
-        id: Date.now(),
-        date: new Date().toISOString(),
-        seating: classroom.desks.map(d => ({
-            row: d.row,
-            col: d.col,
-            studentId: d.student
-        })),
-        studentCount: students.filter(s => 
-            classroom.desks.some(d => d.student === s.id)
-        ).length
-    };
-    
-    seatingHistory.push(currentSeating);
-    currentSeatingIndex = seatingHistory.length - 1;
-    
-    if (seatingHistory.length > 10) {
-        seatingHistory = seatingHistory.slice(-10);
-        currentSeatingIndex = seatingHistory.length - 1;
-    }
-    
-    saveToLocalStorage();
-}
+// Inizializza quando la griglia è pronta
+setTimeout(initializeDeskDragAndDrop, 100);
 
-function showHistoryModal() {
-    document.getElementById('historyModal').classList.add('active');
-    renderHistoryList();
-}
-
-function renderHistoryList() {
-    const historyList = document.getElementById('historyList');
+// Funzione helper per creare l'elemento studente
+function createStudentElement(student) {
+    const studentEl = document.createElement('div');
+    studentEl.className = 'student-info';
+    studentEl.draggable = true;
+    studentEl.dataset.studentId = student.id;
     
-    if (seatingHistory.length === 0) {
-        historyList.innerHTML = `
-            <div style="text-align: center; padding: 40px; color: #7f8c8d;">
-                <p>Nessuna disposizione salvata</p>
-                <p style="font-size: 14px;">Genera una disposizione per iniziare lo storico</p>
-            </div>
+    // Usa l'avatar se disponibile, altrimenti le iniziali
+    if (student.avatar) {
+        studentEl.innerHTML = `
+            <img src="${student.avatar}" alt="${student.name}" style="width: 32px; height: 32px; border-radius: 50%;">
+            <div>${student.name.split(' ')[0]}</div>
         `;
-        return;
-    }
-    
-    historyList.innerHTML = '';
-    
-    seatingHistory.slice().reverse().forEach((item, reverseIndex) => {
-        const index = seatingHistory.length - 1 - reverseIndex;
-        const date = new Date(item.date);
-        const isActive = index === currentSeatingIndex;
-        
-        const historyItem = document.createElement('div');
-        historyItem.className = `history-item ${isActive ? 'active' : ''}`;
-        historyItem.innerHTML = `
-            <div class="history-date">
-                ${date.toLocaleDateString('it-IT')} - ${date.toLocaleTimeString('it-IT', {hour: '2-digit', minute: '2-digit'})}
-                ${isActive ? '<span style="float: right; color: #27ae60;">✓ Attiva</span>' : ''}
-            </div>
-            <div class="history-info">
-                ${item.studentCount} studenti posizionati
-            </div>
-            <div class="history-actions">
-                <button class="btn btn-primary" onclick="loadSeatingFromHistory(${index})" style="padding: 6px 12px; font-size: 12px;">
-                    📥 Carica
-                </button>
-                <button class="btn btn-secondary" onclick="deleteFromHistory(${index})" style="padding: 6px 12px; font-size: 12px;">
-                    🗑️ Elimina
-                </button>
-            </div>
-        `;
-        
-        historyList.appendChild(historyItem);
-    });
-}
-
-function loadSeatingFromHistory(index) {
-    if (index >= 0 && index < seatingHistory.length) {
-        const historyItem = seatingHistory[index];
-        
-        resetSeating(false);
-        
-        historyItem.seating.forEach(seat => {
-            if (seat.studentId) {
-                const desk = classroom.desks.find(d => 
-                    d.row === seat.row && d.col === seat.col
-                );
-                const student = students.find(s => s.id === seat.studentId);
-                if (desk && student) {
-                    assignStudentToDesk(student, desk);
-                }
-            }
-        });
-        
-        currentSeatingIndex = index;
-        updateStats();
-        saveToLocalStorage();
-        closeModal('historyModal');
-        showToast('Disposizione caricata dallo storico!', 'success');
-    }
-}
-
-function deleteFromHistory(index) {
-    if (confirm('Sei sicuro di voler eliminare questa disposizione dallo storico?')) {
-        seatingHistory.splice(index, 1);
-        if (currentSeatingIndex >= index) {
-            currentSeatingIndex = Math.max(-1, currentSeatingIndex - 1);
-        }
-        renderHistoryList();
-        saveToLocalStorage();
-        showToast('Disposizione eliminata dallo storico', 'success');
-    }
-}
-
-// Sample Students for Demo
-function loadSampleStudents() {
-    students = [
-        {
-            id: 'student_1',
-            name: 'Mario Rossi',
-            performance: 'alto',
-            photo: '',
-            tags: {
-                personalità: ['leader_positivo', 'estroverso'],
-                apprendimento: ['plusdotato'],
-                comportamento: []
-            },
-            relations: []
-        },
-        {
-            id: 'student_2',
-            name: 'Giulia Bianchi',
-            performance: 'medio',
-            photo: '',
-            tags: {
-                personalità: ['timido'],
-                apprendimento: ['DSA'],
-                comportamento: []
-            },
-            relations: []
-        },
-        {
-            id: 'student_3',
-            name: 'Luca Verdi',
-            performance: 'basso',
-            photo: '',
-            tags: {
-                personalità: [],
-                apprendimento: [],
-                comportamento: ['chiacchierone']
-            },
-            relations: []
-        }
-    ];
-    
-    renderStudentList();
-    updateStats();
-}
-
-// Print and Export Functions
-function printSeating() {
-    window.print();
-    showToast('Stampa in corso...', 'success');
-}
-
-function exportToExcel() {
-    const excelData = [];
-    
-    // Header row
-    excelData.push([
-        'Nome Studente',
-        'Fila',
-        'Posto',
-        'Rendimento',
-        'Tags Personalità',
-        'Tags Apprendimento',
-        'Tags Comportamento',
-        'Relazioni',
-        'Posizione Descrittiva'
-    ]);
-    
-    // Student data
-    students.forEach(student => {
-        const desk = classroom.desks.find(d => d.student === student.id);
-        
-        let relationsText = '';
-        if (student.relations && student.relations.length > 0) {
-            relationsText = student.relations.map(r => {
-                const otherStudent = students.find(s => s.id === r.studentId);
-                return otherStudent ? `${otherStudent.name} (${r.description})` : '';
-            }).filter(r => r).join('; ');
-        }
-        
-        excelData.push([
-            student.name,
-            desk ? desk.row + 1 : '-',
-            desk ? desk.col + 1 : '-',
-            student.performance || '-',
-            student.tags.personalità.join(', '),
-            student.tags.apprendimento.join(', '),
-            student.tags.comportamento.join(', '),
-            relationsText || '-',
-            desk ? `Fila ${desk.row + 1}, Posto ${desk.col + 1}` : 'Non assegnato'
-        ]);
-    });
-    
-    // Convert to CSV
-    const csvContent = excelData.map(row => 
-        row.map(cell => {
-            const cellStr = String(cell || '');
-            if (cellStr.includes(',') || cellStr.includes('"') || cellStr.includes('\n')) {
-                return '"' + cellStr.replace(/"/g, '""') + '"';
-            }
-            return cellStr;
-        }).join(',')
-    ).join('\n');
-    
-    const BOM = '\uFEFF';
-    const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' });
-    
-    const link = document.createElement('a');
-    const url = URL.createObjectURL(blob);
-    link.setAttribute('href', url);
-    link.setAttribute('download', `disposizione_${currentClassName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.csv`);
-    link.style.visibility = 'hidden';
-    
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    showToast('Esportazione Excel completata!', 'success');
-}
-
-// Configuration Functions
-function saveConfiguration() {
-    const config = {
-        className: currentClassName,
-        students: students,
-        seating: classroom.desks.map(d => ({
-            row: d.row,
-            col: d.col,
-            studentId: d.student
-        })),
-        classroomDimensions: {
-            rows: classroom.rows,
-            cols: classroom.cols,
-            arrangement: classroom.arrangement
-        },
-        rules: rules,
-        studentRelations: studentRelations,
-        timestamp: new Date().toISOString()
-    };
-    
-    const dataStr = JSON.stringify(config, null, 2);
-    const dataBlob = new Blob([dataStr], {type: 'application/json'});
-    const url = URL.createObjectURL(dataBlob);
-    
-    const link = document.createElement('a');
-    link.href = url;
-    const className = currentClassName.replace(/\s+/g, '_');
-    link.download = `disposizione_${className}_${new Date().toLocaleDateString('it-IT').replace(/\//g, '-')}.json`;
-    link.click();
-    
-    showToast('Configurazione salvata!', 'success');
-}
-
-function loadConfiguration() {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = '.json';
-    
-    input.onchange = (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-        
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            try {
-                const config = JSON.parse(event.target.result);
-                
-                students = config.students;
-                renderStudentList();
-                
-                if (config.className) {
-                    currentClassName = config.className;
-                    document.getElementById('className').textContent = `Studenti ${currentClassName}`;
-                    updateMobileTitle();
-                }
-                
-                if (config.classroomDimensions) {
-                    classroom.rows = config.classroomDimensions.rows;
-                    classroom.cols = config.classroomDimensions.cols;
-                    classroom.arrangement = config.classroomDimensions.arrangement || 'grid';
-                    createClassroomGrid();
-                }
-                
-                resetSeating(false);
-                config.seating.forEach(seat => {
-                    if (seat.studentId) {
-                        const desk = classroom.desks.find(d => 
-                            d.row === seat.row && d.col === seat.col
-                        );
-                        const student = students.find(s => s.id === seat.studentId);
-                        if (desk && student) {
-                            assignStudentToDesk(student, desk);
-                        }
-                    }
-                });
-                
-                if (config.rules) {
-                    rules = config.rules;
-                }
-                
-                if (config.studentRelations) {
-                    studentRelations = config.studentRelations;
-                }
-                
-                updateStats();
-                showToast('Configurazione caricata con successo!', 'success');
-                saveToLocalStorage();
-            } catch (error) {
-                showToast('Errore nel caricamento del file', 'error');
-            }
-        };
-        reader.readAsText(file);
-    };
-    
-    input.click();
-}
-// PARTE 5: Rules Management e Funzioni Finali
-// Da aggiungere dopo la Parte 4
-
-// Rules Management Functions
-function showRulesModal() {
-    document.getElementById('rulesModal').classList.add('active');
-    renderRulesList();
-}
-
-function renderRulesList() {
-    const rulesList = document.getElementById('rulesList');
-    rulesList.innerHTML = '';
-    
-    rules.preferential.forEach(rule => {
-        const ruleItem = document.createElement('div');
-        ruleItem.className = 'rule-item';
-        ruleItem.innerHTML = `
-            <span class="rule-type">${rule.type}</span>
-            <span style="flex: 1;">${rule.description}</span>
-            <button class="btn btn-secondary" onclick="editRule('${rule.id}')" style="padding: 4px 8px; font-size: 12px;">
-                ✏️
-            </button>
-            <button class="btn btn-secondary" onclick="deleteRule('${rule.id}')" style="padding: 4px 8px; font-size: 12px; background: #e74c3c;">
-                🗑️
-            </button>
-        `;
-        rulesList.appendChild(ruleItem);
-    });
-}
-
-function addNewRule() {
-    document.getElementById('newRuleForm').style.display = 'block';
-    document.getElementById('ruleType').value = '';
-    document.getElementById('ruleDetails').innerHTML = '';
-}
-
-function cancelNewRule() {
-    document.getElementById('newRuleForm').style.display = 'none';
-}
-
-function updateRuleForm() {
-    const ruleType = document.getElementById('ruleType').value;
-    const detailsDiv = document.getElementById('ruleDetails');
-    
-    switch(ruleType) {
-        case 'AVVICINA':
-            detailsDiv.innerHTML = `
-                <label>Tag studenti da avvicinare a:</label>
-                <input type="text" id="tag1" placeholder="es. leader_positivo" style="width: 100%; margin-bottom: 10px;">
-                <label>Tag studenti da supportare:</label>
-                <input type="text" id="tag2" placeholder="es. timido" style="width: 100%;">
-            `;
-            break;
-        case 'SEPARA':
-            detailsDiv.innerHTML = `
-                <label>Tag studenti da tenere separati:</label>
-                <input type="text" id="tagSepara" placeholder="es. chiacchierone" style="width: 100%; margin-bottom: 10px;">
-                <label>Distanza minima (banchi):</label>
-                <input type="number" id="minDistance" value="2" min="1" max="5" style="width: 100%;">
-            `;
-            break;
-        case 'POSIZIONA':
-            detailsDiv.innerHTML = `
-                <label>Tag studenti (separati da virgola):</label>
-                <input type="text" id="tagsPosiziona" placeholder="es. DSA, BES" style="width: 100%; margin-bottom: 10px;">
-                <label>Zona preferenziale:</label>
-                <select id="zone" style="width: 100%;">
-                    <option value="prima_fila">Prima fila</option>
-                    <option value="ultima_fila">Ultima fila</option>
-                    <option value="centro">Centro aula</option>
-                    <option value="vicino_porta">Vicino alla porta</option>
-                    <option value="vicino_finestra">Vicino alla finestra</option>
-                </select>
-            `;
-            break;
-        case 'DISTRIBUISCI':
-            detailsDiv.innerHTML = `
-                <label>Distribuisci in base a:</label>
-                <select id="attribute" style="width: 100%;">
-                    <option value="tag">Tag specifico</option>
-                    <option value="genere">Genere (M/F)</option>
-                    <option value="random">Casuale</option>
-                </select>
-                <input type="text" id="tagDistribuisci" placeholder="Tag da distribuire (se selezionato)" style="width: 100%; margin-top: 10px; display: none;">
-            `;
-            setTimeout(() => {
-                document.getElementById('attribute').addEventListener('change', (e) => {
-                    const tagInput = document.getElementById('tagDistribuisci');
-                    tagInput.style.display = e.target.value === 'tag' ? 'block' : 'none';
-                });
-            }, 100);
-            break;
-        case 'RELAZIONI':
-            detailsDiv.innerHTML = `
-                <p style="color: #7f8c8d; font-style: italic;">
-                    Questa regola applicherà automaticamente tutte le relazioni definite tra studenti.
-                </p>
-            `;
-            break;
-        case 'RENDIMENTO':
-            detailsDiv.innerHTML = `
-                <label>Metodo di distribuzione:</label>
-                <select id="rendimentoMethod" style="width: 100%;">
-                    <option value="mixed">Mescola rendimenti diversi</option>
-                    <option value="front_high">Alto rendimento davanti</option>
-                    <option value="front_low">Basso rendimento davanti</option>
-                </select>
-            `;
-            break;
-    }
-}
-
-function saveNewRule() {
-    const ruleType = document.getElementById('ruleType').value;
-    if (!ruleType) {
-        showToast('Seleziona un tipo di regola', 'error');
-        return;
-    }
-    
-    let newRule = {
-        id: 'rule' + Date.now(),
-        type: ruleType,
-        weight: 0.8
-    };
-    
-    switch(ruleType) {
-        case 'AVVICINA':
-            const tag1 = document.getElementById('tag1').value.trim();
-            const tag2 = document.getElementById('tag2').value.trim();
-            if (!tag1 || !tag2) {
-                showToast('Inserisci entrambi i tag', 'error');
-                return;
-            }
-            newRule.tag1 = tag1;
-            newRule.tag2 = tag2;
-            newRule.description = `Studenti ${tag1} vicino a studenti ${tag2}`;
-            break;
-            
-        case 'SEPARA':
-            const tagSepara = document.getElementById('tagSepara').value.trim();
-            const minDistance = parseInt(document.getElementById('minDistance').value);
-            if (!tagSepara) {
-                showToast('Inserisci il tag', 'error');
-                return;
-            }
-            newRule.tag = tagSepara;
-            newRule.minDistance = minDistance;
-            newRule.description = `Studenti ${tagSepara} distanti tra loro (min ${minDistance} banchi)`;
-            break;
-            
-        case 'POSIZIONA':
-            const tagsPosiziona = document.getElementById('tagsPosiziona').value.split(',').map(t => t.trim()).filter(t => t);
-            const zone = document.getElementById('zone').value;
-            if (tagsPosiziona.length === 0) {
-                showToast('Inserisci almeno un tag', 'error');
-                return;
-            }
-            newRule.tags = tagsPosiziona;
-            newRule.zone = zone;
-            newRule.description = `Studenti con ${tagsPosiziona.join(', ')} in ${zone.replace('_', ' ')}`;
-            break;
-            
-        case 'DISTRIBUISCI':
-            const attribute = document.getElementById('attribute').value;
-            newRule.attribute = attribute;
-            if (attribute === 'tag') {
-                const tagDist = document.getElementById('tagDistribuisci').value.trim();
-                if (!tagDist) {
-                    showToast('Inserisci il tag da distribuire', 'error');
-                    return;
-                }
-                newRule.tag = tagDist;
-                newRule.description = `Distribuisci uniformemente studenti con tag ${tagDist}`;
-            } else {
-                newRule.description = `Distribuisci per ${attribute}`;
-            }
-            break;
-            
-        case 'RELAZIONI':
-            newRule.description = 'Rispetta le relazioni definite tra studenti';
-            newRule.weight = 1.0;
-            break;
-            
-        case 'RENDIMENTO':
-            const method = document.getElementById('rendimentoMethod').value;
-            newRule.method = method;
-            newRule.description = `Distribuzione per rendimento: ${method === 'mixed' ? 'mescolato' : method === 'front_high' ? 'alto davanti' : 'basso davanti'}`;
-            newRule.weight = 0.7;
-            break;
-    }
-    
-    rules.preferential.push(newRule);
-    renderRulesList();
-    cancelNewRule();
-    showToast('Regola aggiunta con successo!', 'success');
-}
-
-function deleteRule(ruleId) {
-    if (confirm('Sei sicuro di voler eliminare questa regola?')) {
-        rules.preferential = rules.preferential.filter(r => r.id !== ruleId);
-        renderRulesList();
-        showToast('Regola eliminata', 'success');
-    }
-}
-
-function editRule(ruleId) {
-    showToast('Usa Elimina e ricrea la regola per modificarla', 'info');
-}
-
-function saveRulesConfiguration() {
-    closeModal('rulesModal');
-    showToast('Configurazione regole salvata!', 'success');
-    saveToLocalStorage();
-}
-
-// Classroom Configuration Functions
-function showClassroomModal() {
-    document.getElementById('classroomModal').classList.add('active');
-    document.getElementById('classRows').value = classroom.rows;
-    document.getElementById('classCols').value = classroom.cols;
-    document.getElementById('deskArrangement').value = classroom.arrangement || 'grid';
-    document.getElementById('classNameInput').value = currentClassName.replace('Studenti ', '');
-    updateArrangementPreview();
-    updateTotalSeatsPreview();
-}
-
-function updateClassroomSize(event) {
-    event.preventDefault();
-    
-    const newRows = parseInt(document.getElementById('classRows').value);
-    const newCols = parseInt(document.getElementById('classCols').value);
-    const newArrangement = document.getElementById('deskArrangement').value;
-    const newClassName = document.getElementById('classNameInput').value.trim();
-    
-    if (newRows < 3 || newRows > 10 || newCols < 3 || newCols > 10) {
-        showToast('Dimensioni non valide. Usa valori tra 3 e 10.', 'error');
-        return;
-    }
-    
-    // Check if there are students currently placed
-    const hasStudentsPlaced = classroom.desks.some(d => d.student);
-    if (hasStudentsPlaced) {
-        if (!confirm('Cambiare le dimensioni dell\'aula rimuoverà tutti gli studenti posizionati. Continuare?')) {
-            return;
-        }
-    }
-    
-    classroom.rows = newRows;
-    classroom.cols = newCols;
-    classroom.arrangement = newArrangement;
-    
-    if (newClassName) {
-        currentClassName = newClassName;
-        document.getElementById('className').textContent = `Studenti ${currentClassName}`;
-        updateMobileTitle();
-    }
-    
-    createClassroomGrid();
-    updateStats();
-    saveToLocalStorage();
-    closeModal('classroomModal');
-    showToast('Dimensioni aula aggiornate!', 'success');
-}
-
-function updateArrangementPreview() {
-    const arrangement = document.getElementById('deskArrangement').value;
-    const preview = document.getElementById('arrangementPreview');
-    
-    switch(arrangement) {
-        case 'grid':
-            preview.textContent = 'Disposizione classica in file e colonne';
-            break;
-        case 'horseshoe':
-            preview.textContent = 'Banchi disposti a ferro di cavallo per favorire la discussione';
-            break;
-        case 'groups':
-            preview.textContent = 'Banchi raggruppati in isole da 4 studenti per il lavoro collaborativo';
-            break;
-        default:
-            preview.textContent = 'Disposizione personalizzata';
-    }
-    
-    updateTotalSeatsPreview();
-}
-
-function updateTotalSeatsPreview() {
-    const rows = parseInt(document.getElementById('classRows').value) || 5;
-    const cols = parseInt(document.getElementById('classCols').value) || 6;
-    const total = rows * cols;
-    document.getElementById('totalSeatsPreview').textContent = total;
-}
-
-// Initialize App
-function initApp() {
-    loadFromLocalStorage();
-    createClassroomGrid();
-    
-    if (students.length === 0) {
-        loadSampleStudents();
     } else {
-        renderStudentList();
-        if (seatingHistory.length > 0 && currentSeatingIndex >= 0) {
-            const currentSeating = seatingHistory[currentSeatingIndex];
-            if (currentSeating) {
-                currentSeating.seating.forEach(seat => {
-                    if (seat.studentId) {
-                        const desk = classroom.desks.find(d => 
-                            d.row === seat.row && d.col === seat.col
-                        );
-                        const student = students.find(s => s.id === seat.studentId);
-                        if (desk && student) {
-                            assignStudentToDesk(student, desk);
-                        }
-                    }
-                });
-            }
-        }
+        const initials = student.name.split(' ').map(n => n[0]).join('').toUpperCase();
+        studentEl.innerHTML = `
+            <div class="student-avatar">${initials}</div>
+            <div>${student.name.split(' ')[0]}</div>
+        `;
     }
     
-    updateStats();
-    updateMobileTitle();
-    addTouchSupport();
+    // Aggiungi event listeners per drag and drop
+    studentEl.addEventListener('dragstart', handleDragStart);
+    studentEl.addEventListener('dragend', handleDragEnd);
     
-    // Add event listeners
-    setupEventListeners();
+    return studentEl;
 }
 
-function addTouchSupport() {
-    if ('ontouchstart' in window) {
-        document.addEventListener('touchmove', (e) => {
-            if (e.target.classList.contains('student-card')) {
-                e.preventDefault();
-            }
-        }, { passive: false });
-    }
-}
-
-function setupEventListeners() {
-    // Window resize handler
-    window.addEventListener('resize', () => {
-        if (window.innerWidth <= 768) {
-            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            if (mobileMenuBtn) {
-                mobileMenuBtn.style.display = 'block';
-            }
-        } else {
-            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            if (mobileMenuBtn) {
-                mobileMenuBtn.style.display = 'none';
-            }
-            document.getElementById('sidebar').classList.remove('open');
-            document.getElementById('sidebarOverlay').classList.remove('open');
-        }
-    });
+// Funzione helper per mostrare notifiche
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = message;
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #27ae60;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 10000;
+        animation: slideIn 0.3s ease;
+    `;
     
-    // Close modals when clicking outside
-    document.addEventListener('click', (e) => {
-        if (e.target.classList.contains('modal')) {
-            e.target.classList.remove('active');
-        }
-    });
+    document.body.appendChild(notification);
     
-    // Keyboard shortcuts
-    document.addEventListener('keydown', (e) => {
-        // ESC to close modals
-        if (e.key === 'Escape') {
-            const activeModal = document.querySelector('.modal.active');
-            if (activeModal) {
-                activeModal.classList.remove('active');
-            }
-        }
-        
-        // Ctrl+G to generate seating
-        if (e.ctrlKey && e.key === 'g') {
-            e.preventDefault();
-            generateSeating();
-        }
-        
-        // Ctrl+R to reset seating
-        if (e.ctrlKey && e.key === 'r') {
-            e.preventDefault();
-            resetSeating();
-        }
-        
-        // Ctrl+S to save configuration
-        if (e.ctrlKey && e.key === 's') {
-            e.preventDefault();
-            saveConfiguration();
-        }
-    });
-    
-    // Auto-save every 30 seconds
-    setInterval(() => {
-        saveToLocalStorage();
-    }, 30000);
-}
-
-// Export/Import Functions for Advanced Features
-function exportStudentData() {
-    const studentData = {
-        students: students,
-        className: currentClassName,
-        exportDate: new Date().toISOString()
-    };
-    
-    const dataStr = JSON.stringify(studentData, null, 2);
-    const dataBlob = new Blob([dataStr], {type: 'application/json'});
-    const url = URL.createObjectURL(dataBlob);
-    
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `studenti_${currentClassName.replace(/\s+/g, '_')}.json`;
-    link.click();
-    
-    showToast('Dati studenti esportati!', 'success');
-}
-
-function importStudentData() {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = '.json';
-    
-    input.onchange = (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-        
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            try {
-                const data = JSON.parse(event.target.result);
-                
-                if (data.students && Array.isArray(data.students)) {
-                    if (students.length > 0) {
-                        if (!confirm('Questo sostituirà tutti gli studenti attuali. Continuare?')) {
-                            return;
-                        }
-                    }
-                    
-                    students = data.students;
-                    
-                    if (data.className) {
-                        currentClassName = data.className;
-                        document.getElementById('className').textContent = `Studenti ${currentClassName}`;
-                        updateMobileTitle();
-                    }
-                    
-                    // Reset seating when importing new students
-                    resetSeating(false);
-                    renderStudentList();
-                    updateStats();
-                    saveToLocalStorage();
-                    
-                    showToast(`Importati ${students.length} studenti!`, 'success');
-                } else {
-                    showToast('File non valido: formato studenti non riconosciuto', 'error');
-                }
-            } catch (error) {
-                showToast('Errore nel caricamento del file studenti', 'error');
-            }
-        };
-        reader.readAsText(file);
-    };
-    
-    input.click();
-}
-
-// Performance optimization for large classes
-function optimizeRendering() {
-    // Use document fragments for better performance when rendering many students
-    const fragment = document.createDocumentFragment();
-    return fragment;
-}
-
-// Accessibility improvements
-function improveAccessibility() {
-    // Add ARIA labels and keyboard navigation
-    document.querySelectorAll('.desk').forEach((desk, index) => {
-        desk.setAttribute('aria-label', `Banco fila ${Math.floor(index / classroom.cols) + 1}, posto ${(index % classroom.cols) + 1}`);
-        desk.setAttribute('tabindex', '0');
-        
-        desk.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                const row = parseInt(desk.dataset.row);
-                const col = parseInt(desk.dataset.col);
-                showDeskInfo(row, col);
-            }
-        });
-    });
-    
-    // Add screen reader announcements for seating changes
-    const announceSeatingChange = (message) => {
-        const announcement = document.createElement('div');
-        announcement.setAttribute('aria-live', 'polite');
-        announcement.setAttribute('aria-atomic', 'true');
-        announcement.style.position = 'absolute';
-        announcement.style.left = '-10000px';
-        announcement.textContent = message;
-        
-        document.body.appendChild(announcement);
-        
-        setTimeout(() => {
-            document.body.removeChild(announcement);
-        }, 1000);
-    };
-    
-    return announceSeatingChange;
-}
-
-// Error handling and validation
-function validateStudentData(student) {
-    const errors = [];
-    
-    if (!student.name || typeof student.name !== 'string' || student.name.trim().length === 0) {
-        errors.push('Nome studente richiesto');
-    }
-    
-    if (student.performance && !['alto', 'medio', 'basso'].includes(student.performance)) {
-        errors.push('Rendimento deve essere: alto, medio o basso');
-    }
-    
-    if (!student.tags || typeof student.tags !== 'object') {
-        errors.push('Tags non validi');
-    } else {
-        ['personalità', 'apprendimento', 'comportamento'].forEach(tagType => {
-            if (!Array.isArray(student.tags[tagType])) {
-                errors.push(`Tags ${tagType} devono essere un array`);
-            }
-        });
-    }
-    
-    if (student.relations && !Array.isArray(student.relations)) {
-        errors.push('Relazioni devono essere un array');
-    }
-    
-    return errors;
-}
-
-// Backup and restore functionality
-function createBackup() {
-    const backup = {
-        version: '1.0',
-        timestamp: new Date().toISOString(),
-        data: {
-            className: currentClassName,
-            students: students,
-            classroom: classroom,
-            rules: rules,
-            seatingHistory: seatingHistory,
-            currentSeatingIndex: currentSeatingIndex,
-            studentRelations: studentRelations
-        }
-    };
-    
-    localStorage.setItem('classroomSeatingApp_backup', JSON.stringify(backup));
-    showToast('Backup creato automaticamente', 'success');
-    
-    return backup;
-}
-
-function restoreBackup() {
-    const backup = localStorage.getItem('classroomSeatingApp_backup');
-    if (backup) {
-        try {
-            const backupData = JSON.parse(backup);
-            
-            if (confirm(`Ripristinare backup del ${new Date(backupData.timestamp).toLocaleString('it-IT')}?`)) {
-                const data = backupData.data;
-                
-                currentClassName = data.className;
-                students = data.students;
-                classroom = data.classroom;
-                rules = data.rules;
-                seatingHistory = data.seatingHistory;
-                currentSeatingIndex = data.currentSeatingIndex;
-                studentRelations = data.studentRelations;
-                
-                // Refresh UI
-                document.getElementById('className').textContent = `Studenti ${currentClassName}`;
-                updateMobileTitle();
-                createClassroomGrid();
-                renderStudentList();
-                updateStats();
-                
-                // Restore current seating if exists
-                if (seatingHistory.length > 0 && currentSeatingIndex >= 0) {
-                    loadSeatingFromHistory(currentSeatingIndex);
-                }
-                
-                saveToLocalStorage();
-                showToast('Backup ripristinato con successo!', 'success');
-            }
-        } catch (error) {
-            showToast('Errore nel ripristino del backup', 'error');
-        }
-    } else {
-        showToast('Nessun backup disponibile', 'error');
-    }
-}
-
-// App initialization
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize the app
-    initApp();
-    
-    // Create initial backup
     setTimeout(() => {
-        createBackup();
-    }, 2000);
-    
-    // Setup accessibility improvements
-    const announceChange = improveAccessibility();
-    
-    // Setup periodic backups
-    setInterval(() => {
-        createBackup();
-    }, 300000); // Every 5 minutes
-    
-    console.log('🎓 Gestione Classe App inizializzata correttamente!');
-    console.log('📚 Studenti caricati:', students.length);
-    console.log('🏫 Dimensioni aula:', `${classroom.rows}x${classroom.cols}`);
-    console.log('⚙️ Regole attive:', rules.preferential.length);
-});
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
 
-// Global error handler
-window.addEventListener('error', function(e) {
-    console.error('Errore applicazione:', e.error);
-    showToast('Si è verificato un errore. Ricarica la pagina se il problema persiste.', 'error');
-});
-
-// Service Worker registration for offline support (optional)
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/sw.js')
-            .then(function(registration) {
-                console.log('SW registered: ', registration);
-            })
-            .catch(function(registrationError) {
-                console.log('SW registration failed: ', registrationError);
-            });
-    });
+// Aggiungi animazioni CSS se non esistono
+if (!document.querySelector('#notification-animations')) {
+    const style = document.createElement('style');
+    style.id = 'notification-animations';
+    style.textContent = `
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+    `;
+    document.head.appendChild(style);
 }
 </script>
+        // FUNZIONE CORRETTA PER GENERARE LA DISPOSIZIONE SENZA DUPLICATI
+        function generateSeating() {
+            showToast('Generazione disposizione intelligente...', 'success');
+            
+            resetSeating(false);
+
+            let availableStudents = [...students];
+            let placedStudents = new Set(); // Track placed students to avoid duplicates
+            
+            // Apply POSIZIONA rules first (DSA/BES in front)
+            const specialNeedsStudents = availableStudents.filter(s => 
+                s.tags.apprendimento.includes('DSA') || s.tags.apprendimento.includes('BES')
+            );
+
+            specialNeedsStudents.forEach(student => {
+                if (placedStudents.has(student.id)) return;
+                
+                for (let row = 0; row < Math.min(2, classroom.rows); row++) {
+                    for (let col = 0; col < classroom.cols; col++) {
+                        const desk = classroom.desks.find(d => d.row === row && d.col === col && !d.student);
+                        if (desk) {
+                            assignStudentToDesk(student, desk);
+                            placedStudents.add(student.id);
+                            break;
+                        }
+                    }
+                    if (placedStudents.has(student.id)) break;
+                }
+            });
+            
+            // Remove placed students from available list
+            availableStudents = availableStudents.filter(s => !placedStudents.has(s.id));
+
+            // Apply RELAZIONI rules
+            const hasRelationsRule = rules.preferential.find(r => r.type === 'RELAZIONI');
+            if (hasRelationsRule) {
+                applyRelationRules(availableStudents, placedStudents);
+            }
+            
+            // Update available students after relations
+            availableStudents = availableStudents.filter(s => !placedStudents.has(s.id));
+
+            // Apply RENDIMENTO rules
+            const performanceRule = rules.preferential.find(r => r.type === 'RENDIMENTO');
+            if (performanceRule) {
+                applyPerformanceRules(availableStudents, performanceRule, placedStudents);
+            }
+            
+            // Update available students after performance rules
+            availableStudents = availableStudents.filter(s => !placedStudents.has(s.id));
+
+            // Handle remaining placement rules
+            const chatterboxes = availableStudents.filter(s => s.tags.comportamento.includes('chiacchierone'));
+            
+            chatterboxes.forEach(student => {
+                if (placedStudents.has(student.id)) return;
+                
+                const desk = findBestDeskForChatterbox(student);
+                if (desk) {
+                    assignStudentToDesk(student, desk);
+                    placedStudents.add(student.id);
+                }
+            });
+            
+            // Update available students
+            availableStudents = availableStudents.filter(s => !placedStudents.has(s.id));
+
+            // Place remaining students
+            const leadersAndTimid = separateByTags(availableStudents);
+            
+            leadersAndTimid.leaders.forEach(leader => {
+                if (placedStudents.has(leader.id)) return;
+                
+                const desk = findAvailableDesk();
+                if (desk) {
+                    assignStudentToDesk(leader, desk);
+                    placedStudents.add(leader.id);
+                    
+                    const timidStudent = leadersAndTimid.timid.find(s => 
+                        !placedStudents.has(s.id) && availableStudents.includes(s)
+                    );
+                    if (timidStudent) {
+                        const nearbyDesk = findNearbyDesk(desk);
+                        if (nearbyDesk) {
+                            assignStudentToDesk(timidStudent, nearbyDesk);
+                            placedStudents.add(timidStudent.id);
+                        }
+                    }
+                }
+            });
+            
+            // Update available students one more time
+            availableStudents = availableStudents.filter(s => !placedStudents.has(s.id));
+
+            // Place any remaining students
+            availableStudents.forEach(student => {
+                if (placedStudents.has(student.id)) return;
+                
+                const desk = findAvailableDesk();
+                if (desk) {
+                    assignStudentToDesk(student, desk);
+                    placedStudents.add(student.id);
+                }
+            });
+
+            saveSeatingToHistory();
+            
+            const placedCount = placedStudents.size;
+            const totalCount = students.length;
+            showToast(`Disposizione generata: ${placedCount}/${totalCount} studenti posizionati!`, 'success');
+            updateStats();
+        }
+
+        // Apply relation-based rules
+        function applyRelationRules(availableStudents, placedStudents) {
+            students.forEach(student => {
+                if (!student.relations || student.relations.length === 0) return;
+                if (placedStudents.has(student.id)) return; // Skip if already placed
+                
+                student.relations.forEach(relation => {
+                    const otherStudent = students.find(s => s.id === relation.studentId);
+                    if (!otherStudent || placedStudents.has(otherStudent.id)) return;
+                    
+                    const studentPlaced = classroom.desks.some(d => d.student === student.id);
+                    const otherPlaced = classroom.desks.some(d => d.student === otherStudent.id);
+                    
+                    if (relation.type === 'positive' || relation.type === 'support') {
+                        // Place near each other
+                        if (studentPlaced && !otherPlaced && availableStudents.includes(otherStudent)) {
+                            const studentDesk = classroom.desks.find(d => d.student === student.id);
+                            const nearbyDesk = findNearbyDesk(studentDesk);
+                            if (nearbyDesk) {
+                                assignStudentToDesk(otherStudent, nearbyDesk);
+                                placedStudents.add(otherStudent.id);
+                            }
+                        }
+                    } else if (relation.type === 'negative') {
+                        // Keep far from each other
+                        if (studentPlaced && !otherPlaced && availableStudents.includes(otherStudent)) {
+                            const studentDesk = classroom.desks.find(d => d.student === student.id);
+                            const farDesk = findFarDesk(studentDesk);
+                            if (farDesk) {
+                                assignStudentToDesk(otherStudent, farDesk);
+                                placedStudents.add(otherStudent.id);
+                            }
+                        }
+                    }
+                });
+            });
+        }
+
+        // Apply performance-based rules
+        function applyPerformanceRules(availableStudents, rule, placedStudents) {
+            const method = rule.method || 'mixed';
+            
+            const highPerformers = availableStudents.filter(s => s.performance === 'alto' && !placedStudents.has(s.id));
+            const mediumPerformers = availableStudents.filter(s => s.performance === 'medio' && !placedStudents.has(s.id));
+            const lowPerformers = availableStudents.filter(s => s.performance === 'basso' && !placedStudents.has(s.id));
+            
+            if (method === 'front_high') {
+                // Place high performers in front
+                placeStudentsInZone(highPerformers, 'front', availableStudents, placedStudents);
+            } else if (method === 'front_low') {
+                // Place low performers in front for more attention
+                placeStudentsInZone(lowPerformers, 'front', availableStudents, placedStudents);
+            } else if (method === 'mixed') {
+                // Mix different performance levels
+                const allByPerformance = [...highPerformers, ...mediumPerformers, ...lowPerformers];
+                let index = 0;
+                
+                classroom.desks.forEach(desk => {
+                    if (!desk.student && index < allByPerformance.length) {
+                        const student = allByPerformance[index];
+                        if (student && !placedStudents.has(student.id)) {
+                            assignStudentToDesk(student, desk);
+                            placedStudents.add(student.id);
+                            index++;
+                        }
+                    }
+                });
+            }
+        }
+
+        // Place students in specific zone
+        function placeStudentsInZone(studentList, zone, availableStudents, placedStudents) {
+            studentList.forEach(student => {
+                if (!availableStudents.includes(student) || placedStudents.has(student.id)) return;
+                
+                let desk = null;
+                if (zone === 'front') {
+                    for (let row = 0; row < Math.min(2, classroom.rows); row++) {
+                        for (let col = 0; col < classroom.cols; col++) {
+                            desk = classroom.desks.find(d => d.row === row && d.col === col && !d.student);
+                            if (desk) break;
+                        }
+                        if (desk) break;
+                    }
+                }
+                
+                if (desk) {
+                    assignStudentToDesk(student, desk);
+                    placedStudents.add(student.id);
+                }
+            });
+        }
+
+        // Find a desk far from another desk
+        function findFarDesk(targetDesk) {
+            const availableDesks = classroom.desks.filter(d => !d.student);
+            
+            return availableDesks.reduce((farthest, desk) => {
+                const distance = Math.abs(desk.row - targetDesk.row) + Math.abs(desk.col - targetDesk.col);
+                const farthestDistance = farthest ? 
+                    Math.abs(farthest.row - targetDesk.row) + Math.abs(farthest.col - targetDesk.col) : 0;
+                
+                return distance > farthestDistance ? desk : farthest;
+            }, null);
+        }
+
+        function separateByTags(studentList) {
+            return {
+                leaders: studentList.filter(s => s.tags.personalità.includes('leader_positivo')),
+                timid: studentList.filter(s => s.tags.personalità.includes('timido'))
+            };
+        }
+
+        function findBestDeskForChatterbox(student) {
+            const availableDesks = classroom.desks.filter(d => !d.student);
+            
+            for (const desk of availableDesks) {
+                let hasNearbyChatterbox = false;
+                
+                for (let dr = -1; dr <= 1; dr++) {
+                    for (let dc = -1; dc <= 1; dc++) {
+                        if (dr === 0 && dc === 0) continue;
+                        
+                        const nearbyDesk = classroom.desks.find(d => 
+                            d.row === desk.row + dr && d.col === desk.col + dc
+                        );
+                        
+                        if (nearbyDesk && nearbyDesk.student) {
+                            const nearbyStudent = students.find(s => s.id === nearbyDesk.student);
+                            if (nearbyStudent && nearbyStudent.tags.comportamento.includes('chiacchierone')) {
+                                hasNearbyChatterbox = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (hasNearbyChatterbox) break;
+                }
+                
+                if (!hasNearbyChatterbox) {
+                    return desk;
+                }
+            }
+            
+            return availableDesks[0];
+        }
+
+        function findAvailableDesk() {
+            return classroom.desks.find(d => !d.student);
+        }
+
+        function findNearbyDesk(targetDesk) {
+            const nearbyPositions = [
+                {dr: 0, dc: 1}, {dr: 0, dc: -1},
+                {dr: 1, dc: 0}, {dr: -1, dc: 0}
+            ];
+            
+            for (const pos of nearbyPositions) {
+                const desk = classroom.desks.find(d => 
+                    d.row === targetDesk.row + pos.dr && 
+                    d.col === targetDesk.col + pos.dc && 
+                    !d.student
+                );
+                if (desk) return desk;
+            }
+            
+            return null;
+        }
+
+        function assignStudentToDesk(student, desk) {
+            desk.student = student.id;
+            const deskElement = document.getElementById(`desk-${desk.row}-${desk.col}`);
+            deskElement.classList.add('occupied');
+            
+            const studentLabel = document.createElement('div');
+            studentLabel.className = 'desk-student-label';
+            studentLabel.draggable = true;
+            studentLabel.dataset.studentId = student.id;
+            
+            // Add photo or initials
+            const photoDiv = document.createElement('div');
+            photoDiv.className = 'desk-student-photo';
+            
+            if (student.photo) {
+                const img = document.createElement('img');
+                img.src = student.photo;
+                img.alt = student.name;
+                photoDiv.appendChild(img);
+            } else {
+                photoDiv.textContent = getInitials(student.name);
+            }
+            
+            const nameDiv = document.createElement('div');
+            nameDiv.className = 'desk-student-name';
+            nameDiv.textContent = student.name.split(' ')[0];
+            
+            studentLabel.appendChild(photoDiv);
+            studentLabel.appendChild(nameDiv);
+            
+            studentLabel.addEventListener('dragstart', handleDeskDragStart);
+            studentLabel.addEventListener('dragend', handleDeskDragEnd);
+            
+            deskElement.innerHTML = '';
+            const props = deskElement.querySelector('.desk-properties');
+            if (props) deskElement.appendChild(props);
+            deskElement.appendChild(studentLabel);
+        }
+
+        function resetSeating(showToastMessage = true) {
+            classroom.desks.forEach(desk => {
+                desk.student = null;
+                const deskElement = document.getElementById(`desk-${desk.row}-${desk.col}`);
+                deskElement.classList.remove('occupied');
+                
+                const label = deskElement.querySelector('.desk-student-label');
+                if (label) label.remove();
+            });
+            updateStats();
+            if (showToastMessage) {
+                showToast('Disposizione resettata', 'success');
+            }
+        }
+
+        // Mobile Functions
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('open');
+        }
+
+        function closeSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.remove('open');
+            overlay.classList.remove('open');
+        }
+
+        function updateMobileTitle() {
+            const mobileTitle = document.getElementById('mobileClassName');
+            if (mobileTitle) {
+                mobileTitle.textContent = currentClassName.replace('Studenti ', '');
+            }
+        }
+
+        function editClassName() {
+            const currentName = currentClassName.replace('Studenti ', '');
+            const newName = prompt('Inserisci il nome della classe:', currentName);
+            
+            if (newName && newName.trim()) {
+                currentClassName = newName.trim();
+                document.getElementById('className').textContent = `Studenti ${currentClassName}`;
+                updateMobileTitle();
+                showToast(`Nome classe aggiornato: ${currentClassName}`, 'success');
+                saveToLocalStorage();
+            }
+        }
+
+        // Save/Load Configuration
+        function saveConfiguration() {
+            const config = {
+                className: currentClassName,
+                students: students,
+                seating: classroom.desks.map(d => ({
+                    row: d.row,
+                    col: d.col,
+                    studentId: d.student
+                })),
+                classroomDimensions: {
+                    rows: classroom.rows,
+                    cols: classroom.cols,
+                    arrangement: classroom.arrangement
+                },
+                rules: rules,
+                studentRelations: studentRelations,
+                timestamp: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(config, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            const className = currentClassName.replace(/\s+/g, '_');
+            link.download = `disposizione_${className}_${new Date().toLocaleDateString('it-IT').replace(/\//g, '-')}.json`;
+            link.click();
+            
+            showToast('Configurazione salvata!', 'success');
+        }
+
+        function loadConfiguration() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    try {
+                        const config = JSON.parse(event.target.result);
+                        
+                        students = config.students;
+                        renderStudentList();
+                        
+                        if (config.className) {
+                            currentClassName = config.className;
+                            document.getElementById('className').textContent = `Studenti ${currentClassName}`;
+                            updateMobileTitle();
+                        }
+                        
+                        if (config.classroomDimensions) {
+                            classroom.rows = config.classroomDimensions.rows;
+                            classroom.cols = config.classroomDimensions.cols;
+                            classroom.arrangement = config.classroomDimensions.arrangement || 'grid';
+                            createClassroomGrid();
+                        }
+                        
+                        resetSeating(false);
+                        config.seating.forEach(seat => {
+                            if (seat.studentId) {
+                                const desk = classroom.desks.find(d => 
+                                    d.row === seat.row && d.col === seat.col
+                                );
+                                const student = students.find(s => s.id === seat.studentId);
+                                if (desk && student) {
+                                    assignStudentToDesk(student, desk);
+                                }
+                            }
+                        });
+                        
+                        if (config.rules) {
+                            rules = config.rules;
+                        }
+                        
+                        if (config.studentRelations) {
+                            studentRelations = config.studentRelations;
+                        }
+                        
+                        updateStats();
+                        showToast('Configurazione caricata con successo!', 'success');
+                        saveToLocalStorage();
+                    } catch (error) {
+                        showToast('Errore nel caricamento del file', 'error');
+                    }
+                };
+                reader.readAsText(file);
+            };
+            
+            input.click();
+        }
+
+        function updateStats() {
+            document.getElementById('totalStudents').textContent = students.length;
+            const assigned = classroom.desks.filter(d => d.student).length;
+            document.getElementById('assignedSeats').textContent = assigned;
+            document.getElementById('freeSeats').textContent = classroom.desks.length - assigned;
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type} show`;
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function focusTagInput(type) {
+            document.getElementById(`tag${type.charAt(0).toUpperCase() + type.slice(1)}`).focus();
+        }
+
+        function showDeskInfo(row, col) {
+            const desk = classroom.desks.find(d => d.row === row && d.col === col);
+            if (desk.student) {
+                const student = students.find(s => s.id === desk.student);
+                if (student) {
+                    let info = `${student.name} (Fila ${row + 1}, Colonna ${col + 1})`;
+                    if (student.performance) {
+                        info += ` - Rendimento: ${student.performance}`;
+                    }
+                    if (student.relations && student.relations.length > 0) {
+                        info += ` - ${student.relations.length} relazioni`;
+                    }
+                    showToast(info, 'success');
+                }
+            } else {
+                showToast(`Posto libero (Fila ${row + 1}, Colonna ${col + 1})`, 'success');
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth <= 768) {
+                document.querySelector('.mobile-menu-btn').style.display = 'block';
+            } else {
+                document.querySelector('.mobile-menu-btn').style.display = 'none';
+                document.getElementById('sidebar').classList.remove('open');
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', initApp);
+
+        function printSeating() {
+            window.print();
+            showToast('Stampa in corso...', 'success');
+        }
+
+        // Enhanced Export to Excel with new fields
+        function exportToExcel() {
+            const excelData = [];
+            
+            // Header row with new fields
+            excelData.push([
+                'Nome Studente',
+                'Fila',
+                'Posto',
+                'Rendimento',
+                'Tags Personalità',
+                'Tags Apprendimento',
+                'Tags Comportamento',
+                'Relazioni',
+                'Posizione Descrittiva'
+            ]);
+            
+            // Student data with enhanced information
+            students.forEach(student => {
+                const desk = classroom.desks.find(d => d.student === student.id);
+                
+                // Format relations
+                let relationsText = '';
+                if (student.relations && student.relations.length > 0) {
+                    relationsText = student.relations.map(r => {
+                        const otherStudent = students.find(s => s.id === r.studentId);
+                        return otherStudent ? `${otherStudent.name} (${r.description})` : '';
+                    }).filter(r => r).join('; ');
+                }
+                
+                excelData.push([
+                    student.name,
+                    desk ? desk.row + 1 : '-',
+                    desk ? desk.col + 1 : '-',
+                    student.performance || '-',
+                    student.tags.personalità.join(', '),
+                    student.tags.apprendimento.join(', '),
+                    student.tags.comportamento.join(', '),
+                    relationsText || '-',
+                    desk ? `Fila ${desk.row + 1}, Posto ${desk.col + 1}` : 'Non assegnato'
+                ]);
+            });
+            
+            // Add metadata
+            excelData.push([]);
+            excelData.push(['Informazioni Classe']);
+            excelData.push(['Classe:', currentClassName]);
+            excelData.push(['Data esportazione:', new Date().toLocaleDateString('it-IT')]);
+            excelData.push(['Disposizione:', {
+                'grid': 'Griglia Tradizionale',
+                'horseshoe': 'Ferro di Cavallo',
+                'groups': 'Isole di Lavoro'
+            }[classroom.arrangement || 'grid']]);
+            excelData.push(['Totale studenti:', students.length]);
+            excelData.push(['Studenti posizionati:', classroom.desks.filter(d => d.student).length]);
+            
+            // Performance summary
+            excelData.push([]);
+            excelData.push(['Riepilogo Rendimento']);
+            const performanceCount = {
+                alto: students.filter(s => s.performance === 'alto').length,
+                medio: students.filter(s => s.performance === 'medio').length,
+                basso: students.filter(s => s.performance === 'basso').length
+            };
+            excelData.push(['Rendimento Alto:', performanceCount.alto]);
+            excelData.push(['Rendimento Medio:', performanceCount.medio]);
+            excelData.push(['Rendimento Basso:', performanceCount.basso]);
+            
+            // Relations summary
+            const totalRelations = students.reduce((sum, s) => sum + (s.relations ? s.relations.length : 0), 0);
+            excelData.push([]);
+            excelData.push(['Relazioni Totali:', totalRelations]);
+            
+            // Visual map
+            excelData.push([]);
+            excelData.push(['Mappa Visuale Aula']);
+            excelData.push([]);
+            
+            const mapHeader = [''];
+            for (let col = 0; col < classroom.cols; col++) {
+                mapHeader.push(`Colonna ${col + 1}`);
+            }
+            excelData.push(mapHeader);
+            
+            for (let row = 0; row < classroom.rows; row++) {
+                const mapRow = [`Fila ${row + 1}`];
+                for (let col = 0; col < classroom.cols; col++) {
+                    const desk = classroom.desks.find(d => d.row === row && d.col === col);
+                    if (desk && desk.student) {
+                        const student = students.find(s => s.id === desk.student);
+                        mapRow.push(student ? student.name : 'Occupato');
+                    } else {
+                        mapRow.push('Vuoto');
+                    }
+                }
+                excelData.push(mapRow);
+            }
+            
+            // Convert to CSV
+            const csvContent = excelData.map(row => 
+                row.map(cell => {
+                    const cellStr = String(cell || '');
+                    if (cellStr.includes(',') || cellStr.includes('"') || cellStr.includes('\n')) {
+                        return '"' + cellStr.replace(/"/g, '""') + '"';
+                    }
+                    return cellStr;
+                }).join(',')
+            ).join('\n');
+            
+            const BOM = '\uFEFF';
+            const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' });
+            
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `disposizione_${currentClassName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showToast('Esportazione Excel completata!', 'success');
+        }
+    </script>
 </body>
 </html>
