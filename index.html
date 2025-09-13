@@ -2925,24 +2925,34 @@
 
         // Enhanced Generate Seating with Relations and Performance
         function generateSeating() {
-    const occupiedDesks = classroom.desks.filter(d => d.student);
-    if (occupiedDesks.length > 0) {
-        if (!confirm('Vuoi generare una NUOVA disposizione casuale? Quella attuale verrà persa.')) {
-            return;
-        }
+    if (!students || students.length === 0) {
+        showToast('Aggiungi prima degli studenti!', 'error');
+        return;
     }
     
-    showToast('Generazione disposizione intelligente...', 'success');
+    showToast('Generazione disposizione...', 'success');
     resetSeating(false);
-
-    let availableStudents = [...students];
-    let placedStudents = new Set();
     
-    // Mescola array per randomizzazione
+    // Copia array studenti e mescola
+    let availableStudents = [...students];
     for (let i = availableStudents.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [availableStudents[i], availableStudents[j]] = [availableStudents[j], availableStudents[i]];
     }
+    
+    // Posiziona tutti gli studenti
+    availableStudents.forEach(student => {
+        const availableDesks = classroom.desks.filter(d => !d.student);
+        if (availableDesks.length > 0) {
+            const randomDesk = availableDesks[Math.floor(Math.random() * availableDesks.length)];
+            assignStudentToDesk(student, randomDesk);
+        }
+    });
+    
+    saveSeatingToHistory();
+    updateStats();
+    showToast('Disposizione generata!', 'success');
+}
     
     // Posiziona DSA/BES davanti (con scelta casuale del banco)
     const specialNeedsStudents = availableStudents.filter(s => 
