@@ -3123,7 +3123,50 @@ function generateSeating() {
     saveSeatingToHistory();
     updateStats();
 }
-            
+
+function assignStudentToDesk(student, desk) {
+    desk.student = student.id;
+    const deskElement = document.getElementById(`desk-${desk.row}-${desk.col}`);
+    if (!deskElement) return; // Sicurezza
+
+    // Rimuovi solo un eventuale studente precedente, senza cancellare le icone
+    const oldLabel = deskElement.querySelector('.desk-student-label');
+    if (oldLabel) {
+        oldLabel.remove();
+    }
+    
+    deskElement.classList.add('occupied');
+    
+    const studentLabel = document.createElement('div');
+    studentLabel.className = 'desk-student-label';
+    studentLabel.draggable = true;
+    studentLabel.dataset.studentId = student.id;
+    
+    // Aggiunge la foto o le iniziali
+    const photoDiv = document.createElement('div');
+    photoDiv.className = 'desk-student-photo';
+    
+    if (student.photo) {
+        const img = document.createElement('img');
+        img.src = student.photo;
+        img.alt = student.name;
+        photoDiv.appendChild(img);
+    } else {
+        photoDiv.textContent = getInitials(student.name);
+    }
+    
+    const nameDiv = document.createElement('div');
+    nameDiv.className = 'desk-student-name';
+    nameDiv.textContent = student.name.split(' ')[0];
+    
+    studentLabel.appendChild(photoDiv);
+    studentLabel.appendChild(nameDiv);
+    
+    studentLabel.addEventListener('dragstart', handleDeskDragStart);
+    studentLabel.addEventListener('dragend', handleDeskDragEnd);
+    
+    deskElement.appendChild(studentLabel);
+}           
             
 
         function resetSeating(showToastMessage = true) {
