@@ -2335,21 +2335,33 @@
 
         // Update arrangement preview
         function updateArrangementPreview() {
-            const arrangement = document.getElementById('deskArrangement').value;
-            const preview = document.getElementById('arrangementPreview');
-            
-            switch(arrangement) {
-                case 'grid':
-                    preview.textContent = 'Disposizione classica in file e colonne';
-                    break;
-                case 'horseshoe':
-                    preview.textContent = 'Banchi disposti a U per favorire la discussione';
-                    break;
-                case 'groups':
-                    preview.textContent = 'Isole da 4 studenti per lavori di gruppo';
-                    break;
-            }
-        }
+    const arrangement = document.getElementById('deskArrangement').value;
+    const preview = document.getElementById('arrangementPreview');
+    
+    switch(arrangement) {
+        case 'grid':
+            preview.textContent = 'Disposizione classica in file e colonne';
+            break;
+        case 'horseshoe':
+            preview.textContent = 'Banchi disposti a U per favorire la discussione';
+            break;
+        case 'groups':
+            preview.textContent = 'Isole adattive (si adattano al numero di studenti)';
+            break;
+        case 'groups3':
+            preview.textContent = 'Isole da 3 studenti per lavori in piccoli gruppi';
+            break;
+        case 'groups4':
+            preview.textContent = 'Isole da 4 studenti (configurazione standard)';
+            break;
+        case 'groups5':
+            preview.textContent = 'Isole da 5 studenti per classi medio-grandi';
+            break;
+        case 'groups6':
+            preview.textContent = 'Isole da 6 studenti per classi numerose';
+            break;
+    }
+}
 
         // Create Classroom Grid based on arrangement type
         function createClassroomGrid() {
@@ -2422,7 +2434,7 @@
         }
 
         // Groups Layout (Islands of 4)
-        function createGroupsArrangement(grid) {
+        function createGroupsArrangement(grid, arrangement) {
     grid.style.display = 'grid';
     grid.style.gap = '40px';
     grid.style.justifyContent = 'center';
@@ -2430,21 +2442,37 @@
     const totalDesks = classroom.rows * classroom.cols;
     const studentCount = students.length;
     
-    // Determina la dimensione ottimale dei gruppi
+    // Determina la dimensione dei gruppi
     let groupSize, numGroups;
     
-    if (studentCount <= 12) {
-        groupSize = 3; // Gruppi da 3 per classi piccole
-        numGroups = 4;
-    } else if (studentCount <= 20) {
-        groupSize = 4; // Gruppi da 4 standard
-        numGroups = 5;
-    } else if (studentCount <= 25) {
-        groupSize = 5; // Gruppi da 5 per classi medio-grandi
-        numGroups = 5;
+    // Se è specificato un tipo fisso di gruppo
+    if (arrangement === 'groups3') {
+        groupSize = 3;
+        numGroups = Math.ceil(totalDesks / 3);
+    } else if (arrangement === 'groups4') {
+        groupSize = 4;
+        numGroups = Math.ceil(totalDesks / 4);
+    } else if (arrangement === 'groups5') {
+        groupSize = 5;
+        numGroups = Math.ceil(totalDesks / 5);
+    } else if (arrangement === 'groups6') {
+        groupSize = 6;
+        numGroups = Math.ceil(totalDesks / 6);
     } else {
-        groupSize = 6; // Gruppi da 6 per classi grandi
-        numGroups = 5;
+        // Modalità adattiva
+        if (studentCount <= 12) {
+            groupSize = 3;
+            numGroups = 4;
+        } else if (studentCount <= 20) {
+            groupSize = 4;
+            numGroups = 5;
+        } else if (studentCount <= 25) {
+            groupSize = 5;
+            numGroups = 5;
+        } else {
+            groupSize = 6;
+            numGroups = 5;
+        }
     }
     
     // Calcola layout della griglia
