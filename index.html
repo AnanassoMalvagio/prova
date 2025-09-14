@@ -1540,7 +1540,11 @@
                     <select id="deskArrangement" onchange="updateArrangementPreview()" style="width: 100%;">
                         <option value="grid">Griglia Tradizionale</option>
                         <option value="horseshoe">Ferro di Cavallo</option>
-                        <option value="groups">Isole di Lavoro (4 studenti)</option>
+                        <option value="groups">Isole di Lavoro (Adattive)</option>
+                        <option value="groups3">Isole da 3 studenti</option>
+                        <option value="groups4">Isole da 4 studenti</option>
+                        <option value="groups5">Isole da 5 studenti</option>
+                        <option value="groups6">Isole da 6 studenti</option>
                     </select>
                     <div id="arrangementPreview" style="margin-top: 10px; padding: 10px; background: #f8f9fa; border-radius: 6px; text-align: center; font-size: 12px; color: #7f8c8d;">
                         Disposizione classica in file e colonne
@@ -2349,25 +2353,29 @@
 
         // Create Classroom Grid based on arrangement type
         function createClassroomGrid() {
-            const grid = document.getElementById('classroomGrid');
-            grid.innerHTML = '';
-            classroom.desks = [];
-            
-            const arrangement = classroom.arrangement || 'grid';
-            
-            switch(arrangement) {
-                case 'horseshoe':
-                    createHorseshoeArrangement(grid);
-                    break;
-                case 'groups':
-                    createGroupsArrangement(grid);
-                    break;
-                default:
-                    createTraditionalGrid(grid);
-            }
-            
-            updateStats();
-        }
+    const grid = document.getElementById('classroomGrid');
+    grid.innerHTML = '';
+    classroom.desks = [];
+    
+    const arrangement = classroom.arrangement || 'grid';
+    
+    switch(arrangement) {
+        case 'horseshoe':
+            createHorseshoeArrangement(grid);
+            break;
+        case 'groups':
+        case 'groups3':
+        case 'groups4':
+        case 'groups5':
+        case 'groups6':
+            createGroupsArrangement(grid, arrangement);
+            break;
+        default:
+            createTraditionalGrid(grid);
+    }
+    
+    updateStats();
+}
 
         // Traditional Grid Layout
         function createTraditionalGrid(grid) {
@@ -2415,38 +2423,74 @@
 
         // Groups Layout (Islands of 4)
         function createGroupsArrangement(grid) {
-            grid.style.display = 'grid';
-            grid.style.gridTemplateColumns = 'repeat(3, auto)';
-            grid.style.gap = '40px';
-            grid.style.justifyContent = 'center';
-            
-            const groupsPerRow = 3;
-            const groupRows = 2;
-            let deskId = 0;
-            
-            for (let groupRow = 0; groupRow < groupRows; groupRow++) {
-                for (let groupCol = 0; groupCol < groupsPerRow; groupCol++) {
-                    const groupContainer = document.createElement('div');
-                    groupContainer.style.display = 'grid';
-                    groupContainer.style.gridTemplateColumns = 'repeat(2, 1fr)';
-                    groupContainer.style.gap = '10px';
-                    groupContainer.style.padding = '10px';
-                    groupContainer.style.background = 'rgba(52, 152, 219, 0.05)';
-                    groupContainer.style.borderRadius = '12px';
-                    
-                    for (let i = 0; i < 4; i++) {
-                        const row = groupRow * 2 + Math.floor(i / 2);
-                        const col = groupCol * 2 + (i % 2);
-                        const desk = createDesk(row, col);
-                        groupContainer.appendChild(desk);
-                        classroom.desks.push({row, col, student: null, group: groupRow * groupsPerRow + groupCol});
-                        deskId++;
-                    }
-                    
-                    grid.appendChild(groupContainer);
-                }
-            }
+    grid.style.display = 'grid';
+    grid.style.gap = '40px';
+    grid.style.justifyContent = 'center';
+    
+    const totalDesks = classroom.rows * classroom.cols;
+    const studentCount = students.length;
+    
+    // Determina la dimensione ottimale dei gruppi
+    let groupSize, numGroups;
+    
+    if (studentCount <= 12) {
+        groupSize = 3; // Gruppi da 3 per classi piccole
+        numGroups = 4;
+    } else if (studentCount <= 20) {
+        groupSize = 4; // Gruppi da 4 standard
+        numGroups = 5;
+    } else if (studentCount <= 25) {
+        groupSize = 5; // Gruppi da 5 per classi medio-grandi
+        numGroups = 5;
+    } else {
+        groupSize = 6; // Gruppi da 6 per classi grandi
+        numGroups = 5;
+    }
+    
+    // Calcola layout della griglia
+    const cols = groupSize <= 3 ? 3 : 2;
+    const rows = Math.ceil(groupSize / cols);
+    grid.style.gridTemplateColumns = `repeat(${Math.ceil(numGroups / 2)}, auto)`;
+    
+    let deskCount = 0;
+    const maxGroups = Math.min(numGroups, Math.ceil(totalDesks / groupSize));
+    
+    for (let g = 0; g < maxGroups; g++) {
+        const groupContainer = document.createElement('div');
+        groupContainer.style.display = 'grid';
+        groupContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+        groupContainer.style.gap = '10px';
+        groupContainer.style.padding = '10px';
+        groupContainer.style.background = 'rgba(52, 152, 219, 0.05)';
+        groupContainer.style.borderRadius = '12px';
+        
+        // Aggiungi etichetta gruppo
+        const groupLabel = document.createElement('div');
+        groupLabel.style.gridColumn = `1 / -1`;
+        groupLabel.style.textAlign = 'center';
+        groupLabel.style.fontSize = '10px';
+        groupLabel.style.color = '#3498db';
+        groupLabel.style.marginBottom = '5px';
+        groupLabel.textContent = `Gruppo ${g + 1}`;
+        groupContainer.appendChild(groupLabel);
+        
+        for (let i = 0; i < groupSize && deskCount < totalDesks; i++) {
+            const row = Math.floor(deskCount / classroom.cols);
+            const col = deskCount % classroom.cols;
+            const desk = createDesk(row, col);
+            groupContainer.appendChild(desk);
+            classroom.desks.push({
+                row, 
+                col, 
+                student: null, 
+                group: g
+            });
+            deskCount++;
         }
+        
+        grid.appendChild(groupContainer);
+    }
+}
 
         // Create individual desk element
         function createDesk(row, col) {
