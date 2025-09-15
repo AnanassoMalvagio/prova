@@ -1209,6 +1209,106 @@
             display: flex;
             gap: 10px;
         }
+        /* Stili specifici per la stampa */
+@media print {
+    /* Nascondi elementi non necessari */
+    .sidebar,
+    .mobile-header,
+    .sidebar-overlay,
+    .toolbar,
+    .btn,
+    .modal {
+        display: none !important;
+    }
+    
+    /* Reset del container principale */
+    .app-container {
+        display: block;
+        height: auto;
+    }
+    
+    .main-content {
+        padding: 0;
+        width: 100%;
+    }
+    
+    /* Ottimizza la visualizzazione dell'aula */
+    .classroom-container {
+        padding: 10px;
+        overflow: visible;
+        display: block;
+    }
+    
+    .classroom-wrapper {
+        padding: 20px;
+        box-shadow: none;
+        border: 1px solid #ccc;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    
+    /* Ingrandisci la griglia per la stampa */
+    .classroom-grid {
+        transform: none !important;
+        gap: 10px !important;
+        justify-content: center;
+        page-break-inside: avoid;
+    }
+    
+    /* Ingrandisci i banchi per migliore leggibilità */
+    .desk {
+        width: 100px !important;
+        height: 70px !important;
+        font-size: 14px !important;
+        page-break-inside: avoid;
+    }
+    
+    .desk-student-photo {
+        width: 30px !important;
+        height: 30px !important;
+        font-size: 12px !important;
+    }
+    
+    .desk-student-name {
+        font-size: 12px !important;
+        font-weight: bold;
+    }
+    
+    /* Ottimizza le etichette */
+    .classroom-feature {
+        font-size: 16px !important;
+        font-weight: bold;
+    }
+    
+    .lavagna {
+        top: -40px !important;
+    }
+    
+    /* Aggiungi informazioni classe in alto */
+    .classroom-wrapper::before {
+        content: attr(data-class-info);
+        display: block;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #333;
+    }
+    
+    /* Orientamento orizzontale per massimizzare lo spazio */
+    @page {
+        size: A4 landscape;
+        margin: 1cm;
+    }
+    
+    /* Assicura che i colori siano visibili */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+    }
+}
     </style>
 </head>
 <body>
@@ -3556,9 +3656,15 @@ function assignStudentToDesk(student, desk) {
         window.addEventListener('DOMContentLoaded', initApp);
 
         function printSeating() {
-            window.print();
-            showToast('Stampa in corso...', 'success');
-        }
+    // Aggiungi informazioni classe per la stampa
+    const wrapper = document.querySelector('.classroom-wrapper');
+    const date = new Date().toLocaleDateString('it-IT');
+    wrapper.setAttribute('data-class-info', `${currentClassName} - Disposizione posti - ${date}`);
+    
+    // Stampa
+    window.print();
+    showToast('Stampa in corso...', 'success');
+}
 
         // Enhanced Export to Excel with new fields
         function exportToExcel() {
