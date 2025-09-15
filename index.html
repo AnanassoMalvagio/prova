@@ -2584,6 +2584,11 @@
     }
     
     if (props.innerHTML) desk.appendChild(props);
+
+    desk.addEventListener('dragover', handleDragOver);
+    desk.addEventListener('drop', handleDrop);
+    desk.addEventListener('dragleave', handleDragLeave);
+    desk.addEventListener('click', () => showDeskInfo(row, col));
     
     // ... resto del codice eventi ...
     
