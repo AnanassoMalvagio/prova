@@ -1550,6 +1550,28 @@
                         Disposizione classica in file e colonne
                     </div>
                 </div>
+                <!-- Aggiungi dopo il select della disposizione banchi -->
+<div class="form-group">
+    <label>Posizione Lavagna/LIM</label>
+    <select id="boardPosition" style="width: 100%;">
+        <option value="top">In alto (Nord)</option>
+        <option value="bottom">In basso (Sud)</option>
+        <option value="left">A sinistra (Ovest)</option>
+        <option value="right">A destra (Est)</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label>Posizione Porta</label>
+    <select id="doorPosition" style="width: 100%;">
+        <option value="left">A sinistra</option>
+        <option value="right">A destra</option>
+        <option value="top-left">Alto sinistra</option>
+        <option value="top-right">Alto destra</option>
+        <option value="bottom-left">Basso sinistra</option>
+        <option value="bottom-right">Basso destra</option>
+    </select>
+</div>
                 <div class="form-group">
                     <label>Nome della Classe</label>
                     <input type="text" id="classNameInput" placeholder="es. 1A, 2B, 3C..." value="">
@@ -2387,6 +2409,7 @@
     }
     
     updateStats();
+    updateClassroomFeatures();
 }
 
         // Traditional Grid Layout
@@ -2522,34 +2545,50 @@
 
         // Create individual desk element
         function createDesk(row, col) {
-            const desk = document.createElement('div');
-            desk.className = 'desk';
-            desk.dataset.row = row;
-            desk.dataset.col = col;
-            desk.id = `desk-${row}-${col}`;
-            
-            const props = document.createElement('div');
-            props.className = 'desk-properties';
-            
-            if (row === 0) {
-                props.innerHTML += '<div class="desk-prop board" title="Vicino alla lavagna"></div>';
-            }
-            if (col === 0) {
-                props.innerHTML += '<div class="desk-prop door" title="Vicino alla porta"></div>';
-            }
-            if (col === classroom.cols - 1) {
-                props.innerHTML += '<div class="desk-prop window" title="Vicino alla finestra"></div>';
-            }
-            
-            if (props.innerHTML) desk.appendChild(props);
-            
-            desk.addEventListener('dragover', handleDragOver);
-            desk.addEventListener('drop', handleDrop);
-            desk.addEventListener('dragleave', handleDragLeave);
-            desk.addEventListener('click', () => showDeskInfo(row, col));
-            
-            return desk;
-        }
+    const desk = document.createElement('div');
+    desk.className = 'desk';
+    desk.dataset.row = row;
+    desk.dataset.col = col;
+    desk.id = `desk-${row}-${col}`;
+    
+    const props = document.createElement('div');
+    props.className = 'desk-properties';
+    
+    // Determina le proprietà in base alla posizione di lavagna e porta
+    const boardPos = classroom.boardPosition || 'top';
+    const doorPos = classroom.doorPosition || 'left';
+    
+    // Vicino alla lavagna
+    if ((boardPos === 'top' && row === 0) ||
+        (boardPos === 'bottom' && row === classroom.rows - 1) ||
+        (boardPos === 'left' && col === 0) ||
+        (boardPos === 'right' && col === classroom.cols - 1)) {
+        props.innerHTML += '<div class="desk-prop board" title="Vicino alla lavagna"></div>';
+    }
+    
+    // Vicino alla porta (logica semplificata)
+    const isDoorNear = 
+        (doorPos === 'left' && col === 0) ||
+        (doorPos === 'right' && col === classroom.cols - 1) ||
+        (doorPos.includes('left') && col <= 1) ||
+        (doorPos.includes('right') && col >= classroom.cols - 2);
+        
+    if (isDoorNear) {
+        props.innerHTML += '<div class="desk-prop door" title="Vicino alla porta"></div>';
+    }
+    
+    // Vicino alla finestra (opposto alla porta di solito)
+    if ((doorPos.includes('left') && col === classroom.cols - 1) ||
+        (doorPos.includes('right') && col === 0)) {
+        props.innerHTML += '<div class="desk-prop window" title="Vicino alla finestra"></div>';
+    }
+    
+    if (props.innerHTML) desk.appendChild(props);
+    
+    // ... resto del codice eventi ...
+    
+    return desk;
+}
 
         // Load Sample Students
         function loadSampleStudents() {
@@ -3064,6 +3103,8 @@
             const newCols = parseInt(document.getElementById('classCols').value);
             const newClassName = document.getElementById('classNameInput').value.trim();
             const newArrangement = document.getElementById('deskArrangement').value;
+            const boardPos = document.getElementById('boardPosition').value;
+            const doorPos = document.getElementById('doorPosition').value;
             
             if (newClassName) {
                 currentClassName = newClassName;
@@ -3081,6 +3122,8 @@
             classroom.rows = newRows;
             classroom.cols = newCols;
             classroom.arrangement = newArrangement;
+            classroom.boardPosition = boardPos || 'top';
+            classroom.doorPosition = doorPos || 'left';
             classroom.desks = [];
             
             createClassroomGrid();
@@ -3108,6 +3151,74 @@
             showToast(`Configurazione aggiornata: ${currentClassName} - ${arrangementName}`, 'success');
             saveToLocalStorage();
         }
+        function updateClassroomFeatures() {
+    const lavagna = document.querySelector('.lavagna');
+    const porta = document.querySelector('.porta');
+    
+    // Reset degli stili
+    lavagna.style = '';
+    porta.style = '';
+    
+    // Posiziona la lavagna
+    switch(classroom.boardPosition || 'top') {
+        case 'top':
+            lavagna.style.cssText = 'top: -30px; left: 50%; transform: translateX(-50%); width: 60%;';
+            break;
+        case 'bottom':
+            lavagna.style.cssText = 'bottom: -30px; left: 50%; transform: translateX(-50%); width: 60%; top: auto;';
+            break;
+        case 'left':
+            lavagna.style.cssText = 'left: -50px; top: 50%; transform: translateY(-50%) rotate(-90deg); width: 40%;';
+            break;
+        case 'right':
+            lavagna.style.cssText = 'right: -50px; left: auto; top: 50%; transform: translateY(-50%) rotate(90deg); width: 40%;';
+            break;
+    }
+    
+    // Posiziona la porta
+    switch(classroom.doorPosition || 'left') {
+        case 'left':
+            porta.style.cssText = 'left: -50px; top: 50%; transform: translateY(-50%) rotate(-90deg);';
+            break;
+        case 'right':
+            porta.style.cssText = 'right: -50px; left: auto; top: 50%; transform: translateY(-50%) rotate(90deg);';
+            break;
+        case 'top-left':
+            porta.style.cssText = 'top: -30px; left: 10px; transform: none;';
+            break;
+        case 'top-right':
+            porta.style.cssText = 'top: -30px; right: 10px; left: auto; transform: none;';
+            break;
+        case 'bottom-left':
+            porta.style.cssText = 'bottom: -30px; top: auto; left: 10px; transform: none;';
+            break;
+        case 'bottom-right':
+            porta.style.cssText = 'bottom: -30px; top: auto; right: 10px; left: auto; transform: none;';
+            break;
+    }
+    
+    // Aggiorna anche gli indicatori sui banchi
+    updateDeskIndicators();
+}
+
+function updateDeskIndicators() {
+    // Questa funzione forza il re-render degli indicatori sui banchi
+    classroom.desks.forEach(desk => {
+        const deskElement = document.getElementById(`desk-${desk.row}-${desk.col}`);
+        if (deskElement) {
+            // Rimuovi vecchi indicatori
+            const oldProps = deskElement.querySelector('.desk-properties');
+            if (oldProps) oldProps.remove();
+            
+            // Ricrea gli indicatori con le nuove posizioni
+            const newDesk = createDesk(desk.row, desk.col);
+            const newProps = newDesk.querySelector('.desk-properties');
+            if (newProps) {
+                deskElement.insertBefore(newProps, deskElement.firstChild);
+            }
+        }
+    });
+}
         // FUNZIONE CORRETTA PER GENERARE LA DISPOSIZIONE SENZA DUPLICATI
         // VERSIONE MIGLIORATA E FUNZIONANTE
 function generateSeating() {
