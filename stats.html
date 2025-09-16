@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Statistiche Avanzate - Gestione Classe</title>
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/AnanassoMalvagio/gestioneclasse/main/logo.png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -75,6 +76,42 @@
         .back-link:hover {
             text-decoration: underline;
         }
+        .chart-container {
+            max-width: 500px;
+            margin: 20px auto;
+        }
+        .report-section {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+        .report-section h4 {
+            margin-top: 0;
+            color: #1976d2;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .stat-box {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #e1e8ed;
+            text-align: center;
+        }
+        .stat-box .value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #3498db;
+        }
+        .stat-box .label {
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
@@ -108,6 +145,32 @@
                     <button id="analyze-tag-btn">Analizza</button>
                 </div>
                 <div id="tag-results"></div>
+            </div>
+
+            <div class="stat-card">
+                <h3>📈 Analisi Rendimento Classe</h3>
+                <button id="analyze-performance-btn">Analizza Rendimento</button>
+                <div id="performance-results"></div>
+                <div class="chart-container">
+                    <canvas id="performanceChart" style="display: none;"></canvas>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <h3>👤 Report Individuale Studente</h3>
+                <div class="form-group">
+                    <select id="student-report-select">
+                        <option value="">Seleziona uno studente...</option>
+                    </select>
+                    <button id="generate-report-btn">Genera Report</button>
+                </div>
+                <div id="individual-report"></div>
+            </div>
+
+            <div class="stat-card">
+                <h3>📍 Analisi Posizioni Frequenti</h3>
+                <button id="analyze-positions-btn">Analizza Tutte le Posizioni</button>
+                <div id="positions-results"></div>            
             </div>
         </div>
     </div>
@@ -175,7 +238,11 @@
          */
         function calculateTagProximity(tag) {
             const taggedStudentIds = students
-                .filter(s => s.tags.comportamento.includes(tag) || s.tags.personalità.includes(tag))
+                .filter(s => 
+                    s.tags.comportamento.includes(tag) || 
+                    s.tags.personalità.includes(tag) ||
+                    s.tags.apprendimento.includes(tag)
+                )
                 .map(s => s.id);
             
             if (taggedStudentIds.length < 2) {
@@ -216,6 +283,103 @@
             return { averagePercentage: totalProximityPercentage / relevantDispositions };
         }
 
+        /**
+         * Analizza la distribuzione del rendimento
+         */
+        function analyzePerformanceDistribution() {
+            const distribution = {
+                alto: students.filter(s => s.performance === 'alto').length,
+                medio: students.filter(s => s.performance === 'medio').length,
+                basso: students.filter(s => s.performance === 'basso').length
+            };
+            
+            // Analisi posizioni prime file
+            let frontRowStats = { alto: 0, medio: 0, basso: 0, total: 0 };
+            
+            seatingHistory.forEach(entry => {
+                entry.seating.forEach(seat => {
+                    if (seat.row === 0 || seat.row === 1) {
+                        const student = students.find(s => s.id === seat.studentId);
+                        if (student && student.performance) {
+                            frontRowStats[student.performance]++;
+                            frontRowStats.total++;
+                        }
+                    }
+                });
+            });
+            
+            return { distribution, frontRowStats };
+        }
+
+        /**
+         * Trova le posizioni più frequenti per uno studente
+         */
+        function getMostFrequentPositions(studentId) {
+            const positions = {};
+            let totalPlacements = 0;
+            
+            seatingHistory.forEach(entry => {
+                const seat = entry.seating.find(s => s.studentId === studentId);
+                if (seat) {
+                    const key = `Fila ${seat.row + 1}, Posto ${seat.col + 1}`;
+                    positions[key] = (positions[key] || 0) + 1;
+                    totalPlacements++;
+                }
+            });
+            
+            const sorted = Object.entries(positions)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 3)
+                .map(([pos, count]) => ({
+                    position: pos,
+                    count: count,
+                    percentage: ((count / totalPlacements) * 100).toFixed(1)
+                }));
+            
+            return { positions: sorted, total: totalPlacements };
+        }
+
+        /**
+         * Genera report completo per uno studente
+         */
+        function generateStudentReport(studentId) {
+            const student = students.find(s => s.id === studentId);
+            if (!student) return null;
+            
+            const proximityData = [];
+            
+            // Calcola vicinanza con altri studenti
+            students.forEach(other => {
+                if (other.id !== studentId) {
+                    const { proximityCount, sharedDispositions } = calculatePairProximity(studentId, other.id);
+                    if (proximityCount > 0) {
+                        proximityData.push({
+                            name: other.name,
+                            count: proximityCount,
+                            total: sharedDispositions,
+                            percentage: ((proximityCount / sharedDispositions) * 100).toFixed(1)
+                        });
+                    }
+                }
+            });
+            
+            // Ordina per frequenza
+            proximityData.sort((a, b) => b.count - a.count);
+            
+            const positions = getMostFrequentPositions(studentId);
+            
+            return {
+                student: student,
+                frequentNeighbors: proximityData.slice(0, 5),
+                positions: positions,
+                tags: [
+                    ...student.tags.personalità.map(t => ({tag: t, type: 'personalità'})),
+                    ...student.tags.apprendimento.map(t => ({tag: t, type: 'apprendimento'})),
+                    ...student.tags.comportamento.map(t => ({tag: t, type: 'comportamento'}))
+                ]
+            };
+        }
+
         // --- 3. POPOLAMENTO E GESTIONE DELL'INTERFACCIA ---
 
         // Popola i menu a tendina per la selezione degli studenti
@@ -250,6 +414,7 @@
         students.forEach(s => {
             s.tags.personalità.forEach(t => allTags.add(t));
             s.tags.comportamento.forEach(t => allTags.add(t));
+            s.tags.apprendimento.forEach(t => allTags.add(t));
         });
         allTags.forEach(tag => {
             tagSelect.innerHTML += `<option value="${tag}">${tag}</option>`;
@@ -270,6 +435,123 @@
             
             tagResultsDiv.style.color = '#27ae60';
             tagResultsDiv.textContent = `In media, la percentuale di vicinanza tra studenti con il tag "${selectedTag}" è stata del ${averagePercentage.toFixed(2)}%.`;
+        });
+
+        // Popola select per report individuale
+        const reportSelect = document.getElementById('student-report-select');
+        students.forEach(student => {
+            reportSelect.innerHTML += `<option value="${student.id}">${student.name}</option>`;
+        });
+
+        // Analisi rendimento
+        document.getElementById('analyze-performance-btn').addEventListener('click', () => {
+            const { distribution, frontRowStats } = analyzePerformanceDistribution();
+            const resultsDiv = document.getElementById('performance-results');
+            
+            resultsDiv.innerHTML = `
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="value">${distribution.alto}</div>
+                        <div class="label">Rendimento Alto</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="value">${distribution.medio}</div>
+                        <div class="label">Rendimento Medio</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="value">${distribution.basso}</div>
+                        <div class="label">Rendimento Basso</div>
+                    </div>
+                </div>
+                <div class="report-section">
+                    <h4>Studenti nelle prime 2 file:</h4>
+                    <p>Alto rendimento: ${frontRowStats.alto} volte</p>
+                    <p>Medio rendimento: ${frontRowStats.medio} volte</p>
+                    <p>Basso rendimento: ${frontRowStats.basso} volte</p>
+                </div>
+            `;
+            
+            // Crea grafico
+            const canvas = document.getElementById('performanceChart');
+            canvas.style.display = 'block';
+            
+            new Chart(canvas, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Alto', 'Medio', 'Basso'],
+                    datasets: [{
+                        data: [distribution.alto, distribution.medio, distribution.basso],
+                        backgroundColor: ['#27ae60', '#f39c12', '#e74c3c']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        });
+
+        // Report individuale
+        document.getElementById('generate-report-btn').addEventListener('click', () => {
+            const studentId = reportSelect.value;
+            if (!studentId) {
+                alert('Seleziona uno studente');
+                return;
+            }
+            
+            const report = generateStudentReport(studentId);
+            const reportDiv = document.getElementById('individual-report');
+            
+            let html = `
+                <div class="report-section">
+                    <h4>${report.student.name}</h4>
+                    <p><strong>Rendimento:</strong> ${report.student.performance || 'Non specificato'}</p>
+                    <p><strong>Tags:</strong> ${report.tags.map(t => t.tag).join(', ') || 'Nessuno'}</p>
+                    
+                    <h5>Vicini più frequenti:</h5>
+                    <ul>
+            `;
+            
+            report.frequentNeighbors.forEach(neighbor => {
+                html += `<li>${neighbor.name}: ${neighbor.count} volte (${neighbor.percentage}%)</li>`;
+            });
+            
+            html += `
+                    </ul>
+                    <h5>Posizioni più frequenti:</h5>
+                    <ul>
+            `;
+            
+            report.positions.positions.forEach(pos => {
+                html += `<li>${pos.position}: ${pos.count} volte (${pos.percentage}%)</li>`;
+            });
+            
+            html += `
+                    </ul>
+                </div>
+            `;
+            
+            reportDiv.innerHTML = html;
+        });
+
+        // Analisi posizioni
+        document.getElementById('analyze-positions-btn').addEventListener('click', () => {
+            const resultsDiv = document.getElementById('positions-results');
+            let html = '<div class="report-section">';
+            
+            students.forEach(student => {
+                const positions = getMostFrequentPositions(student.id);
+                if (positions.positions.length > 0) {
+                    html += `<p><strong>${student.name}:</strong> ${positions.positions[0].position} (${positions.positions[0].percentage}%)</p>`;
+                }
+            });
+            
+            html += '</div>';
+            resultsDiv.innerHTML = html;        
         });
     });
     </script>
