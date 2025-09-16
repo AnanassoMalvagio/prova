@@ -1234,54 +1234,62 @@
     
     /* Ottimizza la visualizzazione dell'aula */
     .classroom-container {
-        padding: 10px;
+        padding: 5px;
         overflow: visible;
         display: block;
     }
     
     .classroom-wrapper {
-        padding: 20px;
+        padding: 15px;
         box-shadow: none;
         border: 1px solid #ccc;
         max-width: 100%;
         margin: 0 auto;
+        position: relative;
     }
     
     /* Ingrandisci la griglia per la stampa */
     .classroom-grid {
         transform: none !important;
-        gap: 10px !important;
+        gap: 8px !important;
         justify-content: center;
         page-break-inside: avoid;
     }
     
-    /* Ingrandisci i banchi per migliore leggibilità */
+    /* Dimensioni ottimizzate dei banchi */
     .desk {
-        width: 100px !important;
-        height: 70px !important;
-        font-size: 14px !important;
+        width: 85px !important;
+        height: 60px !important;
+        font-size: 13px !important;
         page-break-inside: avoid;
     }
     
     .desk-student-photo {
-        width: 30px !important;
-        height: 30px !important;
-        font-size: 12px !important;
+        width: 26px !important;
+        height: 26px !important;
+        font-size: 11px !important;
     }
     
     .desk-student-name {
-        font-size: 12px !important;
+        font-size: 11px !important;
         font-weight: bold;
     }
     
-    /* Ottimizza le etichette */
+    /* Ottimizza le etichette e riposiziona */
     .classroom-feature {
-        font-size: 16px !important;
+        font-size: 14px !important;
         font-weight: bold;
+        padding: 6px 12px !important;
     }
     
     .lavagna {
-        top: -40px !important;
+        top: -25px !important;
+        width: 50% !important;
+    }
+    
+    .porta {
+        font-size: 12px !important;
+        padding: 5px 10px !important;
     }
     
     /* Aggiungi informazioni classe in alto */
@@ -1289,17 +1297,17 @@
         content: attr(data-class-info);
         display: block;
         text-align: center;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: bold;
-        margin-bottom: 20px;
-        padding-bottom: 10px;
+        margin-bottom: 15px;
+        padding-bottom: 8px;
         border-bottom: 2px solid #333;
     }
     
     /* Orientamento orizzontale per massimizzare lo spazio */
     @page {
         size: A4 landscape;
-        margin: 1cm;
+        margin: 0.8cm;
     }
     
     /* Assicura che i colori siano visibili */
@@ -1307,6 +1315,16 @@
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
         color-adjust: exact !important;
+    }
+    
+    /* Ridimensiona gli indicatori */
+    .desk-properties {
+        top: -15px !important;
+    }
+    
+    .desk-prop {
+        width: 5px !important;
+        height: 5px !important;
     }
 }
     </style>
