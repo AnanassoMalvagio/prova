@@ -1234,13 +1234,13 @@
     
     /* Ottimizza la visualizzazione dell'aula */
     .classroom-container {
-        padding: 5px;
+        padding: 0;
         overflow: visible;
         display: block;
     }
     
     .classroom-wrapper {
-        padding: 15px;
+        padding: 40px 10px 10px 10px;
         box-shadow: none;
         border: 1px solid #ccc;
         max-width: 100%;
@@ -1248,48 +1248,52 @@
         position: relative;
     }
     
-    /* Ingrandisci la griglia per la stampa */
+    /* Ridimensiona la griglia */
     .classroom-grid {
-        transform: none !important;
+        transform: scale(0.75) !important;
+        transform-origin: top center;
         gap: 8px !important;
         justify-content: center;
         page-break-inside: avoid;
+        margin-top: 10px;
     }
     
-    /* Dimensioni ottimizzate dei banchi */
+    /* Dimensioni ridotte dei banchi */
     .desk {
-        width: 85px !important;
-        height: 60px !important;
-        font-size: 13px !important;
+        width: 70px !important;
+        height: 50px !important;
+        font-size: 11px !important;
         page-break-inside: avoid;
     }
     
     .desk-student-photo {
-        width: 26px !important;
-        height: 26px !important;
-        font-size: 11px !important;
+        width: 20px !important;
+        height: 20px !important;
+        font-size: 9px !important;
     }
     
     .desk-student-name {
-        font-size: 11px !important;
+        font-size: 9px !important;
         font-weight: bold;
     }
     
-    /* Ottimizza le etichette e riposiziona */
+    /* Riposiziona e ridimensiona etichette */
     .classroom-feature {
-        font-size: 14px !important;
+        font-size: 12px !important;
         font-weight: bold;
-        padding: 6px 12px !important;
+        padding: 4px 8px !important;
     }
     
     .lavagna {
-        top: -25px !important;
-        width: 50% !important;
+        position: absolute !important;
+        top: 5px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 40% !important;
     }
     
     .porta {
-        font-size: 12px !important;
-        padding: 5px 10px !important;
+        display: none !important; /* Nascondi la porta per risparmiare spazio */
     }
     
     /* Aggiungi informazioni classe in alto */
@@ -1297,17 +1301,21 @@
         content: attr(data-class-info);
         display: block;
         text-align: center;
-        font-size: 16px;
+        font-size: 14px;
         font-weight: bold;
-        margin-bottom: 15px;
-        padding-bottom: 8px;
-        border-bottom: 2px solid #333;
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #333;
+        position: absolute;
+        top: 10px;
+        left: 0;
+        right: 0;
     }
     
     /* Orientamento orizzontale per massimizzare lo spazio */
     @page {
         size: A4 landscape;
-        margin: 0.8cm;
+        margin: 0.5cm;
     }
     
     /* Assicura che i colori siano visibili */
@@ -1317,14 +1325,9 @@
         color-adjust: exact !important;
     }
     
-    /* Ridimensiona gli indicatori */
+    /* Nascondi gli indicatori per risparmiare spazio */
     .desk-properties {
-        top: -15px !important;
-    }
-    
-    .desk-prop {
-        width: 5px !important;
-        height: 5px !important;
+        display: none !important;
     }
 }
     </style>
