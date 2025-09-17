@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Classe - Gestione Privacy</title>
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/AnanassoMalvagio/gestioneclasse/main/logo.png">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f7fa;
+            color: #2c3e50;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        h1 {
+            color: #3498db;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .info-box {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+        .registry-grid {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .student-row {
+            display: grid;
+            grid-template-columns: 60px 1fr 100px;
+            gap: 10px;
+            align-items: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border: 1px solid #e1e8ed;
+        }
+        .student-row:hover {
+            background: #e3f2fd;
+        }
+        .number-label {
+            font-weight: bold;
+            color: #3498db;
+            text-align: center;
+        }
+        input[type="text"] {
+            padding: 8px 12px;
+            border: 1px solid #e1e8ed;
+            border-radius: 6px;
+            font-size: 14px;
+            width: 100%;
+        }
+        button {
+            padding: 10px 20px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        .btn-secondary {
+            background: #95a5a6;
+        }
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+        .btn-danger {
+            background: #e74c3c;
+        }
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+        .navigation-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #ecf0f1;
+        }
+        .nav-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            text-align: center;
+        }
+        .nav-link:hover {
+            background: #2980b9;
+        }
+        .privacy-toggle {
+            margin-left: 10px;
+        }
+        .status {
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .status.active {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status.inactive {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📓 Registro Classe - Gestione Studenti</h1>
+        
+        <div class="info-box">
+            <h3>🔐 Sistema Privacy</h3>
+            <p>Puoi scegliere di usare:</p>
+            <ul>
+                <li><strong>Nomi reali</strong> - Per uso interno</li>
+                <li><strong>Numeri registro</strong> - Per preservare la privacy</li>
+                <li><strong>Codici personalizzati</strong> - Es: iniziali, soprannomi</li>
+            </ul>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label>
+                <strong>Modalità Privacy:</strong>
+                <select id="privacyMode" onchange="updatePrivacyMode()">
+                    <option value="names">Usa Nomi Reali</option>
+                    <option value="numbers">Usa Solo Numeri</option>
+                    <option value="mixed">Modalità Mista</option>
+                </select>
+            </label>
+            <button onclick="generateNumbers()" class="privacy-toggle">Genera Numeri Automatici (1-30)</button>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label>
+                <strong>Numero di studenti:</strong>
+                <input type="number" id="studentCount" value="12" min="1" max="40" style="width: 80px;">
+                <button onclick="updateStudentCount()">Aggiorna Lista</button>
+            </label>
+        </div>
+
+        <div id="registryList" class="registry-grid">
+            <!-- Student entries will be generated here -->
+        </div>
+
+        <div style="margin-top: 20px;">
+            <button onclick="saveRegistry()">💾 Salva Registro</button>
+            <button onclick="exportToApp()" class="btn-secondary">📤 Esporta per App Gestione</button>
+            <button onclick="clearRegistry()" class="btn-danger">🗑️ Pulisci Tutto</button>
+        </div>
+
+        <div class="navigation-links">
+            <a href="index.html" class="nav-link">📚 Vai all'App Gestione Classe</a>
+            <a href="stats.html" class="nav-link">📊 Vai alle Statistiche</a>
+        </div>
+
+        <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+            <h4>📌 Come funziona:</h4>
+            <ol>
+                <li>Inserisci i nomi degli studenti o usa i numeri</li>
+                <li>Salva il registro</li>
+                <li>Vai all'app Gestione Classe per assegnare rendimento e caratteristiche</li>
+                <li>Le statistiche useranno automaticamente i dati combinati</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        let registryData = {
+            students: [],
+            privacyMode: 'names',
+            lastUpdated: null
+        };
+
+        // Inizializzazione
+        function initRegistry() {
+            loadRegistry();
+            if (registryData.students.length === 0) {
+                updateStudentCount();
+            } else {
+                renderRegistry();
+            }
+        }
+
+        // Aggiorna numero studenti
+        function updateStudentCount() {
+            const count = parseInt(document.getElementById('studentCount').value);
+            registryData.students = [];
+            
+            for (let i = 1; i <= count; i++) {
+                registryData.students.push({
+                    id: `reg_${i}`,
+                    number: i,
+                    name: '',
+                    displayName: `Studente ${i}`
+                });
+            }
+            
+            renderRegistry();
+        }
+
+        // Genera numeri automatici
+        function generateNumbers() {
+            registryData.students.forEach((student, index) => {
+                if (!student.name) {
+                    student.displayName = `#${index + 1}`;
+                }
+            });
+            renderRegistry();
+        }
+
+        // Renderizza il registro
+        function renderRegistry() {
+            const container = document.getElementById('registryList');
+            container.innerHTML = '';
+            
+            registryData.students.forEach((student, index) => {
+                const row = document.createElement('div');
+                row.className = 'student-row';
+                
+                row.innerHTML = `
+                    <div class="number-label">#${student.number}</div>
+                    <input type="text" 
+                           placeholder="Nome studente o codice" 
+                           value="${student.name || ''}"
+                           onchange="updateStudentName(${index}, this.value)">
+                    <div class="status ${student.name ? 'active' : 'inactive'}">
+                        ${student.name ? 'Registrato' : 'Vuoto'}
+                    </div>
+                `;
+                
+                container.appendChild(row);
+            });
+        }
+
+        // Aggiorna nome studente
+        function updateStudentName(index, name) {
+            registryData.students[index].name = name;
+            registryData.students[index].displayName = name || `#${registryData.students[index].number}`;
+            renderRegistry();
+        }
+
+        // Cambia modalità privacy
+        function updatePrivacyMode() {
+            registryData.privacyMode = document.getElementById('privacyMode').value;
+            saveRegistry();
+        }
+
+        // Salva registro
+        function saveRegistry() {
+            registryData.lastUpdated = new Date().toISOString();
+            localStorage.setItem('classRegistry', JSON.stringify(registryData));
+            
+            // Sincronizza con l'app principale
+            syncWithMainApp();
+            
+            alert('Registro salvato con successo!');
+        }
+
+        // Sincronizza con app principale
+        function syncWithMainApp() {
+            const mainAppData = localStorage.getItem('classroomSeatingApp');
+            if (mainAppData) {
+                const appData = JSON.parse(mainAppData);
+                
+                // Mappa gli studenti del registro con quelli dell'app
+                registryData.students.forEach(regStudent => {
+                    if (regStudent.name) {
+                        const existingStudent = appData.students.find(s => 
+                            s.registryId === regStudent.id || s.name === regStudent.name
+                        );
+                        
+                        if (!existingStudent) {
+                            // Aggiungi nuovo studente all'app
+                            appData.students.push({
+                                id: 'std_' + Date.now() + '_' + regStudent.number,
+                                registryId: regStudent.id,
+                                name: registryData.privacyMode === 'numbers' ? 
+                                      `Studente #${regStudent.number}` : regStudent.name,
+                                realName: regStudent.name,
+                                number: regStudent.number,
+                                photo: '',
+                                performance: '',
+                                tags: {
+                                    personalità: [],
+                                    apprendimento: [],
+                                    comportamento: []
+                                },
+                                relations: []
+                            });
+                        }
+                    }
+                });
+                
+                localStorage.setItem('classroomSeatingApp', JSON.stringify(appData));
+            }
+        }
+
+        // Carica registro
+        function loadRegistry() {
+            const saved = localStorage.getItem('classRegistry');
+            if (saved) {
+                registryData = JSON.parse(saved);
+                document.getElementById('studentCount').value = registryData.students.length;
+                document.getElementById('privacyMode').value = registryData.privacyMode;
+            }
+        }
+
+        // Esporta per app
+        function exportToApp() {
+            saveRegistry();
+            window.location.href = 'index.html';
+        }
+
+        // Pulisci registro
+        function clearRegistry() {
+            if (confirm('Sei sicuro di voler cancellare tutto il registro?')) {
+                registryData = {
+                    students: [],
+                    privacyMode: 'names',
+                    lastUpdated: null
+                };
+                localStorage.removeItem('classRegistry');
+                updateStudentCount();
+            }
+        }
+
+        // Inizializza al caricamento
+        document.addEventListener('DOMContentLoaded', initRegistry);
+    </script>
+</body>
+</html>
