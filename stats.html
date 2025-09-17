@@ -380,14 +380,25 @@
             };
         }
 
+        function getStudentDisplayName(student) {
+    const registryData = localStorage.getItem('classRegistry');
+    if (registryData) {
+        const registry = JSON.parse(registryData);
+        if (registry.privacyMode === 'numbers' && student.number) {
+            return `Studente #${student.number}`;
+        }
+    }
+    return getStudentDisplayName(student);
+}
+
         // --- 3. POPOLAMENTO E GESTIONE DELL'INTERFACCIA ---
 
         // Popola i menu a tendina per la selezione degli studenti
         const student1Select = document.getElementById('student1');
         const student2Select = document.getElementById('student2');
         students.forEach(student => {
-            student1Select.innerHTML += `<option value="${student.id}">${student.name}</option>`;
-            student2Select.innerHTML += `<option value="${student.id}">${student.name}</option>`;
+            student1Select.innerHTML += `<option value="${student.id}">${getStudentDisplayName(student)}</option>`;
+            student2Select.innerHTML += `<option value="${student.id}">${getStudentDisplayName(student)}</option>`;
         });
         if(students.length > 1) student2Select.selectedIndex = 1;
 
@@ -440,7 +451,7 @@
         // Popola select per report individuale
         const reportSelect = document.getElementById('student-report-select');
         students.forEach(student => {
-            reportSelect.innerHTML += `<option value="${student.id}">${student.name}</option>`;
+            reportSelect.innerHTML += `<option value="${student.id}">${getStudentDisplayName(student)}</option>`;
         });
 
         // Analisi rendimento
@@ -508,7 +519,7 @@
             
             let html = `
                 <div class="report-section">
-                    <h4>${report.student.name}</h4>
+                    <h4>${report.getStudentDisplayName(student)}</h4>
                     <p><strong>Rendimento:</strong> ${report.student.performance || 'Non specificato'}</p>
                     <p><strong>Tags:</strong> ${report.tags.map(t => t.tag).join(', ') || 'Nessuno'}</p>
                     
@@ -546,7 +557,7 @@
             students.forEach(student => {
                 const positions = getMostFrequentPositions(student.id);
                 if (positions.positions.length > 0) {
-                    html += `<p><strong>${student.name}:</strong> ${positions.positions[0].position} (${positions.positions[0].percentage}%)</p>`;
+                    html += `<p><strong>${getStudentDisplayName(student)}:</strong> ${positions.positions[0].position} (${positions.positions[0].percentage}%)</p>`;
                 }
             });
             
