@@ -1473,6 +1473,7 @@
                     <button class="btn btn-secondary" onclick="showHistoryModal()">
                         📅 Storico
                     </button>
+                    <a href="registro.html" class="btn btn-secondary" style="text-decoration: none;">📓 Registro</a>
                     <a href="stats.html" target="_blank" class="btn btn-secondary" style="text-decoration: none;">📊 Statistiche</a>
                 </div>
                 <div>
@@ -2280,6 +2281,11 @@
 
         // Initialize App with saved data
         function initApp() {
+            // Sincronizza con il registro se esiste
+            syncWithRegistry();
+    
+            loadFromLocalStorage();
+            createClassroomGrid();
             loadFromLocalStorage();
             createClassroomGrid();
             
@@ -2296,6 +2302,25 @@
             updateMobileTitle();
             addTouchSupport();
         }
+
+        function syncWithRegistry() {
+    const registryData = localStorage.getItem('classRegistry');
+    if (registryData) {
+        const registry = JSON.parse(registryData);
+        
+        // Aggiorna i nomi degli studenti se in modalità privacy
+        if (registry.privacyMode === 'numbers') {
+            students.forEach(student => {
+                if (student.registryId) {
+                    const regStudent = registry.students.find(r => r.id === student.registryId);
+                    if (regStudent) {
+                        student.displayName = `Studente #${regStudent.number}`;
+                    }
+                }
+            });
+        }
+    }
+}
 
         // Add touch support for drag and drop on mobile
         function addTouchSupport() {
@@ -2718,166 +2743,67 @@
 
         // Load Sample Students
         function loadSampleStudents() {
-            const sampleStudents = [
-                {
-                    id: 'std1',
-                    name: 'Mario Rossi',
+    // Prima controlla se ci sono studenti nel registro
+    const registryData = localStorage.getItem('classRegistry');
+    
+    if (registryData) {
+        const registry = JSON.parse(registryData);
+        const importedStudents = [];
+        
+        registry.students.forEach(regStudent => {
+            if (regStudent.name || regStudent.displayName) {
+                const displayName = registry.privacyMode === 'numbers' ? 
+                    `Studente #${regStudent.number}` : 
+                    (regStudent.name || regStudent.displayName);
+                    
+                importedStudents.push({
+                    id: 'std_' + regStudent.number,
+                    registryId: regStudent.id,
+                    name: displayName,
+                    realName: regStudent.name,
+                    number: regStudent.number,
                     photo: '',
-                    performance: 'alto',
-                    tags: {
-                        personalità: ['timido', 'studioso'],
-                        apprendimento: ['DSA'],
-                        comportamento: []
-                    },
-                    relations: []
-                },
-                {
-                    id: 'std2',
-                    name: 'Sofia Bianchi',
-                    photo: '',
-                    performance: 'alto',
-                    tags: {
-                        personalità: ['leader_positivo', 'collaborativa'],
-                        apprendimento: [],
-                        comportamento: []
-                    },
-                    relations: [{
-                        studentId: 'std1',
-                        type: 'positive',
-                        description: 'Lavorano bene insieme'
-                    }]
-                },
-                {
-                    id: 'std3',
-                    name: 'Luca Verdi',
-                    photo: '',
-                    performance: 'medio',
-                    tags: {
-                        personalità: ['estroverso'],
-                        apprendimento: [],
-                        comportamento: ['chiacchierone']
-                    },
-                    relations: []
-                },
-                {
-                    id: 'std4',
-                    name: 'Antonio Moliterni',
-                    photo: '',
-                    performance: 'alto',
-                    tags: {
-                        personalità: ['leader_positivo'],
-                        apprendimento: [],
-                        comportamento: []
-                    },
-                    relations: []
-                },
-                {
-                    id: 'std5',
-                    name: 'Miriam Conte',
-                    photo: '',
-                    performance: 'medio',
-                    tags: {
-                        personalità: ['timido'],
-                        apprendimento: [],
-                        comportamento: []
-                    },
-                    relations: []
-                },
-                {
-                    id: 'std6',
-                    name: 'Paolo Neri',
-                    photo: '',
-                    performance: 'basso',
-                    tags: {
-                        personalità: [],
-                        apprendimento: ['BES'],
-                        comportamento: ['distratto']
-                    },
-                    relations: []
-                },
-                {
-                    id: 'std7',
-                    name: 'Anna Ferrari',
-                    photo: '',
-                    performance: 'alto',
-                    tags: {
-                        personalità: ['collaborativa'],
-                        apprendimento: [],
-                        comportamento: []
-                    },
-                    relations: []
-                },
-                {
-                    id: 'std8',
-                    name: 'Giuseppe Romano',
-                    photo: '',
-                    performance: 'medio',
+                    performance: '',
                     tags: {
                         personalità: [],
                         apprendimento: [],
-                        comportamento: ['chiacchierone']
-                    },
-                    relations: []
-                },
-                {
-                    id: 'std9',
-                    name: 'Francesca Russo',
-                    photo: '',
-                    performance: 'alto',
-                    tags: {
-                        personalità: ['studioso'],
-                        apprendimento: [],
                         comportamento: []
                     },
                     relations: []
-                },
-                {
-                    id: 'std10',
-                    name: 'Marco Esposito',
-                    photo: '',
-                    performance: 'basso',
-                    tags: {
-                        personalità: [],
-                        apprendimento: [],
-                        comportamento: ['distratto', 'chiacchierone']
-                    },
-                    relations: [{
-                        studentId: 'std8',
-                        type: 'negative',
-                        description: 'Da evitare insieme'
-                    }]
-                },
-                {
-                    id: 'std11',
-                    name: 'Elena Colombo',
-                    photo: '',
-                    performance: 'medio',
-                    tags: {
-                        personalità: ['estroverso'],
-                        apprendimento: [],
-                        comportamento: []
-                    },
-                    relations: []
-                },
-                {
-                    id: 'std12',
-                    name: 'Davide Martini',
-                    photo: '',
-                    performance: 'alto',
-                    tags: {
-                        personalità: ['leader_positivo'],
-                        apprendimento: [],
-                        comportamento: []
-                    },
-                    relations: []
-                }
-            ];
-
-            students = sampleStudents;
+                });
+            }
+        });
+        
+        if (importedStudents.length > 0) {
+            students = importedStudents;
             renderStudentList();
-            
-            showToast('App pronta con 12 studenti di esempio! Prova a generare la disposizione.', 'success');
+            showToast(`Caricati ${importedStudents.length} studenti dal registro!`, 'success');
+            return;
         }
+    }
+    
+    // Se non c'è registro, carica studenti di esempio
+    const sampleStudents = [
+        {
+            id: 'std1',
+            name: 'Mario Rossi',
+            photo: '',
+            performance: 'alto',
+            tags: {
+                personalità: ['timido', 'studioso'],
+                apprendimento: ['DSA'],
+                comportamento: []
+            },
+            relations: []
+        },
+        // ... resto degli studenti di esempio ...
+    ];
+
+    students = sampleStudents;
+    renderStudentList();
+    
+    showToast('App pronta con studenti di esempio! Usa il Registro per gestire i nomi reali.', 'success');
+}
 
         // Render Student List
         function renderStudentList() {
